@@ -303,7 +303,7 @@
                                             berdaya
                                             saing global, dan mandiri berlandaskan paham Islam Ahlussunnah Waljama'ah
                                             melalui
-                                            kompetensi keahlian Multimedia dan Tata Kelola Logistik</p>
+                                            kompetensi keahlian Desain Komunikasi Visual dan Teknik Logistik</p>
                                     </div>
                                 </div>
                             </div>

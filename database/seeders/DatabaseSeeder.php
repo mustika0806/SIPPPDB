@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt('password'),
             'level' => 'admin',
         ]);
-        $kelas = ['Multimedia', 'Tata Kelola Logistik'];
+        $kelas = ['Desain Komunikasi Visual', 'Teknik Logistik'];
         foreach ($kelas as $item) {
             \App\Models\Kelas::create([
                 'nama_jurusan' => $item,

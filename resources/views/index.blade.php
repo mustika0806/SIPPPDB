@@ -12,12 +12,12 @@
                                 akreditasi C. Sekolah ini berstatus swasta di bawah naungan Lembaga Pendidikan Ma'arif NU
                                 dan
                                 merupakan satuan pendidikan kejuruan swasta yang memiliki 2 jurusan yaitu
-                                Multimedia
-                                Dan Tata Kelola Logistik</h6></b>
+                                Desain Komunikasi Visual
+                                Dan Teknik Logistik</h6></b>
                         <h6 class="text-dark"><b>SMK Ma'arif NU Batam juga mempunyai 4 kegiatan extrakurikuler terdiri dari
-                                Pramuka, Pencak Silat, Paskibra dan rohis. fasilitas yang mendukung kegiatan belajar di SMK
-                                Ma'arif NU Batam meliputi ruang kelas, perpustakaan, masjid, lapangan olahraga, dan area
-                                pertanian untuk pelatihan keterampilan. sekolah ini juga menyediakan asrama akhwat yang
+                                Pramuka, Pagar Nusa, Hadroh. fasilitas yang mendukung kegiatan belajar di SMK
+                                Ma'arif NU Batam meliputi ruang kelas, perpustakaan, lapangan olahraga, dan area pelatihan
+                                forklift. sekolah ini juga menyediakan asrama akhwat dan ikhwan yang
                                 didampingi oleh musrifah.</b></h6>
                     </div>
                 </div>
