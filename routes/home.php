@@ -144,6 +144,8 @@ Route::middleware(['auth'])->group(function () {
         Route::controller(SiswaDaftarUlangController::class)->group(function () {
             Route::get('/daftar_ulang', 'index')->name('daftar_ulang.index');
             Route::post('/daftar_ulang/store/{siswa}', 'store')->name('daftar_ulang.store');
+            Route::patch('/admin/daftar-ulang/{id}/approve', 'approve')->name('admin.daftar_ulang.approve');
+            Route::delete('/admin/daftar-ulang/{id}/tolak', 'tolak')->name('admin.daftar_ulang.tolak');
         });
         Route::controller(SiswaKelasController::class)->group(function () {
             Route::get('/kelas', 'index')->name('kelas.index');

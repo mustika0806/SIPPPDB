@@ -121,6 +121,7 @@ class EnumHelper
             'SMP ISLAM PLUS AN - NAHDHAH (KOMPLEK TIBAN KOPERASI BLOKKRT05 RW 06)',
             'SMP IT AL HAQQI (TANJUNG GUNDAP RT 01 RW 01)',
             'SMP IT AR RISALAH (KAVLING TIBAN MENTARAUBLOKJNO100)',
+            'SMPN 21 Batam'
         ],
         'Penghasilan Orang Tua' =>
         [

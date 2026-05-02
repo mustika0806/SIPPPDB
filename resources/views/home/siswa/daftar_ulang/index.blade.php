@@ -1,5 +1,10 @@
 @extends('layouts.app', ['title' => 'Daftar Ulang'])
 @section('content')
+
+    @php
+        use Illuminate\Support\Str;
+    @endphp
+
     <!-- Content Row -->
     <div class="row">
         <div class="col-xl-12 col-md-12 mb-4">
@@ -40,6 +45,19 @@
                                         <td>Tanggal Pembayaran</td>
                                         <td>{{ $daftar_ulang->tgl_daftar_ulang }}</td>
                                     </tr>
+                                    <tr>
+                                        <label for="bukti_transfer">Upload Bukti Transfer (JPG/PNG)</label>
+                                        <input type="file"
+                                            class="form-control @error('bukti_transfer') is-invalid @enderror"
+                                            name="bukti_transfer"
+                                            id="bukti_transfer"
+                                            accept="image/png, image/jpeg">
+                                        @error('bukti_transfer')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                        @enderror
+                                    </tr>
                                 </table>
                             </div>
                         @endif
@@ -47,23 +65,23 @@
                             <div class="form-group">
                                 <label for="code_transaksi">Kode Transaksi</label>
                                 <input type="text" class="form-control @error('code_transaksi') is-invalid @enderror"
-                                    name="code_transaksi" id="code_transaksi" placeholder="Kode Transaksi">
+                                    name="code_transaksi" id="code_transaksi" placeholder="Kode Transaksi"
+                                    value="{{ Str::upper(Str::random(16)) }}" readonly>
                                 @error('code_transaksi')
                                     <div class="invalid-feedback">
                                         {{ $message }}
                                     </div>
                                 @enderror
                                 <label for="nominal">Jumlah</label>
-                                <input type="text" class="form-control @error('nominal') is-invalid @enderror"
-                                    name="nominal" id="nominal" placeholder="Nominal">
+                                <input type="text" class="form-control @error('nominal') is-invalid @enderror" name="nominal"
+                                    id="nominal" placeholder="Nominal" value=200000 readonly>
                                 @error('nominal')
                                     <div class="invalid-feedback">
                                         {{ $message }}
                                     </div>
                                 @enderror
                                 <label for="status">Status Bayar</label>
-                                <select name="status" id="status"
-                                    class="form-control @error('status') is-invalid @enderror">
+                                <select name="status" id="status" class="form-control @error('status') is-invalid @enderror">
                                     <option value="" selected disabled>Pilih Status</option>
                                     <option value="Belum Bayar">Belum Bayar</option>
                                     <option value="Sudah Bayar">Sudah Bayar</option>
@@ -88,8 +106,7 @@
                         @if (isset($daftar_ulang) && $daftar_ulang->status == 'Belum Bayar')
                             <div class="form-group">
                                 <label for="status">Status Bayar</label>
-                                <select name="status" id="status"
-                                    class="form-control @error('status') is-invalid @enderror">
+                                <select name="status" id="status" class="form-control @error('status') is-invalid @enderror">
                                     <option value="" selected disabled>Pilih Status</option>
                                     <option value="Belum Bayar">Belum Bayar</option>
                                     <option value="Sudah Bayar">Sudah Bayar</option>

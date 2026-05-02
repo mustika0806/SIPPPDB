@@ -24,6 +24,8 @@
                                     <th>Jumlah</th>
                                     <th>Tanggal</th>
                                     <th>Status Pembayaran</th>
+                                    <th>Bukti Pembayaran</th>
+                                    <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tfoot>
@@ -41,6 +43,31 @@
                                         <td>{{ $item->nominal }}</td>
                                         <td>{{ $item->tgl_daftar_ulang }}</td>
                                         <td>{{ $item->status }}</td>
+                                        <td>@if($item->bukti_transfer)
+                                            <img src="{{ asset('storage/' . $item->bukti_transfer) }}" width="200">
+                                            @else
+                                            Tidak ada bukti pembayaran.
+                                            @endif
+                                        </td>
+                                        <td>
+                                            <!-- ✅ Approve -->
+                                            <form action="{{ route('siswa.admin.daftar_ulang.approve', $item->id) }}" method="POST" style="display:inline;">
+                                                @csrf
+                                                @method('PATCH')
+                                                <button class="btn btn-success btn-sm" onclick="return confirm('Approve pembayaran ini?')">
+                                                    Approve
+                                                </button>
+                                            </form>
+
+                                            <!-- ❌ Tolak -->
+                                            <form action="{{ route('siswa.admin.daftar_ulang.tolak', $item->id) }}" method="POST" style="display:inline;">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button class="btn btn-danger btn-sm" onclick="return confirm('Tolak & hapus data ini?')">
+                                                    Tolak
+                                                </button>
+                                            </form>
+                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -53,7 +80,7 @@
 @endsection
 @push('js')
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             $('#table').DataTable();
         });
     </script>
