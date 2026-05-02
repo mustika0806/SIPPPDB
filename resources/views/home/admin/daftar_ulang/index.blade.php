@@ -50,23 +50,31 @@
                                             @endif
                                         </td>
                                         <td>
-                                            <!-- ✅ Approve -->
-                                            <form action="{{ route('siswa.admin.daftar_ulang.approve', $item->id) }}" method="POST" style="display:inline;">
-                                                @csrf
-                                                @method('PATCH')
-                                                <button class="btn btn-success btn-sm" onclick="return confirm('Approve pembayaran ini?')">
-                                                    Approve
-                                                </button>
-                                            </form>
+                                            @if($item->persetujuan == 'pending')
+                                                <!-- Tombol Approve -->
+                                                <form action="{{ route('siswa.admin.daftar_ulang.approve', $item->id) }}" method="POST" style="display:inline;">
+                                                    @csrf
+                                                    @method('PATCH')
+                                                    <button class="btn btn-success btn-sm" onclick="return confirm('Setujui pembayaran ini?')">
+                                                        Approve
+                                                    </button>
+                                                </form>
 
-                                            <!-- ❌ Tolak -->
-                                            <form action="{{ route('siswa.admin.daftar_ulang.tolak', $item->id) }}" method="POST" style="display:inline;">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button class="btn btn-danger btn-sm" onclick="return confirm('Tolak & hapus data ini?')">
-                                                    Tolak
-                                                </button>
-                                            </form>
+                                                <!-- Tombol Tolak -->
+                                                <form action="{{ route('siswa.admin.daftar_ulang.tolak', $item->id) }}" method="POST" style="display:inline;">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button class="btn btn-danger btn-sm" onclick="return confirm('Tolak pembayaran ini?')">
+                                                        Tolak
+                                                    </button>
+                                                </form>
+
+                                            @elseif($item->persetujuan == 'disetujui')
+                                                <span class="text-success font-weight-bold">Disetujui</span>
+
+                                            @elseif($item->persetujuan == 'ditolak')
+                                                <span class="text-danger font-weight-bold">Ditolak</span>
+                                            @endif
                                         </td>
                                     </tr>
                                 @endforeach

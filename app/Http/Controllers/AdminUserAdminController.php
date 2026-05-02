@@ -10,7 +10,7 @@ class AdminUserAdminController extends Controller
 {
     public function index()
     {
-        $users = User::where('level', 'admin')->get();
+        $users = User::all();
         return view('home.admin.user.index', compact('users'));
     }
     public function store(Request $request)
@@ -27,7 +27,6 @@ class AdminUserAdminController extends Controller
             if ($request->password) {
                 $user->password = Hash::make($request->password);
             }
-            $user->level = 'admin';
             $user->save();
             return redirect()->back()->with('success', 'Berhasil menambahkan user');
         } catch (\Throwable $th) {

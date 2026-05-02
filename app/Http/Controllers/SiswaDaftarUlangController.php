@@ -65,16 +65,20 @@ class SiswaDaftarUlangController extends Controller
         $data = DaftarUlang::findOrFail($id);
 
         $data->update([
-            'status' => 'Sudah Bayar' // atau 'Disetujui' kalau mau beda
+            'status' => 'Sudah Bayar',
+            'persetujuan' => 'disetujui',
         ]);
 
-        return redirect()->back()->with('success', 'Pembayaran berhasil di-approve');
+        return redirect()->back()->with('success', 'Pembayaran berhasil disetujui');
     }
 
     public function tolak($id)
     {
         $data = DaftarUlang::findOrFail($id);
 
+        $data->update([
+            'persetujuan' => 'ditolak'
+        ]);
         // optional: hapus file juga
         if ($data->bukti_transfer && \Storage::exists('public/' . $data->bukti_transfer)) {
             \Storage::delete('public/' . $data->bukti_transfer);
