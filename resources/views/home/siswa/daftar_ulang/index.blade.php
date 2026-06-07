@@ -65,7 +65,7 @@
                                 @enderror
                                 <label for="nominal">Jumlah</label>
                                 <input type="text" class="form-control @error('nominal') is-invalid @enderror"
-                                    name="nominal" id="nominal" placeholder="Nominal" value=200000 readonly>
+                                    name="nominal" id="nominal" placeholder="Nominal" value=150000 readonly>
                                 @error('nominal')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -73,24 +73,17 @@
                                 @enderror
                             </div>
                             <ul class="mt-3 text-danger">
-                                <li>Mohon inputkan jumlah pembayaran dengan benar</li>
-                                <li>Pilih di status bayar yaitu "Belum Bayar" sebelum melakukan Scan QRARCODE pada halaman
-                                    selanjutnya</li>
-                                <li>Setelah melakukan Scan QRBARCODE pilih di status bayar menjadi "Sudah Bayar" maka
-                                    otomatis status pembayaran berubah menjadi Sudah Bayar tanda nya pembayaran berhasil dan
-                                    data pembayaran sudah masuk ke sistem admin</li>
+                                
                             </ul>
                             <button type="submit"
                                 class="btn btn-{{ isset($daftar_ulang) ? 'warning' : 'primary' }} mt-3">{{ isset($daftar_ulang) ? 'Update Data' : 'Lanjut' }}</button>
                         @endif
                         @if (isset($daftar_ulang) && $daftar_ulang->status == 'Belum Bayar')
                             <ul class="mt-3 text-danger">
-                                <li>Setelah melakukan Scan QRBARCODE pilih di status bayar menjadi "Sudah Bayar" maka
-                                    otomatis status pembayaran berubah menjadi Sudah Bayar tanda nya pembayaran berhasil dan
-                                    data pembayaran sudah masuk ke sistem admin</li>
+                               
                             </ul>
                             <button type="submit"
-                                class="btn btn-{{ isset($daftar_ulang) ? 'warning' : 'primary' }} mt-3">{{ isset($daftar_ulang) ? 'Update Data' : 'Daftar Ulang' }}</button>
+                                class="btn btn-{{ isset($daftar_ulang) ? 'warning' : 'primary' }} mt-3">{{ isset($daftar_ulang) ? 'Submit' : 'Daftar Ulang' }}</button>
                         @endif
                     </form>
                 </div>
