@@ -6,15 +6,6 @@
 
 </div>
 
-<p align="center">
-<a href="https://github.com/mustika0806/sippdb/stargazers" target="_blank">
-<img src="https://img.shields.io/github/stars/mustika0806/sippdb" alt="Stars" />
-</a>
-<a href="https://github.com/mustika0806/sippdb/network/members" target="_blank">
-<img src="https://img.shields.io/github/forks/mustika0806/sippdb" alt="Forks" />
-</a>
-</p>
-
 ---
 
 ## 📌 Deskripsi

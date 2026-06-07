@@ -1,5 +1,6 @@
 <!-- Sidebar -->
-<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+<ul class="navbar-nav sidebar sidebar-dark accordion" id="accordionSidebar"
+    style="background: linear-gradient(180deg, #0f9d58 0%, #0b6e3f 100%);">
 
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('dashboard') }}">
@@ -51,27 +52,27 @@
             </a>
         </li>
         <!-- <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-                aria-expanded="false" aria-controls="collapseTwo">
-                <i class="fas fa-folder-open"></i>
-                <span>Data Master</span>
-            </a>
-            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar"
-                style="">
-                <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item" href="{{ route('admin.kriteria.index') }}">Data Kriteria</a>
-                    <a class="collapse-item" href="{{ route('admin.aspek.index') }}">Data Aspek</a>
-                    <a class="collapse-item" href="{{ route('admin.penilaian.index') }}">Data Penilaian</a>
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+                    aria-expanded="false" aria-controls="collapseTwo">
+                    <i class="fas fa-folder-open"></i>
+                    <span>Data Master</span>
+                </a>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar"
+                    style="">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="{{ route('admin.kriteria.index') }}">Data Kriteria</a>
+                        <a class="collapse-item" href="{{ route('admin.aspek.index') }}">Data Aspek</a>
+                        <a class="collapse-item" href="{{ route('admin.penilaian.index') }}">Data Penilaian</a>
+                    </div>
                 </div>
-            </div>
-        </li> -->
+            </li> -->
         <!-- Nav Item - Pages Collapse Menu -->
         <!-- <li class="nav-item {{ request()->routeIs('admin.perhitungan.*') ? 'active' : '' }}">
-            <a class="nav-link" href="{{ route('admin.perhitungan.index') }}">
-                <i class="fas fa-calculator"></i>
-                <span>Data Perhitungan</span>
-            </a>
-        </li> -->
+                <a class="nav-link" href="{{ route('admin.perhitungan.index') }}">
+                    <i class="fas fa-calculator"></i>
+                    <span>Data Perhitungan</span>
+                </a>
+            </li> -->
         <!-- Nav Item - Pages Collapse Menu -->
         <li class="nav-item {{ request()->routeIs('admin.hasil_akhir.*') ? 'active' : '' }}">
             <a class="nav-link" href="{{ route('admin.hasil_akhir.index') }}">

@@ -13,7 +13,7 @@
             <link href="https://fonts.googleapis.com/css?family=Raleway:100,300,400,500,700,900" rel="stylesheet">
             <link href="https://ppdb.smkwikrama.sch.id/img/ikon.png" rel='shortcut icon'>
 
-            <title>SIPPDB SMK MA'arif NU Batam</title>
+            <title>SIPPDB SMK MA'arif NU Kota Batam</title>
 
             <!-- Additional CSS Files -->
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
@@ -62,8 +62,7 @@
                     <div class="modal-content p-0 m-0">
 
                         <div class="modal-body">
-                            <div class="alert alert-success mb-0 text-center" role="alert"
-                                style="height: fit-content;">
+                            <div class="alert alert-success mb-0 text-center" role="alert" style="height: fit-content;">
                                 Pesan telah berhasil dikirim!
                             </div>
                         </div>
@@ -113,9 +112,11 @@
                 <div class="container mt-4" id="beranda">
                     <div class="row align-items-center">
                         <div class="col-12 order-2 order-md-1 text-center text-md-left mt-5">
-                            <h2 class="text-white font-weight-bold mb-3">SIPPDB TA 2025-2026<br>SMK Ma'arif NU Batam
+                            <h2 class="text-white font-weight-bold mb-3">SIPPDB TA 2025-2026<br>SMK Ma'arif NU Kota
+                                Batam
                             </h2>
-                            <p class="text-white mb-5">Ayo! segera daftarkan dirimu ke SMK Ma'arif NU Batam <br>dengan
+                            <p class="text-white mb-5">Ayo! segera daftarkan dirimu ke SMK Ma'arif NU Kota Batam
+                                <br>dengan
                                 cara
                                 klik
                                 <b>PENDAFTARAN SIPPDB</b> dibawah ini! <br><strong>"Menjadi Generasi Muslim yang Cerdas,
@@ -150,14 +151,14 @@
                                 }
 
                                 // 2. Simpan teks otomatis setiap kali pengguna selesai mengetik
-                                elemenTeks.addEventListener('input', function() {
+                                elemenTeks.addEventListener('input', function () {
                                     localStorage.setItem('teksPendaftaran', elemenTeks.innerText);
                                 });
                             </script>
                             <div class="col-lg-4 col-md-12 mt-5 mt-md-0 text-center">
-                                <h6 class="font-weight-bold text-capitalize">VERIVIKASI & VALIDASI</h6>
+                                <h6 class="font-weight-bold text-capitalize">VERIFIKASI & VALIDASI</h6>
                                 <!-- Tambahkan contenteditable="true" dan id pada tag <p> -->
-                                <p class="regular text-muted" contenteditable="true" id="editable-text">verivikasi &
+                                <p class="regular text-muted" contenteditable="true" id="editable-text">Verifikasi &
                                     Validasi 16-25 Juni 2026</p>
                             </div>
 
@@ -170,7 +171,7 @@
                                 }
 
                                 // Simpan teks secara otomatis saat pengguna selesai mengetik (kehilangan fokus)
-                                editableText.addEventListener('blur', function() {
+                                editableText.addEventListener('blur', function () {
                                     localStorage.setItem('savedText', this.innerText);
                                 });
                             </script>
@@ -191,7 +192,7 @@
                                 }
 
                                 // 2. Simpan teks ke LocalStorage setiap kali pengguna selesai mengubahnya
-                                teksPengumuman.addEventListener('blur', function() {
+                                teksPengumuman.addEventListener('blur', function () {
                                     localStorage.setItem('kontenPengumuman', this.innerText);
                                 });
                             </script>
@@ -201,326 +202,494 @@
             </section>
 
 
-            <section class="mt-0 padding-bottom-0 pl-0 pr-0 pb-0 pt-3 pt-sm-0" id="jurusan">
-                <div class="related mt-sm-5 mt-3 mb-sm-5 mb-3 px-5">
-                    <h2 class="pl-3 font-weight-bold">Alur Pendaftaran</h2>
-                    <div class="slick-cultivar mt-4 text-align-center">
-                        <a href="" class="cardd align-items-center text-decoration-none">
+            <section class="py-5 bg-light" id="jurusan">
+                <div class="container">
 
-                            <div class="catagory">
-                                <img src="https://wismaagungkedoya.com/wp-content/uploads/2021/06/icon-pendaftaran-png.png"
-                                    width="90px" class="font-weight-bold " style="color: #02225B;"></>
-                            </div>
-                            <div class="name">
-                                <h4 style="color: #0E0E0E; font-weight: 600;">Registrasi & Login Akun</h4>
-                            </div>
-                            <div class="desc pe-4 " style="color: #0c0c0c;">
-                                <strong>Keterangan</strong><br> Pengguna wajib melakukan registrasi akun untuk bisa
-                                login
-                                ke sistem SIPPDB melakukan pendaftaran.
-                            </div>
-
-
-                        </a>
-                        <a href="" class="cardd  align-items-center text-decoration-none">
-
-                            <div class="catagory">
-                                <img src="https://smkn1yogya.sch.id/wp-content/uploads/2018/07/formulir-icon-300x282.png"
-                                    width="90px" class="font-weight-bold" style="color: #02225B;"></>
-                            </div>
-                            <div class="name">
-                                <h4 style="color: #0E0E0E; font-weight: 600;">Mengisi Formulir</h4>
-                            </div>
-                            <div class="desc pe-4" style="color: #0c0c0c;">
-                                <strong>Keterangan</strong> <br>Setelah melakukan registrasi akun dan login tahap
-                                selanjutnya adalah pengguna menginput atau mengisi pada halaman pendaftaran di menu
-                                pendaftaran.
-                            </div>
-
-
-                        </a>
-                        <a href="" class="cardd  align-items-center text-decoration-none">
-
-                            <div class="catagory">
-                                <img src="https://cdn-icons-png.freepik.com/512/564/564793.png" width="90px"
-                                    class="font-weight-bold" style="color: #02225B;"></>
-                            </div>
-                            <div class="name">
-                                <h4 style="color: #0E0E0E; font-weight: 600;">Upload Berkas</h4>
-                            </div>
-                            <div class="desc pe-4" style="color: #060606;">
-                                <strong>Keterangan</strong> <br> Setelah Melakukan Pengisian pada halaman pendaftaran
-                                pengguna bisa
-                                melakukan
-                                upload
-                                berkas yang telah ditentukan oleh pihak sekolah.
-                            </div>
-
-
-                        </a>
-                        <a href="" class="cardd  align-items-center text-decoration-none">
-
-                            <div class="catagory">
-                                <img src="https://cdn-icons-png.freepik.com/512/10551/10551890.png" width="90px"
-                                    class="font-weight-bold" style="color: #02225B;"></>
-                            </div>
-                            <div class="name">
-                                <h4 style="color: #0E0E0E; font-weight: 600;">Pembayaran Online</h4>
-                            </div>
-                            <div class="desc pe-4" style="color: #070707;">
-                                <strong>Keterangan</strong> <br> Setelah melakukan pengisian di halaman pendaftaran dan
-                                upload berkas
-                                selanjutnya pengguna akan diarahkan untuk melakukan pembayaran online atau payment
-                                gateway
-                                Sebesar 200.000 dengan menggunakan sistem Scan QRBARCODE yang sudah terintegrasi dengan
-                                kode transaksi dan data pembayaran.
-                            </div>
-
-
-                        </a>
-                        <a href="" class="cardd  align-items-center text-decoration-none">
-
-                            <div class="catagory">
-                                <img src="https://elzawa.uin-malang.ac.id/wp-content/uploads/2020/02/pengumuman.png"
-                                    width="90px" class="font-weight-bold" style="color: #02225B;"></>
-                            </div>
-                            <div class="name">
-                                <h4 style="color: #0E0E0E; font-weight: 600;">Pengumuman</h4>
-                            </div>
-                            <div class="desc pe-4" style="color: #080808;">
-                                <strong>Keterangan</strong> <br> Tahap akhir dari alur pendaftaran adalah pengumuman
-                            </div>
-
-                        </a>
+                    <div class="text-center mb-5">
+                        <h2 class="font-weight-bold text-success">
+                            Alur Pendaftaran
+                        </h2>
+                        <p class="text-muted">
+                            Ikuti langkah-langkah berikut untuk menyelesaikan proses pendaftaran.
+                        </p>
                     </div>
-                </div>
+
+                    <div class="row">
+
+                        <div class="row">
+
+                            <!-- Step 1 -->
+                            <div class="col-lg-4 col-md-6 mb-4">
+                                <div class="card border-0 shadow h-100 text-center">
+                                    <div class="card-body">
+
+                                        <div class="badge badge-success mb-3 p-2">
+                                            Langkah 1
+                                        </div>
+
+                                        <img src="https://wismaagungkedoya.com/wp-content/uploads/2021/06/icon-pendaftaran-png.png"
+                                            width="90" class="mb-3">
+
+                                        <h4 class="font-weight-bold">
+                                            Registrasi & Login
+                                        </h4>
+
+                                        <p class="text-muted">
+                                            Calon siswa membuat akun terlebih dahulu kemudian login ke sistem SIPPDB.
+                                        </p>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Step 2 -->
+                            <div class="col-lg-4 col-md-6 mb-4">
+                                <div class="card border-0 shadow h-100 text-center">
+                                    <div class="card-body">
+
+                                        <div class="badge badge-primary mb-3 p-2">
+                                            Langkah 2
+                                        </div>
+
+                                        <img src="https://cdn-icons-png.freepik.com/512/10551/10551890.png" width="90"
+                                            class="mb-3">
+
+                                        <h4 class="font-weight-bold">
+                                            Upload Bukti Pembayaran
+                                        </h4>
+
+                                        <p class="text-muted">
+                                            Peserta yang telah melakukan pembayaran biaya pendaftaran sebesar Rp150.000
+                                            diwajibkan mengunggah bukti pembayaran melalui sistem untuk diverifikasi
+                                            oleh panitia PPDB.
+                                        </p>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Step 3 -->
+                            <div class="col-lg-4 col-md-6 mb-4">
+                                <div class="card border-0 shadow h-100 text-center">
+                                    <div class="card-body">
+
+                                        <div class="badge badge-warning mb-3 p-2">
+                                            Langkah 3
+                                        </div>
+
+                                        <img src="https://smkn1yogya.sch.id/wp-content/uploads/2018/07/formulir-icon-300x282.png"
+                                            width="90" class="mb-3">
+
+                                        <h4 class="font-weight-bold">
+                                            Isi Formulir
+                                        </h4>
+
+                                        <p class="text-muted">
+                                            Lengkapi seluruh data diri, data orang tua, dan data sekolah asal pada
+                                            formulir pendaftaran.
+                                        </p>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Step 4 -->
+                            <div class="col-lg-4 col-md-6 mb-4">
+                                <div class="card border-0 shadow h-100 text-center">
+                                    <div class="card-body">
+
+                                        <div class="badge badge-danger mb-3 p-2">
+                                            Langkah 4
+                                        </div>
+
+                                        <img src="https://cdn-icons-png.freepik.com/512/564/564793.png" width="90"
+                                            class="mb-3">
+
+                                        <h4 class="font-weight-bold">
+                                            Upload Berkas
+                                        </h4>
+
+                                        <p class="text-muted">
+                                            Upload dokumen yang dipersyaratkan seperti KK, Akta Kelahiran, dan berkas
+                                            pendukung lainnya.
+                                        </p>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Step 5 -->
+                            <div class="col-lg-4 col-md-6 mb-4">
+                                <div class="card border-0 shadow h-100 text-center">
+                                    <div class="card-body">
+
+                                        <div class="badge badge-secondary mb-3 p-2">
+                                            Langkah 5
+                                        </div>
+
+                                        <img src="https://cdn-icons-png.flaticon.com/512/3145/3145765.png" width="90"
+                                            class="mb-3">
+
+                                        <h4 class="font-weight-bold">
+                                            Tes Al-Qur'an
+                                        </h4>
+
+                                        <p class="text-muted">
+                                            Peserta mengikuti tes membaca Al-Qur'an sesuai jadwal yang telah ditentukan
+                                            oleh panitia PPDB.
+                                        </p>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Step 6 -->
+                            <div class="col-lg-4 col-md-6 mb-4">
+                                <div class="card border-0 shadow h-100 text-center">
+                                    <div class="card-body">
+
+                                        <div class="badge badge-dark mb-3 p-2">
+                                            Langkah 6
+                                        </div>
+
+                                        <img src="https://cdn-icons-png.flaticon.com/512/1995/1995574.png" width="90"
+                                            class="mb-3">
+
+                                        <h4 class="font-weight-bold">
+                                            Wawancara
+                                        </h4>
+
+                                        <p class="text-muted">
+                                            Peserta mengikuti wawancara sebagai bagian dari proses seleksi penerimaan
+                                            peserta didik baru.
+                                        </p>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Step 7 -->
+                            <div class="col-lg-12 col-md-12 mb-4">
+                                <div class="card border-0 shadow h-100 text-center">
+                                    <div class="card-body">
+
+                                        <div class="badge badge-info mb-3 p-2">
+                                            Langkah 7
+                                        </div>
+
+                                        <img src="https://elzawa.uin-malang.ac.id/wp-content/uploads/2020/02/pengumuman.png"
+                                            width="90" class="mb-3">
+
+                                        <h4 class="font-weight-bold">
+                                            Pengumuman
+                                        </h4>
+
+                                        <p class="text-muted">
+                                            Hasil seleksi akan diumumkan melalui sistem SIPPDB setelah seluruh tahapan
+                                            seleksi selesai dilaksanakan.
+                                        </p>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
             </section>
 
 
-            <section class="mt-0 padding-bottom-0 pl-0 pr-0 pb-0 pt-3 pt-sm-0" id="jurusan">
-                <div class="related mt-sm-5 mt-3 mb-sm-5 mb-3 px-5">
-                    <h2 class="pl-3 font-weight-bold">Informasi Jalur Masuk</h2>
-                    <div class="slick-cultivar mt-4 text-align-center">
-                        <a href="" class="cardd align-items-center text-decoration-none">
+            <section class="py-5 bg-white" id="jalur-masuk">
+                <div class="container">
 
-                            <div class="catagory">
-                                <img src="https://cdn-icons-png.freepik.com/256/6801/6801845.png?semt=ais_white_label"
-                                    width="90px" class="font-weight-bold " style="color: #02225B;"></>
-                            </div>
-                            <div class="name">
-                                <h4 style="color: #0E0E0E; font-weight: 600;">Informasi</h4>
-                            </div>
-                            <div class="desc pe-4 " style="color: #050505;">
-                                <strong>Keterangan</strong><br> Jalur Masuk SIPPDB dibagi menjadi 3 Jalur yaitu
-                                Prestasi,
-                                Domisili dan Jalur Afirmasi.
-                            </div>
-                        </a>
+                    <div class="text-center mb-5">
+                        <h2 class="font-weight-bold text-success">
+                            Informasi Jalur Masuk
+                        </h2>
+                        <p class="text-muted">
+                            SIPPDB SMK Ma'arif NU Kota Batam menyediakan 3 jalur penerimaan peserta didik baru.
+                        </p>
                     </div>
+
+                    <div class="row">
+
+                        <!-- Prestasi -->
+                        <div class="col-lg-4 col-md-6 mb-4">
+                            <div class="card border-0 shadow h-100 text-center">
+                                <div class="card-body">
+
+                                    <img src="https://cdn-icons-png.freepik.com/512/9512/9512451.png" width="90"
+                                        class="mb-3">
+
+                                    <h4 class="font-weight-bold text-primary">
+                                        Jalur Prestasi
+                                    </h4>
+
+                                    <p class="text-muted">
+                                        Diperuntukkan bagi calon peserta didik yang memiliki prestasi
+                                        akademik maupun non-akademik yang dibuktikan dengan dokumen pendukung.
+                                    </p>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Domisili -->
+                        <div class="col-lg-4 col-md-6 mb-4">
+                            <div class="card border-0 shadow h-100 text-center">
+                                <div class="card-body">
+
+                                    <img src="https://storage-api.cimahikota.go.id/lapakami/assets/icon/22df49ef96ded10bb9a3a90295d8bdb0.png"
+                                        width="90" class="mb-3">
+
+                                    <h4 class="font-weight-bold text-warning">
+                                        Jalur Domisili
+                                    </h4>
+
+                                    <p class="text-muted">
+                                        Diperuntukkan bagi calon peserta didik yang berdomisili sesuai
+                                        ketentuan wilayah yang telah ditetapkan.
+                                    </p>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Afirmasi -->
+                        <div class="col-lg-4 col-md-6 mb-4">
+                            <div class="card border-0 shadow h-100 text-center">
+                                <div class="card-body">
+
+                                    <img src="https://cdn-icons-png.freepik.com/256/18516/18516996.png?semt=ais_white_label"
+                                        width="90" class="mb-3">
+
+                                    <h4 class="font-weight-bold text-success">
+                                        Jalur Afirmasi
+                                    </h4>
+
+                                    <p class="text-muted">
+                                        Diperuntukkan bagi calon peserta didik dari keluarga kurang mampu
+                                        atau kategori khusus sesuai ketentuan yang berlaku.
+                                    </p>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
                 </div>
             </section>
 
 
             <!-- Superiority -->
-<!-- PROFIL SEKOLAH -->
-<section id="features" class="py-5 bg-light">
-    <div class="container">
+            <!-- PROFIL SEKOLAH -->
+            <section id="features" class="py-5 bg-light">
+                <div class="container">
 
-        <!-- Judul -->
-        <div class="text-center mb-5">
-            <h2 class="font-weight-bold text-success">
-                Profil Sekolah
-            </h2>
-            <p class="text-muted">
-                Mengenal Lebih Dekat SMK Ma'arif NU Batam
-            </p>
-        </div>
-
-        <!-- Video Company Profile -->
-        <div class="card border-0 shadow mb-5">
-            <div class="card-body">
-
-                <h4 class="font-weight-bold text-success mb-3">
-                    Company Profile SMK Ma'arif NU Batam
-                </h4>
-
-                <iframe
-                    width="100%"
-                    height="500"
-                    src="https://www.youtube.com/embed/ahNK-Z45efU"
-                    frameborder="0"
-                    allowfullscreen>
-                </iframe>
-
-            </div>
-        </div>
-
-        <!-- Foto + Visi Misi -->
-        <div class="row align-items-center">
-
-            <!-- Foto Sekolah -->
-            <div class="col-lg-5 mb-4">
-
-                <img src="whatsapp-banner.jpeg"
-                    alt="SMK Ma'arif NU Batam"
-                    class="img-fluid rounded shadow">
-
-            </div>
-
-            <!-- Visi Misi -->
-            <div class="col-lg-7">
-
-                <div class="card border-0 shadow h-100">
-                    <div class="card-body">
-
-                        <h4 class="font-weight-bold text-success mb-3">
-                            Visi & Misi
-                        </h4>
-
-                        <p>
-                            Membentuk generasi yang berakhlakul karimah,
-                            unggul dalam kompetensi, mandiri, serta mampu
-                            bersaing secara global berdasarkan nilai Islam
-                            Ahlussunnah Wal Jama'ah.
+                    <!-- Judul -->
+                    <div class="text-center mb-5">
+                        <h2 class="font-weight-bold text-success">
+                            Profil Sekolah
+                        </h2>
+                        <p class="text-muted">
+                            Mengenal Lebih Dekat SMK Ma'arif NU Kota Batam
                         </p>
+                    </div>
 
-                        <hr>
+                    <!-- Video Company Profile -->
+                    <div class="card border-0 shadow mb-5">
+                        <div class="card-body">
 
-                        <h5 class="font-weight-bold">
-                            Misi
-                        </h5>
+                            <h4 class="font-weight-bold text-success mb-3">
+                                Company Profile SMK Ma'arif NU Kota Batam
+                            </h4>
 
-                        <ul>
-                            <li>Meningkatkan kualitas pendidikan berbasis karakter Islami.</li>
-                            <li>Mengembangkan kompetensi siswa sesuai kebutuhan industri.</li>
-                            <li>Menciptakan lingkungan belajar yang kreatif dan inovatif.</li>
-                            <li>Menghasilkan lulusan yang siap kerja, kuliah, dan berwirausaha.</li>
-                        </ul>
+                            <iframe width="100%" height="500" src="https://www.youtube.com/embed/ahNK-Z45efU"
+                                frameborder="0" allowfullscreen>
+                            </iframe>
+
+                        </div>
+                    </div>
+
+                    <!-- Foto + Visi Misi -->
+                    <div class="row align-items-center">
+
+                        <!-- Foto Sekolah -->
+                        <div class="col-lg-5 mb-4">
+
+                            <img src="whatsapp-banner.jpeg" alt="SMK Ma'arif NU Batam" class="img-fluid rounded shadow">
+
+                        </div>
+
+                        <!-- Visi Misi -->
+                        <div class="col-lg-7">
+                            <div class="card border-0 shadow h-100">
+                                <div class="card-body">
+
+                                    <h4 class="font-weight-bold text-success mb-3">Visi & Misi</h4>
+
+                                    <p class="text-muted">
+                                        Menjadi sekolah unggulan yang berjiwa nasional, berwawasan global yang
+                                        menyiapkan generasi muslim terampil dan berahlak mulia.
+                                    </p>
+
+                                    <h5 class="font-weight-bold text-success mt-4 mb-3">Misi</h5>
+
+                                    <ul class="list-unstyled">
+                                        <li class="mb-4 d-flex">
+                                            <i class="fas fa-seedling text-success mt-1 mr-3"></i>
+                                            <span>Membentuk tamatan yang beriman, berkemampuan unggul, dan mampu
+                                                mengembangkan diri.</span>
+                                        </li>
+
+                                        <li class="mb-4 d-flex">
+                                            <i class="fas fa-seedling text-success mt-1 mr-3"></i>
+                                            <span>Menyiapkan tenaga kerja menengah yang terampil dan profesional di
+                                                bidang keahlian yang dipilihnya.</span>
+                                        </li>
+
+                                        <li class="mb-4 d-flex">
+                                            <i class="fas fa-seedling text-success mt-1 mr-3"></i>
+                                            <span>Menjadikan SMK sebagai sumber informasi di bidang pekerjaan jasa yang
+                                                sesuai dengan program keahlian yang dipilihnya.</span>
+                                        </li>
+
+                                        <li class="d-flex">
+                                            <i class="fas fa-seedling text-success mt-1 mr-3"></i>
+                                            <span>Menjadikan SMK yang mampu menciptakan SDM yang mampu bersaing di dunia
+                                                usaha dan industri.</span>
+                                        </li>
+                                    </ul>
+
+                                </div>
+                            </div>
+
+                        </div>
 
                     </div>
-                </div>
 
-            </div>
+                    <!-- Motto -->
+                    <div class="card border-0 shadow text-center mt-4">
+                        <div class="card-body">
 
-        </div>
+                            <h4 class="font-weight-bold text-warning">
+                                Motto Sekolah
+                            </h4>
 
-        <!-- Motto -->
-        <div class="card border-0 shadow text-center mt-4">
-            <div class="card-body">
+                            <h2 class="font-weight-bold mt-3">
+                                "SMK Bisa! SMK Hebat!"
+                            </h2>
 
-                <h4 class="font-weight-bold text-warning">
-                    Motto Sekolah
-                </h4>
-
-                <h2 class="font-weight-bold mt-3">
-                    "SMK Bisa! SMK Hebat!"
-                </h2>
-
-            </div>
-        </div>
-
-        <!-- Video Sejarah -->
-        <div class="card border-0 shadow mt-5">
-            <div class="card-body">
-
-                <h4 class="font-weight-bold text-success mb-3">
-                    Sejarah Berdirinya SMK Ma'arif NU Batam
-                </h4>
-
-                <iframe
-                    width="100%"
-                    height="500"
-                    src="https://www.youtube.com/embed/wZdrD0dGp6w"
-                    frameborder="0"
-                    allowfullscreen>
-                </iframe>
-
-            </div>
-        </div>
-
-    </div>
-</section>
-
-
-
-            <section class="mt-0 pb-0 pt-2" id="testimonials">
-                <div class="timeline-carousel">
-                    <h2 class="font-weight-bold">Pembagian Jalur Masuk</h2>
-                    <div class="timeline-carousel__item-wrapper" data-js="timeline-carousel">
-                        <!--Timeline item-->
-                        <div class="timeline-carousel__item">
-                            <div class="timeline-carousel__item-inner">
-                                <img src="https://cdn-icons-png.freepik.com/512/9512/9512451.png" width="90px">
-                                <span class="name">Prestasi</span>
-                                <p>Diperuntukan bagi calon murid jenjang SMK yang sistem penilainnya mempertimbangkan :
-                                    Nilai rapor murid dari sekolah asal yang merupakan gabungan rerata nilai rapor
-                                    semester
-                                    1
-                                    sampai dengan semester 5
-                                    Prestasi di bidang akademik dan non akademik yang diakui dan diperhitungkan adalah
-                                    prestasi
-                                    dari kejuaraan/lomba yang diperoleh dengan predikat yang paling tinggi, diterbitkan
-                                    paling
-                                    singkat 6 (enam) bulan dan paling lama 3 (tiga) tahun sebelum tanggal pendaftaran
-                                    SPMB,
-                                    yang
-                                    diselenggarakan oleh Instansi dari Pemerintah di tingkat
-                                    Kabupaten/Kota/Provinsi/Pusat
-                                    atau
-                                    oleh Lembaga Negara lainnya atau oleh Asosiasi di Bidang Sains/Olahraga/Seni resmi
-                                    yang
-                                    diakui Negara atau oleh KONI atau oleh Lembaga Berbadan Hukum yang bekerjasama
-                                    dengan
-                                    Pemerintah Kabupaten/Kota/Provinsi/Pusat untuk Prestasi di tingkat Kabupaten/Kota,
-                                    tingkat
-                                    Provinsi.</p>
-                            </div>
                         </div>
-                        <!--/Timeline item-->
-
-                        <!--Timeline item-->
-                        <div class="timeline-carousel__item">
-                            <div class="timeline-carousel__item-inner">
-                                <img src="https://cdn-icons-png.freepik.com/256/18516/18516996.png?semt=ais_white_label"
-                                    width="90px">
-                                <span class="name">Afirmasi</span>
-                                <p>Diperuntukkan bagi calon murid baru jenjang SMK yang berasal dari keluarga tidak
-                                    mampu
-                                    dan
-                                    penyandang disabilitas dengan dibuktikan dengan Kartu Indonesia Pintar (KIP), Kartu
-                                    Keluarga
-                                    Sejahtera (KKS), Program Keluarga Harapan (PKH), Kartu Bantuan Pangan Non Tunai
-                                    (KBPNT),
-                                    Program bantuan Pemerintah Daerah lainnya sebagai bukti keikutsertaan program
-                                    penanganan
-                                    keluarga tidak mampu dari Pemerintah pusat atau Pemerintah daerah serta wajib
-                                    menyertakan
-                                    surat pernyataan dari orang tua/wali murid yang menyatakan bersedia diproses secara
-                                    hukum
-                                    jika terbukti memalsukan bukti keikutsertaan dalam program penanganan keluarga tidak
-                                    mampu.
-                                </p>
-                            </div>
-                        </div>
-                        <!--/Timeline item-->
-
-                        <!--Timeline item-->
-                        <div class="timeline-carousel__item">
-                            <div class="timeline-carousel__item-inner">
-                                <img src="https://storage-api.cimahikota.go.id/lapakami/assets/icon/22df49ef96ded10bb9a3a90295d8bdb0.png"
-                                    width="90px">
-                                <span class="name">Domisili</span>
-                                <p>Diperuntukkan bagi calon murid baru jenjang SMK yang berdomisili di wilayah Kelurahan
-                                    yang
-                                    sama dengan Kelurahan SMK tersebut berdasarkan alamat pada Kartu Keluarga yang
-                                    diterbitkan
-                                    paling singkat 1 (satu) tahun sebelum tanggal pendaftaran SIPPDB 2026.</p>
-                            </div>
-                        </div>
-                        <!--/Timeline item-->
                     </div>
+
+                    <!-- Video Sejarah -->
+                    <div class="card border-0 shadow mt-5">
+                        <div class="card-body">
+
+                            <h4 class="font-weight-bold text-success mb-3">
+                                Sejarah Berdirinya SMK Ma'arif NU Kota Batam
+                            </h4>
+
+                            <iframe width="100%" height="500" src="https://www.youtube.com/embed/wZdrD0dGp6w"
+                                frameborder="0" allowfullscreen>
+                            </iframe>
+
+                        </div>
+                    </div>
+
                 </div>
-                <!--Timeline carousel-->
+            </section>
+
+
+            <section class="py-5 bg-light" id="testimonials">
+                <div class="container">
+
+                    <div class="text-center mb-5">
+                        <h2 class="font-weight-bold text-success">
+                            Pembagian Jalur Masuk
+                        </h2>
+                        <p class="text-muted">
+                            Pilih jalur pendaftaran sesuai dengan kriteria calon peserta didik.
+                        </p>
+                    </div>
+
+                    <div class="row">
+
+                        <!-- Prestasi -->
+                        <div class="col-lg-4 mb-4">
+                            <div class="card border-0 shadow h-100 text-center">
+                                <div class="card-body">
+
+                                    <img src="https://cdn-icons-png.freepik.com/512/9512/9512451.png" width="90"
+                                        class="mb-3">
+
+                                    <h4 class="font-weight-bold text-primary">
+                                        Prestasi
+                                    </h4>
+
+                                    <hr>
+
+                                    <p class="text-muted text-justify">
+                                        Jalur prestasi diperuntukkan bagi calon siswa yang memiliki
+                                        nilai rapor dan prestasi akademik maupun non akademik yang
+                                        dibuktikan dengan sertifikat atau piagam yang sah.
+                                    </p>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Afirmasi -->
+                        <div class="col-lg-4 mb-4">
+                            <div class="card border-0 shadow h-100 text-center">
+                                <div class="card-body">
+
+                                    <img src="https://cdn-icons-png.freepik.com/256/18516/18516996.png?semt=ais_white_label"
+                                        width="90" class="mb-3">
+
+                                    <h4 class="font-weight-bold text-success">
+                                        Afirmasi
+                                    </h4>
+
+                                    <hr>
+
+                                    <p class="text-muted text-justify">
+                                        Jalur afirmasi diperuntukkan bagi calon siswa dari keluarga
+                                        kurang mampu atau penyandang disabilitas dengan melampirkan
+                                        dokumen pendukung seperti KIP, PKH, KKS, atau bantuan sosial lainnya.
+                                    </p>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Domisili -->
+                        <div class="col-lg-4 mb-4">
+                            <div class="card border-0 shadow h-100 text-center">
+                                <div class="card-body">
+
+                                    <img src="https://storage-api.cimahikota.go.id/lapakami/assets/icon/22df49ef96ded10bb9a3a90295d8bdb0.png"
+                                        width="90" class="mb-3">
+
+                                    <h4 class="font-weight-bold text-warning">
+                                        Domisili
+                                    </h4>
+
+                                    <hr>
+
+                                    <p class="text-muted text-justify">
+                                        Jalur domisili diperuntukkan bagi calon siswa yang berdomisili
+                                        di wilayah tertentu sesuai dengan ketentuan yang berlaku dan
+                                        dibuktikan dengan Kartu Keluarga.
+                                    </p>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
             </section>
 
             <!-- To Top -->
@@ -530,16 +699,20 @@
 
             <!-- JAVASCRIPTS -->
             <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-                integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous">
-            </script>
+                integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+                crossorigin="anonymous">
+                </script>
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
-                integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous">
-            </script>
+                integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+                crossorigin="anonymous">
+                </script>
             <script src="https://ppdb.smkwikrama.sch.id/assets/template/plugins/jquery/jquery.min.js"></script>
             <script src="https://ppdb.smkwikrama.sch.id/assets/template/plugins/bootstrap/bootstrap.min.js"></script>
             <script src="https://ppdb.smkwikrama.sch.id/assets/template/plugins/slick/slick.min.js"></script>
-            <script src="https://ppdb.smkwikrama.sch.id/assets/template/plugins/fancybox/jquery.fancybox.min.js"></script>
-            <script src="https://ppdb.smkwikrama.sch.id/assets/template/plugins/syotimer/jquery.syotimer.min.js"></script>
+            <script
+                src="https://ppdb.smkwikrama.sch.id/assets/template/plugins/fancybox/jquery.fancybox.min.js"></script>
+            <script
+                src="https://ppdb.smkwikrama.sch.id/assets/template/plugins/syotimer/jquery.syotimer.min.js"></script>
             <script src="https://ppdb.smkwikrama.sch.id/assets/template/plugins/aos/aos.js"></script>
             <script src="https://ppdb.smkwikrama.sch.id/assets/landing page/js/scrollreveal.min.js"></script>
             <!-- google map -->
@@ -558,7 +731,7 @@
                     }
                 });
 
-                $('#contact').submit(function(e) {
+                $('#contact').submit(function (e) {
                     e.preventDefault();
 
                     var urlForm = "https://ppdb.smkwikrama.sch.id/submitMessage";
@@ -578,7 +751,7 @@
                         success: (data) => {
                             $("#success-msg").modal('show');
                             $('#contact')[0].reset();
-                            setTimeout(function() {
+                            setTimeout(function () {
                                 $("#success-msg").modal('hide');
                             }, 3000);
                         },
@@ -594,64 +767,64 @@
                     slidesToShow: 2.08,
                     slidesToScroll: 1,
                     responsive: [{
-                            breakpoint: 1400,
-                            settings: {
-                                slidesToShow: 1.5,
-                                slidesToScroll: 1,
-                                dots: true
-                            }
-                        },
-                        {
-                            breakpoint: 1200,
-                            settings: {
-                                slidesToShow: 1.2,
-                                slidesToScroll: 1,
-                                dots: true
-                            }
-                        },
-                        {
-                            breakpoint: 991,
-                            settings: {
-                                slidesToShow: 1,
-                                slidesToScroll: 1,
-                                dots: true
-                            }
-                        },
-                        {
-                            breakpoint: 767,
-                            settings: {
-                                slidesToShow: 0.9,
-                                slidesToScroll: 1
-                            }
-                        },
-                        {
-                            breakpoint: 600,
-                            settings: {
-                                slidesToShow: 0.8,
-                                slidesToScroll: 1
-                            }
-                        },
-                        {
-                            breakpoint: 500,
-                            settings: {
-                                slidesToShow: 0.6,
-                                slidesToScroll: 1
-                            }
-                        },
-                        {
-                            breakpoint: 400,
-                            settings: {
-                                slidesToShow: 0.4,
-                                slidesToScroll: 1
-                            }
-                        },
-                        {
-                            breakpoint: 350,
-                            settings: {
-                                slidesToShow: 0.4,
-                                slidesToScroll: 1
-                            }
+                        breakpoint: 1400,
+                        settings: {
+                            slidesToShow: 1.5,
+                            slidesToScroll: 1,
+                            dots: true
                         }
+                    },
+                    {
+                        breakpoint: 1200,
+                        settings: {
+                            slidesToShow: 1.2,
+                            slidesToScroll: 1,
+                            dots: true
+                        }
+                    },
+                    {
+                        breakpoint: 991,
+                        settings: {
+                            slidesToShow: 1,
+                            slidesToScroll: 1,
+                            dots: true
+                        }
+                    },
+                    {
+                        breakpoint: 767,
+                        settings: {
+                            slidesToShow: 0.9,
+                            slidesToScroll: 1
+                        }
+                    },
+                    {
+                        breakpoint: 600,
+                        settings: {
+                            slidesToShow: 0.8,
+                            slidesToScroll: 1
+                        }
+                    },
+                    {
+                        breakpoint: 500,
+                        settings: {
+                            slidesToShow: 0.6,
+                            slidesToScroll: 1
+                        }
+                    },
+                    {
+                        breakpoint: 400,
+                        settings: {
+                            slidesToShow: 0.4,
+                            slidesToScroll: 1
+                        }
+                    },
+                    {
+                        breakpoint: 350,
+                        settings: {
+                            slidesToShow: 0.4,
+                            slidesToScroll: 1
+                        }
+                    }
                         // You can unslick at a given breakpoint now by adding:
                         // settings: "unslick"
                         // instead of a settings object
@@ -660,7 +833,7 @@
             </script>
 
             <script>
-                $.js = function(el) {
+                $.js = function (el) {
                     return $('[data-js=' + el + ']')
                 };
 
