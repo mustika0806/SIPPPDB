@@ -132,12 +132,12 @@
                                 </h5>
 
                                 <ul class="mb-0">
-                                    <li>Pendidikan berbasis nilai Islam Ahlussunnah Wal Jama'ah.</li>
+                                    <li>Pendidikan berbasis karakter dan nilai keislaman.</li>
                                     <li>Program keahlian sesuai kebutuhan dunia kerja.</li>
-                                    <li>Pembelajaran teori dan praktik yang seimbang.</li>
+                                    <li>Fasilitas belajar yang modern dan mendukung.</li>
                                     <li>Tersedia asrama putra dan putri.</li>
                                     <li>Lingkungan sekolah yang aman, nyaman, dan religius.</li>
-                                    <li>Pembinaan karakter dan akhlakul karimah.</li>
+                                    <li>Ekstrakurikuler yang aktif dan berprestasi.</li>
                                 </ul>
 
                             </div>

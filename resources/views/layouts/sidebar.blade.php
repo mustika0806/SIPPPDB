@@ -1,6 +1,6 @@
 <!-- Sidebar -->
 <ul class="navbar-nav sidebar sidebar-dark accordion" id="accordionSidebar"
-    style="background: linear-gradient(180deg, #0f9d58 0%, #0b6e3f 100%);">
+    style="background: linear-gradient(180deg, #2d6a4f 0%, #1b4332 100%);">
 
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('dashboard') }}">

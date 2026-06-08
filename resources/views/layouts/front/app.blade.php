@@ -61,16 +61,18 @@
                 <div class="col-lg-4 col-md-6 col-sm-12 mb-5">
                     <h5 class="text-white font-weight-bold">Kontak Pendaftaran</h5>
                     <div class="contact-text">
-                        <p class="text-white">3W6J+CR3, Tj. Riau, Kec. Sekupang, Kota Batam, Kepulauan Riau
-                            <br>https://smkmaarifbatam.sch.id
+                        <p class="text-white">Jl. Marina (depan Perum Kotamas Marina) Kel. Tg. Riau Kec. Sekupang Kota Batam, Tanjung Riau, Kec. Sekupang, Kota Batam, Kepulauan Riau.
+                            <br>https://smkmaarifnubatam.sch.id
                         </p>
                         <p class="text-white">CS 1 : <a
                                 style="text-decoration: underline !important; font-weight: bold !important"
-                                href="https://wa.me/+6281220001409">hubungi kami (klik disini)</a>
+                                href="https://wa.me/+6285150000552">hubungi kami (klik disini)</a>
                             <br>CS 2 : <a style="text-decoration: underline !important; font-weight: bold !important"
                                 href="https://wa.me/+6281216354574">hubungi kami (klik disini)</a>
                             <br>CS 3 : <a style="text-decoration: underline !important; font-weight: bold !important"
-                                href="https://wa.me/+6282388920551">hubungi kami (klik disini)</a>
+                                href="https://wa.me/+6285345153707">hubungi kami (klik disini)</a>
+                            <br>CS 4 : <a style="text-decoration: underline !important; font-weight: bold !important"
+                                href="https://wa.me/+6282388658410">hubungi kami (klik disini)</a>
                         </p>
                     </div>
                 </div>
@@ -160,10 +162,10 @@
                             <h6 class="text-dark">Kontak Sekolah</h6>
                             <!-- links -->
                             <ul>
-                                <li class="font-weight-bold">0778471856</li>
+                                <li class="font-weight-bold">+62851-5000-0552</li>
                                 <li>Alamat<br />
-                                    Tanjung Riau<br />
-                                    Kecamatan Sekupang <br />
+                                    Jl. Marina (Depan Perumahan Kota Mas) <br />
+                                    Tanjung. Riau, Sekupang<br />
                                     Kota Batam, Kepulauan Riau</li>
                             </ul>
                         </div>
