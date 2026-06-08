@@ -112,15 +112,14 @@
                 <div class="container mt-4" id="beranda">
                     <div class="row align-items-center">
                         <div class="col-12 order-2 order-md-1 text-center text-md-left mt-5">
-                            <h2 class="text-white font-weight-bold mb-3">SIPPDB TA 2025-2026<br>SMK Ma'arif NU Kota
+                            <h2 class="text-white font-weight-bold mb-3">SIPPDB TA 2026-2027<br>SMKS Ma'arif NU Kota
                                 Batam
                             </h2>
-                            <p class="text-white mb-5">Ayo! segera daftarkan dirimu ke SMK Ma'arif NU Kota Batam
+                            <p class="text-white mb-5">Ayo! segera daftarkan dirimu ke SMKS Ma'arif NU Kota Batam
                                 <br>dengan
                                 cara
                                 klik
-                                <b>PENDAFTARAN SIPPDB</b> dibawah ini! <br><strong>"Menjadi Generasi Muslim yang Cerdas,
-                                    Terampil, dan Berakhlakul Karimah"</strong>
+                                <b>PENDAFTARAN SIPPDB</b> dibawah ini! <br><strong>""Sekolah Unggul, Religius, dan Siap Kerja."</strong>
                             </p>
                             <a href="{{ route('register') }}"
                                 class="btn btn-main-md shadow-md bordered font-weight-bold">REGISTER</a>
@@ -135,12 +134,173 @@
                 <div class="container">
                     <div class="rounded shadow p-5 bg-white">
                         <div class="row">
-                            <div class="col-lg-4 col-md-12 mt-0 text-center">
-                                <h6 class="font-weight-bold text-capitalize">PENDAFTARAN</h6>
-                                <!-- Tambahkan id="teks-daftar" dan contenteditable="true" -->
-                                <p id="teks-daftar" class="regular text-muted" contenteditable="true">Pendaftaran
-                                    11-15 Juni 2026</p>
+                            <style>
+                                .modal-content {
+                                    border: none;
+                                    border-radius: 20px;
+                                    overflow: hidden;
+                                }
+
+                                .modal-header {
+                                    background: linear-gradient(135deg, #28a745, #146c43);
+                                    color: #fff;
+                                }
+
+                                .modal-header .close {
+                                    color: #fff;
+                                    opacity: 1;
+                                }
+
+                                .gelombang-item {
+                                    border: 1px solid #e9ecef;
+                                    border-radius: 12px;
+                                    padding: 15px;
+                                    margin-bottom: 12px;
+                                    transition: .3s;
+                                }
+
+                                .gelombang-item:hover {
+                                    transform: translateY(-2px);
+                                    box-shadow: 0 8px 20px rgba(0, 0, 0, .08);
+                                }
+
+                                .btn-gelombang {
+                                    border-radius: 30px;
+                                    padding: 6px 18px;
+                                }
+                            </style>
+
+                            <!-- PENDAFTARAN -->
+                            <div class="col-lg-4 col-md-12 text-center">
+
+                                <h6 class="font-weight-bold text-uppercase">
+                                    PENDAFTARAN
+                                </h6>
+
+                                <button type="button" class="btn btn-outline-success btn-sm btn-gelombang"
+                                    data-toggle="modal" data-target="#modalGelombang">
+                                    <i class="fas fa-calendar-alt mr-1"></i>
+                                    Jadwal Gelombang
+                                </button>
+
                             </div>
+
+                            <!-- MODAL -->
+                            <div class="modal fade" id="modalGelombang" tabindex="-1">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">
+                                                Jadwal Gelombang PPDB
+                                            </h5>
+
+                                            <button type="button" class="close" data-dismiss="modal">
+                                                <span>&times;</span>
+                                            </button>
+                                        </div>
+
+                                        <div class="modal-body">
+
+                                            <!-- Gelombang 1 -->
+                                            <div class="gelombang-item">
+
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <strong id="gel1" contenteditable="true">
+                                                        Gelombang 1
+                                                    </strong>
+
+                                                    <span id="status1" contenteditable="true"
+                                                        class="badge badge-success"
+                                                        style="font-size:14px;padding:8px 12px;">
+                                                        Sedang Berlangsung
+                                                    </span>
+                                                </div>
+
+                                                <small id="tgl1" contenteditable="true" class="text-muted">
+                                                    01 - 05 Mei 2026
+                                                </small>
+
+                                            </div>
+
+                                            <!-- Gelombang 2 -->
+                                            <div class="gelombang-item">
+
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <strong id="gel2" contenteditable="true">
+                                                        Gelombang 2
+                                                    </strong>
+
+                                                    <span id="status2" contenteditable="true"
+                                                        class="badge badge-secondary"
+                                                        style="font-size:14px;padding:8px 12px;">
+                                                        Belum Dibuka
+                                                    </span>
+                                                </div>
+
+                                                <small id="tgl2" contenteditable="true" class="text-muted">
+                                                    10 - 15 Juni 2026
+                                                </small>
+
+                                            </div>
+
+                                            <!-- Gelombang 3 -->
+                                            <div class="gelombang-item">
+
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <strong id="gel3" contenteditable="true">
+                                                        Gelombang 3
+                                                    </strong>
+
+                                                    <span id="status3" contenteditable="true"
+                                                        class="badge badge-secondary"
+                                                        style="font-size:14px;padding:8px 12px;">
+                                                        Belum Dibuka
+                                                    </span>
+                                                </div>
+
+                                                <small id="tgl3" contenteditable="true" class="text-muted">
+                                                    01 - 05 Juli 2026
+                                                </small>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <script>
+                                document.addEventListener("DOMContentLoaded", function () {
+
+                                    const fields = [
+                                        'teks-daftar',
+                                        'gel1', 'tgl1', 'status1',
+                                        'gel2', 'tgl2', 'status2',
+                                        'gel3', 'tgl3', 'status3'
+                                    ];
+
+                                    fields.forEach(id => {
+
+                                        const el = document.getElementById(id);
+
+                                        if (!el) return;
+
+                                        const saved = localStorage.getItem(id);
+
+                                        if (saved) {
+                                            el.innerHTML = saved;
+                                        }
+
+                                        el.addEventListener('blur', function () {
+                                            localStorage.setItem(id, this.innerHTML);
+                                        });
+
+                                    });
+
+                                });
+                            </script>
 
                             <script>
                                 const elemenTeks = document.getElementById('teks-daftar');
