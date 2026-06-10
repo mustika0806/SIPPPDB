@@ -1,0 +1,73 @@
+@extends('layouts.app')
+
+@section('title', 'Hasil Tes Al-Qur\'an Video')
+
+@section('content')
+<div class="container-fluid">
+
+    <div class="card shadow-sm border-0">
+        <div class="card-header bg-white">
+            <h4 class="mb-0 text-success font-weight-bold">Hasil Tes Al-Qur'an Siswa (Video)</h4>
+            <small class="text-muted">Admin dapat memutar video, memberi nilai dan catatan.</small>
+        </div>
+
+        <div class="card-body table-responsive">
+            <table class="table table-bordered table-hover">
+                <thead class="thead-light">
+                    <tr>
+                        <th>No</th>
+                        <th>Nama Siswa</th>
+                        <th>Tanggal Tes</th>
+                        <th>Video</th>
+                        <th>Nilai</th>
+                        <th>Catatan</th>
+                        <th>Status</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse($tests as $index => $test)
+                    <tr>
+                        <td>{{ $index + 1 }}</td>
+                        <td>{{ $test->user->name }}</td>
+                        <td>{{ $test->test_date }}</td>
+                        <td>
+                            @if($test->video_path)
+                                <video width="200" height="150" controls>
+                                    <source src="{{ asset('storage/'.$test->video_path) }}" type="video/mp4">
+                                    Browser Anda tidak mendukung video.
+                                </video>
+                            @else
+                                -
+                            @endif
+                        </td>
+                        <td>{{ $test->score ?? '-' }}</td>
+                        <td>{{ $test->notes ?? '-' }}</td>
+                        <td>
+                            @if($test->score)
+                                <span class="badge badge-success">Sudah Dinilai</span>
+                            @else
+                                <span class="badge badge-warning">Menunggu Penilaian</span>
+                            @endif
+                        </td>
+                        <td>
+                            <a href="{{ route('admin.quran.edit', $test->id) }}" class="btn btn-success btn-sm mb-1">Nilai</a>
+                            <form action="{{ route('admin.quran.destroy', $test->id) }}" method="POST" style="display:inline;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger btn-sm mb-1" onclick="return confirm('Yakin hapus data ini?')">Hapus</button>
+                            </form>
+                        </td>
+                    </tr>
+                    @empty
+                    <tr>
+                        <td colspan="8" class="text-center text-muted">Belum ada data tes video</td>
+                    </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+@endsection
