@@ -9,4 +9,9 @@ class Pendaftaran extends Model
 {
     use HasFactory;
     protected $guarded = ['id'];
+    protected $fillable = [
+    // field lainnya
+    'tes_quran',
+    'catatan_tes_quran',
+];
 }

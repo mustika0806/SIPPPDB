@@ -26,9 +26,9 @@
                             id="kelas_id" disabled>
                             <option value="">-- Pilih Jurusan --</option>
                             @foreach ($kelas as $kls)
-                                <option value="{{ $kls->id }}"
-                                    {{ isset($item) ? ($item->kelas_id == $kls->id ? 'selected' : '') : (old('kelas_id') == $kls->id ? 'selected' : '') }}>
-                                    {{ $kls->nama_jurusan }}</option>
+                                <option value="{{ $kls->id }}" {{ isset($item) ? ($item->kelas_id == $kls->id ? 'selected' : '') : (old('kelas_id') == $kls->id ? 'selected' : '') }}>
+                                    {{ $kls->nama_jurusan }}
+                                </option>
                             @endforeach
                         </select>
                     </div>
@@ -46,11 +46,9 @@
                         <select class="form-control @error('jenis_kelamin') is-invalid @enderror" name="jenis_kelamin"
                             id="jenis_kelamin" disabled>
                             <option value="">-- Pilih Jenis Kelamin --</option>
-                            <option value="Laki-Laki"
-                                {{ isset($item) ? ($item->jenis_kelamin == 'Laki-Laki' ? 'selected' : '') : (old('jenis_kelamin') == 'Laki-Laki' ? 'selected' : '') }}>
+                            <option value="Laki-Laki" {{ isset($item) ? ($item->jenis_kelamin == 'Laki-Laki' ? 'selected' : '') : (old('jenis_kelamin') == 'Laki-Laki' ? 'selected' : '') }}>
                                 Laki-Laki</option>
-                            <option value="Perempuan"
-                                {{ isset($item) ? ($item->jenis_kelamin == 'Perempuan' ? 'selected' : '') : (old('jenis_kelamin') == 'Perempuan' ? 'selected' : '') }}>
+                            <option value="Perempuan" {{ isset($item) ? ($item->jenis_kelamin == 'Perempuan' ? 'selected' : '') : (old('jenis_kelamin') == 'Perempuan' ? 'selected' : '') }}>
                                 Perempuan</option>
                         </select>
                     </div>
@@ -109,11 +107,9 @@
                         <select class="form-control @error('ijazah_terakhir') is-invalid @enderror"
                             name="ijazah_terakhir" id="ijazah_terakhir" disabled>
                             <option value="">-- Pilih Ijazah Terakhir --</option>
-                            <option value="SMP NEGERI"
-                                {{ isset($item) ? ($item->ijazah_terakhir == 'SMP NEGERI' ? 'selected' : '') : (old('ijazah_terakhir') == 'SMP NEGERI' ? 'selected' : '') }}>
+                            <option value="SMP NEGERI" {{ isset($item) ? ($item->ijazah_terakhir == 'SMP NEGERI' ? 'selected' : '') : (old('ijazah_terakhir') == 'SMP NEGERI' ? 'selected' : '') }}>
                                 SMP NEGERI</option>
-                            <option value="SMP SWASTA"
-                                {{ isset($item) ? ($item->ijazah_terakhir == 'SMP SWASTA' ? 'selected' : '') : (old('ijazah_terakhir') == 'SMP SWASTA' ? 'selected' : '') }}>
+                            <option value="SMP SWASTA" {{ isset($item) ? ($item->ijazah_terakhir == 'SMP SWASTA' ? 'selected' : '') : (old('ijazah_terakhir') == 'SMP SWASTA' ? 'selected' : '') }}>
                                 SMP SWASTA</option>
                         </select>
                     </div>
@@ -131,6 +127,7 @@
             <div class="modal-footer">
                 <button class="btn btn-secondary" type="button" data-dismiss="modal">Tutup</button>
             </div>
+            <hr>
         </div>
     </div>
 </div>

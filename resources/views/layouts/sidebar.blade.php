@@ -44,6 +44,14 @@
                 <span>Data Pendaftar</span>
             </a>
         </li>
+
+        <li class="nav-item {{ request()->routeIs('admin.interview.*') ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('admin.interview.index') }}">
+                <i class="fas fa-comments"></i>
+                <span>Seleksi Wawancara</span>
+            </a>
+        </li>
+
         <!-- Nav Item - Pages Collapse Menu -->
         <li class="nav-item {{ request()->routeIs('admin.daftar_ulang.*') ? 'active' : '' }}">
             <a class="nav-link" href="{{ route('admin.daftar_ulang.index') }}">
@@ -52,27 +60,27 @@
             </a>
         </li>
         <!-- <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-                    aria-expanded="false" aria-controls="collapseTwo">
-                    <i class="fas fa-folder-open"></i>
-                    <span>Data Master</span>
-                </a>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar"
-                    style="">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="{{ route('admin.kriteria.index') }}">Data Kriteria</a>
-                        <a class="collapse-item" href="{{ route('admin.aspek.index') }}">Data Aspek</a>
-                        <a class="collapse-item" href="{{ route('admin.penilaian.index') }}">Data Penilaian</a>
-                    </div>
-                </div>
-            </li> -->
+                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+                            aria-expanded="false" aria-controls="collapseTwo">
+                            <i class="fas fa-folder-open"></i>
+                            <span>Data Master</span>
+                        </a>
+                        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar"
+                            style="">
+                            <div class="bg-white py-2 collapse-inner rounded">
+                                <a class="collapse-item" href="{{ route('admin.kriteria.index') }}">Data Kriteria</a>
+                                <a class="collapse-item" href="{{ route('admin.aspek.index') }}">Data Aspek</a>
+                                <a class="collapse-item" href="{{ route('admin.penilaian.index') }}">Data Penilaian</a>
+                            </div>
+                        </div>
+                    </li> -->
         <!-- Nav Item - Pages Collapse Menu -->
         <!-- <li class="nav-item {{ request()->routeIs('admin.perhitungan.*') ? 'active' : '' }}">
-                <a class="nav-link" href="{{ route('admin.perhitungan.index') }}">
-                    <i class="fas fa-calculator"></i>
-                    <span>Data Perhitungan</span>
-                </a>
-            </li> -->
+                        <a class="nav-link" href="{{ route('admin.perhitungan.index') }}">
+                            <i class="fas fa-calculator"></i>
+                            <span>Data Perhitungan</span>
+                        </a>
+                    </li> -->
         <!-- Nav Item - Pages Collapse Menu -->
         <li class="nav-item {{ request()->routeIs('admin.hasil_akhir.*') ? 'active' : '' }}">
             <a class="nav-link" href="{{ route('admin.hasil_akhir.index') }}">
@@ -129,6 +137,14 @@
                 <span>Info Jurusan Dan Kuota</span>
             </a>
         </li>
+        @if (auth()->user()->level == 'siswa')
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item {{ request()->routeIs('siswa.tes.quran.*') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('siswa.tes.quran.index') }}">
+                    <span>Seleksi Tes Quran</span>
+                </a>
+            </li>
+        @endif
         @if (auth()->user()->level == 'siswa')
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item {{ request()->routeIs('siswa.daftar_ulang.*') ? 'active' : '' }}">

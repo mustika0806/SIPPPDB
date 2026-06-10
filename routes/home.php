@@ -21,6 +21,8 @@ use App\Http\Controllers\SPK\KriteriaController;
 use App\Http\Controllers\SPK\PenilaianController;
 use App\Http\Controllers\SPK\PerhitunganController;
 use App\Http\Controllers\SPK\RekapController;
+use App\Http\Controllers\TesQuranController;
+use App\Http\Controllers\InterviewTestController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth'])->group(function () {
@@ -34,6 +36,8 @@ Route::middleware(['auth'])->group(function () {
             Route::post('/kelas/{kelas}/update', 'update')->name('kelas.update');
             Route::get('/kelas/{kelas}', 'destroy')->name('kelas.destroy');
         });
+        Route::resource('interview', InterviewTestController::class);
+
         Route::controller(AdminPendaftaranController::class)->group(function () {
             Route::get('/pendaftaran', 'index')->name('pendaftaran.index');
             Route::post('/pendaftaran/store', 'store')->name('pendaftaran.store');
@@ -116,6 +120,7 @@ Route::middleware(['auth'])->group(function () {
             Route::post('/user/{user}/update', 'update')->name('user.update');
             Route::get('/user/{user}/destroy', 'destroy')->name('user.destroy');
         });
+        Route::resource('interview', InterviewTestController::class);
     });
     Route::prefix('siswa')->as('siswa.')->group(function () { //siswa
         Route::controller(SiswaPendaftaranController::class)->group(function () {
@@ -156,8 +161,15 @@ Route::middleware(['auth'])->group(function () {
             Route::post('/kelas/{kelas}/update', 'update')->name('kelas.update');
             Route::get('/kelas/{kelas}', 'destroy')->name('kelas.destroy');
         });
+        Route::controller(TesQuranController::class)->group(function () {
+            Route::get('/tes/quran', 'index')->name('tes.quran.index');
+        });
     });
     Route::controller(NotificationController::class)->group(function () {
         Route::get('/notifications/{user}/read', 'read')->name('notifications.read');
     });
 });
+Route::put('/admin/tes-quran/{id}', [TesQuranController::class, 'update'])
+    ->name('admin.tes-quran.update');
+
+

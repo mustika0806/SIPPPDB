@@ -68,6 +68,7 @@ class SiswaDaftarUlangController extends Controller
         $data = DaftarUlang::findOrFail($id);
 
         $data->update([
+            'status' => 'Sudah Bayar',
             'persetujuan' => 'disetujui',
         ]);
 
