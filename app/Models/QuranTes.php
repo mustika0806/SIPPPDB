@@ -3,13 +3,16 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class QuranTest extends Model
+class QuranTes extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
         'user_id',
         'test_date',
-        'video_path',
+        'video_path', // bisa mp4, mp3, wav, dll
         'score',
         'notes',
     ];

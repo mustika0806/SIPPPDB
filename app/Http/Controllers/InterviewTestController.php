@@ -84,4 +84,14 @@ class InterviewTestController extends Controller
         return redirect()->route('admin.interview.index')
             ->with('success', 'Data wawancara berhasil dihapus.');
     }
+    // Tambahkan di class InterviewTestController
+    public function siswaIndex()
+{
+    $interview = InterviewTest::with('user')
+        ->where('user_id', auth()->id())
+        ->latest()
+        ->first();
+
+    return view('home.siswa.interview.index', compact('interview'));
+}
 }

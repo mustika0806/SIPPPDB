@@ -146,21 +146,28 @@
         </li>
         @if (auth()->user()->level == 'siswa')
             <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item {{ request()->routeIs('siswa.tes.quran.*') ? 'active' : '' }}">
-                <a class="nav-link" href="{{ route('siswa.tes.quran.index') }}">
-                    <i class="fas fa-book-open"></i>
-                    <span>Seleksi Tes Quran</span>
-                </a>
-            </li>
-        @endif
-        @if (auth()->user()->level == 'siswa')
-            <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item {{ request()->routeIs('siswa.daftar_ulang.*') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('siswa.daftar_ulang.index') }}">
                     <i class="fas fa-money-bill-wave"></i>
                     <span>Pembayaran</span>
                 </a>
             </li>
+        @endif
+        @if (auth()->user()->level == 'siswa')
+            <!-- Nav Item - Pages Collapse Menu -->
+             <li class="nav-item {{ request()->routeIs('siswa.interview.*') ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('siswa.interview.index') }}">
+                <i class="fas fa-comments"></i>
+                <span>Seleksi Wawancara</span>
+            </a>
+        </li>
+
+        <li class="nav-item {{ request()->routeIs('siswa.tes.quran.*') ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('siswa.tes.quran.index') }}">
+                <i class="fas fa-book-open"></i>
+                <span>Seleksi Tes Quran</span>
+            </a>
+        </li>
         @endif
     @endif
 </ul>

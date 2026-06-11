@@ -6,23 +6,19 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('pendaftarans', function (Blueprint $table) {
             $table->id();
-            $table->date('mulai');
-            $table->date('berakhir');
-            $table->year('tahun_akademik');
+            $table->foreignId('user_id')->nullable()->constrained()->nullOnDelete();
+            $table->string('nama')->nullable();
+            $table->string('email')->nullable();
+            $table->string('no_hp')->nullable();
+            $table->text('alamat')->nullable();
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('pendaftarans');

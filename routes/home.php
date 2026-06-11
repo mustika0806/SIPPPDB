@@ -46,10 +46,31 @@ Route::middleware(['auth'])->group(function () {
 
         // Wawancara
         Route::resource('interview', InterviewTestController::class);
-        
+
         // Tes Quran admin
-        Route::resource('quran', AdminQuranTesController::class);
-    
+        // Route::resource('quran', AdminQuranTesController::class);
+        Route::controller(AdminQuranTesController::class)->group(function () {
+            // Menampilkan semua tes Quran
+            Route::get('/quran', 'index')->name('quran.index');
+
+            // Form tambah tes Quran
+            Route::get('/quran/create', 'create')->name('quran.create');
+
+            // Simpan tes Quran baru
+            Route::post('/quran/store', 'store')->name('quran.store');
+
+            // Form edit tes Quran
+            Route::get('/quran/{quranTest}/edit', 'edit')->name('quran.edit');
+
+            // Update tes Quran
+            Route::put('/quran/{quran}/update', 'update')->name('quran.update');
+
+            // Hapus tes Quran
+            Route::delete('/quran/{quranTest}/destroy', 'destroy')->name('quran.destroy');
+
+            // (Opsional) lihat detail tes Quran
+            Route::get('/quran/{quranTest}', 'show')->name('quran.show');
+        });
 
 
         // Pendaftaran admin
@@ -59,6 +80,7 @@ Route::middleware(['auth'])->group(function () {
             Route::post('/pendaftaran/{pendaftaran}/update', 'update')->name('pendaftaran.update');
             Route::get('/pendaftaran/{pendaftaran}/destroy', 'destroy')->name('pendaftaran.destroy');
         });
+
 
         // Siswa admin
         Route::controller(AdminSiswaBaruController::class)->group(function () {
@@ -155,70 +177,75 @@ Route::middleware(['auth'])->group(function () {
             Route::post('/user/{user}/update', 'update')->name('user.update');
             Route::get('/user/{user}/destroy', 'destroy')->name('user.destroy');
         });
+    });
+}); // End grup admin
 
-    }); // End grup admin
+// ================== SISWA ==================
+Route::prefix('siswa')->as('siswa.')->group(function () {
 
-    // ================== SISWA ==================
-    Route::prefix('siswa')->as('siswa.')->group(function () {
+    // Pendaftaran siswa
+    Route::controller(SiswaPendaftaranController::class)->group(function () {
+        Route::get('/pendaftaran', 'index')->name('pendaftaran.index');
+        Route::post('/pendaftaran/store', 'store')->name('pendaftaran.store');
+        Route::post('/pendaftaran/biodata', 'biodata')->name('pendaftaran.biodata');
+        Route::post('/pendaftaran/wali', 'wali')->name('pendaftaran.wali');
+        Route::post('/pendaftaran/sekolah', 'sekolah')->name('pendaftaran.sekolah');
+        Route::post('/pendaftaran/{siswa}/update', 'update')->name('pendaftaran.update');
+        Route::get('/pendaftaran/{siswa}/destroy', 'destroy')->name('pendaftaran.destroy');
+    });
 
-        // Pendaftaran siswa
-        Route::controller(SiswaPendaftaranController::class)->group(function () {
-            Route::get('/pendaftaran', 'index')->name('pendaftaran.index');
-            Route::post('/pendaftaran/store', 'store')->name('pendaftaran.store');
-            Route::post('/pendaftaran/biodata', 'biodata')->name('pendaftaran.biodata');
-            Route::post('/pendaftaran/wali', 'wali')->name('pendaftaran.wali');
-            Route::post('/pendaftaran/sekolah', 'sekolah')->name('pendaftaran.sekolah');
-            Route::post('/pendaftaran/{siswa}/update', 'update')->name('pendaftaran.update');
-            Route::get('/pendaftaran/{siswa}/destroy', 'destroy')->name('pendaftaran.destroy');
-        });
+    // Upload dokumen siswa
+    Route::controller(SiswaUploadDokumenController::class)->group(function () {
+        Route::get('/dokumen', 'index')->name('dokumen.index');
+        Route::post('/dokumen/store', 'store')->name('dokumen.store');
+        Route::post('/dokumen/{siswa}/update', 'update')->name('dokumen.update');
+        Route::get('/dokumen/{siswa}/destroy', 'destroy')->name('pendaftaran.destroy');
+    });
 
-        // Upload dokumen siswa
-        Route::controller(SiswaUploadDokumenController::class)->group(function () {
-            Route::get('/dokumen', 'index')->name('dokumen.index');
-            Route::post('/dokumen/store', 'store')->name('dokumen.store');
-            Route::post('/dokumen/{siswa}/update', 'update')->name('dokumen.update');
-            Route::get('/dokumen/{siswa}/destroy', 'destroy')->name('pendaftaran.destroy');
-        });
+    // Data siswa
+    Route::controller(SiswaSiswaBaruController::class)->group(function () {
+        Route::get('/siswa', 'index')->name('siswa.index');
+        Route::get('/siswa/{siswa}/confirmation', 'confirmation')->name('siswa.confirmation');
+        Route::get('/siswa/{siswa}/notconfirm', 'notconfirm')->name('siswa.notconfirm');
+        Route::get('/siswa/{siswa}/perbaiki_data', 'perbaiki_data')->name('siswa.perbaiki_data');
+        Route::get('/siswa/{siswa}/perbaiki_dokumen', 'perbaiki_dokumen')->name('siswa.perbaiki_dokumen');
+        Route::get('/siswa/{siswa}/download', 'download')->name('siswa.download');
+        Route::get('/siswa/{siswa}/cetak', 'cetak')->name('siswa.cetak');
+        Route::get('/siswa/{siswa}/dokumen_download', 'dokumen_download')->name('siswa.dokumen_download');
+        Route::get('siswa/lulus/{siswa}', 'lulus')->name('siswa.lulus');
+    });
 
-        // Data siswa
-        Route::controller(SiswaSiswaBaruController::class)->group(function () {
-            Route::get('/siswa', 'index')->name('siswa.index');
-            Route::get('/siswa/{siswa}/confirmation', 'confirmation')->name('siswa.confirmation');
-            Route::get('/siswa/{siswa}/notconfirm', 'notconfirm')->name('siswa.notconfirm');
-            Route::get('/siswa/{siswa}/perbaiki_data', 'perbaiki_data')->name('siswa.perbaiki_data');
-            Route::get('/siswa/{siswa}/perbaiki_dokumen', 'perbaiki_dokumen')->name('siswa.perbaiki_dokumen');
-            Route::get('/siswa/{siswa}/download', 'download')->name('siswa.download');
-            Route::get('/siswa/{siswa}/cetak', 'cetak')->name('siswa.cetak');
-            Route::get('/siswa/{siswa}/dokumen_download', 'dokumen_download')->name('siswa.dokumen_download');
-            Route::get('siswa/lulus/{siswa}', 'lulus')->name('siswa.lulus');
-        });
+    // Daftar ulang siswa
+    Route::controller(SiswaDaftarUlangController::class)->group(function () {
+        Route::get('/daftar_ulang', 'index')->name('daftar_ulang.index');
+        Route::post('/daftar_ulang/store/{siswa}', 'store')->name('daftar_ulang.store');
+        Route::patch('/admin/daftar-ulang/{id}/approve', 'approve')->name('admin.daftar_ulang.approve');
+        Route::delete('/admin/daftar-ulang/{id}/tolak', 'tolak')->name('admin.daftar_ulang.tolak');
+    });
 
-        // Daftar ulang siswa
-        Route::controller(SiswaDaftarUlangController::class)->group(function () {
-            Route::get('/daftar_ulang', 'index')->name('daftar_ulang.index');
-            Route::post('/daftar_ulang/store/{siswa}', 'store')->name('daftar_ulang.store');
-            Route::patch('/admin/daftar-ulang/{id}/approve', 'approve')->name('admin.daftar_ulang.approve');
-            Route::delete('/admin/daftar-ulang/{id}/tolak', 'tolak')->name('admin.daftar_ulang.tolak');
-        });
+    // Kelas siswa
+    Route::controller(SiswaKelasController::class)->group(function () {
+        Route::get('/kelas', 'index')->name('kelas.index');
+        Route::post('/kelas/store', 'store')->name('kelas.store');
+        Route::post('/kelas/{kelas}/update', 'update')->name('kelas.update');
+        Route::get('/kelas/{kelas}', 'destroy')->name('kelas.destroy');
+    });
 
-        // Kelas siswa
-        Route::controller(SiswaKelasController::class)->group(function () {
-            Route::get('/kelas', 'index')->name('kelas.index');
-            Route::post('/kelas/store', 'store')->name('kelas.store');
-            Route::post('/kelas/{kelas}/update', 'update')->name('kelas.update');
-            Route::get('/kelas/{kelas}', 'destroy')->name('kelas.destroy');
-        });
-
-        // Tes Quran siswa
-       Route::controller(SiswaTesQuranController::class)->group(function () {
+    // Tes Quran siswa
+    Route::controller(SiswaTesQuranController::class)->group(function () {
         Route::get('/tes/quran', 'index')->name('tes.quran.index');
         Route::post('/tes/quran/store', 'store')->name('tes.quran.store');
     });
-});
-
-    // Notifications
-    Route::controller(NotificationController::class)->group(function () {
-        Route::get('/notifications/{user}/read', 'read')->name('notifications.read');
+    Route::controller(InterviewTestController::class)->group(function () {
+        Route::get('/interview', 'siswaIndex')->name('interview.index');
     });
-
+    // Route untuk siswa melihat wawancara
+    // Route::get('/siswa/interview', [InterviewTestController::class, 'siswaIndex'])
+    // ->name('siswa.interview.index');
 });
+
+// Notifications
+Route::controller(NotificationController::class)->group(function () {
+    Route::get('/notifications/{user}/read', 'read')->name('notifications.read');
+});
+

@@ -2,52 +2,51 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\QuranTest;
+use App\Models\QuranTes;
 use App\Models\User;
+use Illuminate\Http\Request;
 
 class AdminQuranTesController extends Controller
 {
     public function index()
     {
-        $tests = QuranTest::with('user')->latest()->get();
+        $tests = QuranTes::with('user')->latest()->get();
         return view('home.admin.quran.index', compact('tests'));
     }
 
     public function create()
     {
-        $students = User::where('level', 'siswa')->get(); // ambil semua siswa
+        $students = User::where('level', 'siswa')->get();
         return view('home.admin.quran.create', compact('students'));
     }
 
     public function store(Request $request)
     {
         $request->validate([
-            'user_id' => 'required',
+            'user_id' => 'required|exists:users,id',
             'test_date' => 'required|date',
-            'audio' => 'required|mimes:mp3,wav|max:10240',
+            'video' => 'required|mimes:mp4,mp3,wav|max:51200', // 50MB
         ]);
 
-        $test = QuranTest::create([
+        $path = $request->file('video')->store('quran_tests', 'public');
+
+        QuranTes::create([
             'user_id' => $request->user_id,
             'test_date' => $request->test_date,
+            'video_path' => $path,
         ]);
 
-        $file = $request->file('audio');
-        $path = $file->store('quran_tests');
-
-        $test->update(['audio_path' => $path]);
-
-        return redirect()->route('admin.quran.index')->with('success', 'Tes Quran berhasil diunggah.');
+        return redirect()->route('admin.quran.index')->with('success', 'Tes Quran berhasil ditambahkan.');
     }
 
-    public function edit(QuranTest $quran)
+    public function edit(QuranTes $quranTest)
     {
         $students = User::where('level', 'siswa')->get();
-        return view('home.admin.quran.edit', compact('quran', 'students'));
+        return view('home.admin.quran.edit', compact('quranTest', 'students'));
     }
 
-    public function update(Request $request, QuranTest $quran)
+
+    public function update(Request $request, QuranTes $quran)
     {
         $request->validate([
             'score' => 'required|numeric|min:0|max:100',
@@ -56,12 +55,13 @@ class AdminQuranTesController extends Controller
 
         $quran->update($request->only('score', 'notes'));
 
-        return redirect()->route('admin.quran.index')->with('success', 'Nilai berhasil diperbarui.');
+        return redirect()->route('admin.quran.index')
+            ->with('success', 'Nilai berhasil diperbarui.');
     }
 
-    public function destroy(QuranTest $quran)
+    public function destroy(QuranTes $quranTest)
     {
-        $quran->delete();
-        return back()->with('success', 'Data tes Quran dihapus.');
+        $quranTest->delete();
+        return back()->with('success', 'Tes Quran berhasil dihapus.');
     }
 }
