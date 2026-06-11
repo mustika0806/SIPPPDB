@@ -11,6 +11,7 @@ class InterviewTest extends Model
     protected $fillable = [
         'user_id',
         'interview_date',
+        'meeting_link',
         'score',
         'notes',
         'status',

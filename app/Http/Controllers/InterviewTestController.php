@@ -27,6 +27,7 @@ class InterviewTestController extends Controller
         $request->validate([
             'user_id' => 'required',
             'interview_date' => 'required|date',
+            'meeting_link' => 'nullable|url',
             'score' => 'required|numeric|min:0|max:100',
             'notes' => 'nullable|string',
             'status' => 'required|in:belum,lulus,tidak_lulus',
@@ -35,6 +36,7 @@ class InterviewTestController extends Controller
         InterviewTest::create([
             'user_id' => $request->user_id,
             'interview_date' => $request->interview_date,
+            'meeting_link' => $request->meeting_link,
             'score' => $request->score,
             'notes' => $request->notes,
             'status' => $request->status,
@@ -57,6 +59,7 @@ class InterviewTestController extends Controller
         $request->validate([
             'user_id' => 'required',
             'interview_date' => 'required|date',
+            'meeting_link' => 'nullable|url',
             'score' => 'required|numeric|min:0|max:100',
             'notes' => 'nullable|string',
             'status' => 'required|in:belum,lulus,tidak_lulus',
@@ -67,6 +70,7 @@ class InterviewTestController extends Controller
         $interview->update([
             'user_id' => $request->user_id,
             'interview_date' => $request->interview_date,
+            'meeting_link' => $request->meeting_link,
             'score' => $request->score,
             'notes' => $request->notes,
             'status' => $request->status,
@@ -84,14 +88,14 @@ class InterviewTestController extends Controller
         return redirect()->route('admin.interview.index')
             ->with('success', 'Data wawancara berhasil dihapus.');
     }
-    // Tambahkan di class InterviewTestController
-    public function siswaIndex()
-{
-    $interview = InterviewTest::with('user')
-        ->where('user_id', auth()->id())
-        ->latest()
-        ->first();
 
-    return view('home.siswa.interview.index', compact('interview'));
-}
+    public function siswaIndex()
+    {
+        $interview = InterviewTest::with('user')
+            ->where('user_id', auth()->id())
+            ->latest()
+            ->first();
+
+        return view('home.siswa.interview.index', compact('interview'));
+    }
 }
