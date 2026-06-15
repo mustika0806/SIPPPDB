@@ -1,10 +1,10 @@
-@extends('layouts.app', ['title' => 'Daftar Ulang'])
+@extends('layouts.app', ['title' => 'Pembayaran'])
 
 @section('content')
     @php
         use Illuminate\Support\Str;
 
-        $sudahSubmit = isset($daftar_ulang) && $daftar_ulang->bukti_transfer;
+        $sudahSubmit = isset($daftar_ulang) && !empty($daftar_ulang->bukti_transfer);
     @endphp
 
     <div class="row">
@@ -19,27 +19,39 @@
 
                 <div class="card-body">
 
-                    {{-- ===================== --}}
-                    {{-- JIKA SUDAH SUBMIT --}}
-                    {{-- ===================== --}}
+                    @if (session('success'))
+                        <div class="alert alert-success">
+                            {{ session('success') }}
+                        </div>
+                    @endif
+
+                    @if (session('error'))
+                        <div class="alert alert-danger">
+                            {{ session('error') }}
+                        </div>
+                    @endif
+
+                    {{-- JIKA SUDAH UPLOAD BUKTI PEMBAYARAN --}}
                     @if ($sudahSubmit)
 
                         @if ($daftar_ulang->status == 'Belum Bayar')
                             <div class="alert alert-warning">
-                                Bukti pembayaran sedang diproses / menunggu verifikasi admin.
+                                Bukti pembayaran sudah dikirim dan sedang menunggu verifikasi admin.
                             </div>
-                        @endif
-
-                        @if ($daftar_ulang->status == 'Sudah Bayar')
+                        @elseif ($daftar_ulang->status == 'Sudah Bayar')
                             <div class="alert alert-success">
-                                Pembayaran sudah diverifikasi.
+                                Pembayaran sudah diverifikasi oleh admin.
+                            </div>
+                        @else
+                            <div class="alert alert-info">
+                                Status pembayaran: {{ $daftar_ulang->status }}
                             </div>
                         @endif
 
-                        <table class="table">
+                        <table class="table table-bordered">
                             <tr>
-                                <td>Nama Siswa</td>
-                                <td>{{ $daftar_ulang->user->name ?? '-' }}</td>
+                                <td width="220">Nama Siswa</td>
+                                <td>{{ $daftar_ulang->user->name ?? Auth::user()->name }}</td>
                             </tr>
 
                             <tr>
@@ -60,45 +72,70 @@
                             <tr>
                                 <td>Status</td>
                                 <td>
-                                    <span class="badge bg-{{ $daftar_ulang->status == 'Sudah Bayar' ? 'success' : 'warning' }}">
-                                        {{ $daftar_ulang->status }}
-                                    </span>
+                                    @if ($daftar_ulang->status == 'Sudah Bayar')
+                                        <span class="badge badge-success">
+                                            Sudah Bayar
+                                        </span>
+                                    @else
+                                        <span class="badge badge-warning">
+                                            Menunggu Verifikasi
+                                        </span>
+                                    @endif
                                 </td>
                             </tr>
 
                             <tr>
                                 <td>Bukti Transfer</td>
                                 <td>
-                                    <img src="{{ asset('storage/' . $daftar_ulang->bukti_transfer) }}" width="300"
-                                        class="img-thumbnail">
+                                    <img src="{{ asset('storage/' . $daftar_ulang->bukti_transfer) }}"
+                                        width="300"
+                                        class="img-thumbnail"
+                                        alt="Bukti Transfer">
                                 </td>
                             </tr>
                         </table>
 
-                        {{-- ===================== --}}
-                        {{-- JIKA BELUM SUBMIT --}}
-                        {{-- ===================== --}}
+                    {{-- JIKA BELUM UPLOAD BUKTI PEMBAYARAN --}}
                     @else
 
-                        <form action="{{ route('siswa.daftar_ulang.store', $user->id) }}" method="POST"
+                        <div class="alert alert-info">
+                            Silakan upload bukti transfer pembayaran pendaftaran sebesar
+                            <strong>Rp150.000</strong>.
+                        </div>
+
+                        <form action="{{ route('siswa.daftar_ulang.store', Auth::user()->id) }}"
+                            method="POST"
                             enctype="multipart/form-data">
+
                             @csrf
+
+                            <input type="hidden" name="status" value="Belum Bayar">
+                            <input type="hidden" name="persetujuan" value="menunggu">
 
                             <div class="form-group">
                                 <label>Kode Transaksi</label>
-                                <input type="text" class="form-control" name="code_transaksi"
-                                    value="{{ Str::upper(Str::random(16)) }}" readonly>
+                                <input type="text"
+                                    class="form-control"
+                                    name="code_transaksi"
+                                    value="{{ Str::upper(Str::random(16)) }}"
+                                    readonly>
                             </div>
 
                             <div class="form-group">
                                 <label>Nominal</label>
-                                <input type="text" class="form-control" name="nominal" value="150000" readonly>
+                                <input type="text"
+                                    class="form-control"
+                                    name="nominal"
+                                    value="150000"
+                                    readonly>
                             </div>
 
                             <div class="form-group">
-                                <label>Upload Bukti Transfer (JPG/PNG)</label>
-                                <input type="file" name="bukti_transfer"
-                                    class="form-control @error('bukti_transfer') is-invalid @enderror" accept="image/*"
+                                <label>Upload Bukti Transfer</label>
+                                <input type="file"
+                                    name="bukti_transfer"
+                                    class="form-control @error('bukti_transfer') is-invalid @enderror"
+                                    accept="image/*"
                                     required>
 
                                 @error('bukti_transfer')
@@ -106,34 +143,22 @@
                                         {{ $message }}
                                     </div>
                                 @enderror
+
+                                <small class="text-muted">
+                                    Format file: JPG, JPEG, atau PNG. Maksimal 2MB.
+                                </small>
                             </div>
 
-                        <button type="submit"
-                                class="btn btn-{{ isset($daftar_ulang) ? 'warning' : 'primary' }} mt-3">{{ isset($daftar_ulang) ? 'Update Data' : 'Lanjut' }}</button>
-                       
-                        @if (isset($daftar_ulang) && $daftar_ulang->status == 'Belum Bayar')
-                            <div class="form-group">
-                                <label for="status">Status Bayar</label>
-                                <select name="status" id="status"
-                                    class="form-control @error('status') is-invalid @enderror">
-                                    <option value="" selected disabled>Pilih Status</option>
-                                    <option value="Belum Bayar">Belum Bayar</option>
-                                    <option value="Sudah Bayar">Sudah Bayar</option>
-                                </select>
-                                @error('status')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
                             <ul class="mt-3 text-danger">
-                                <li>Setelah melakukan Scan QRBARCODE pilih di status bayar menjadi "Sudah Bayar" maka
-                                    otomatis status pembayaran berubah menjadi Sudah Bayar tanda nya pembayaran berhasil dan
-                                    data pembayaran sudah masuk ke sistem admin</li>
+                                <li>Pastikan bukti transfer yang diunggah sudah benar.</li>
+                                <li>Setelah bukti pembayaran dikirim, data akan menunggu verifikasi admin.</li>
+                                <li>Status pembayaran hanya dapat diubah oleh admin.</li>
                             </ul>
-                            <button type="submit"
-                                class="btn btn-{{ isset($daftar_ulang) ? 'warning' : 'primary' }} mt-3">{{ isset($daftar_ulang) ? 'Update Data' : 'Daftar Ulang' }}</button>
-                        @endif
+
+                            <button type="submit" class="btn btn-primary mt-3">
+                                Lanjut
+                            </button>
+
                         </form>
 
                     @endif

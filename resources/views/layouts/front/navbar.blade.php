@@ -210,15 +210,15 @@
                                                         Gelombang 1
                                                     </strong>
 
-                                                    <span id="status1" contenteditable="true"
-                                                        class="badge badge-success"
+                                                    <<span id="status2" contenteditable="true"
+                                                        class="badge badge-secondary"
                                                         style="font-size:14px;padding:8px 12px;">
-                                                        Sedang Berlangsung
+                                                        Tutup
                                                     </span>
                                                 </div>
 
                                                 <small id="tgl1" contenteditable="true" class="text-muted">
-                                                    01 - 05 Mei 2026
+                                                   Desember 2025 - Febuari 2026
                                                 </small>
 
                                             </div>
@@ -234,12 +234,12 @@
                                                     <span id="status2" contenteditable="true"
                                                         class="badge badge-secondary"
                                                         style="font-size:14px;padding:8px 12px;">
-                                                        Belum Dibuka
+                                                        Tutup
                                                     </span>
                                                 </div>
 
                                                 <small id="tgl2" contenteditable="true" class="text-muted">
-                                                    10 - 15 Juni 2026
+                                                    Maret 2026 - Mei 2026
                                                 </small>
 
                                             </div>
@@ -252,10 +252,10 @@
                                                         Gelombang 3
                                                     </strong>
 
-                                                    <span id="status3" contenteditable="true"
-                                                        class="badge badge-secondary"
+                                                    <span id="status1" contenteditable="true"
+                                                        class="badge badge-success"
                                                         style="font-size:14px;padding:8px 12px;">
-                                                        Belum Dibuka
+                                                        Sedang Berlangsung
                                                     </span>
                                                 </div>
 
