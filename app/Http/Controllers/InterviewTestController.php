@@ -25,22 +25,28 @@ class InterviewTestController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'user_id' => 'required',
+            'user_id' => 'required|exists:users,id',
+            'interview_type' => 'required|in:online,offline',
             'interview_date' => 'required|date',
+            'interview_time' => 'required',
             'meeting_link' => 'nullable|url',
-            'score' => 'required|numeric|min:0|max:100',
+            'interview_place' => 'nullable|string|max:255',
+            'score' => 'nullable|numeric|min:0|max:100',
+            'status' => 'required|in:belum,terjadwal,lulus,tidak_lulus',
             'notes' => 'nullable|string',
-            'status' => 'required|in:belum,lulus,tidak_lulus',
         ]);
 
-        InterviewTest::create([
-            'user_id' => $request->user_id,
-            'interview_date' => $request->interview_date,
-            'meeting_link' => $request->meeting_link,
-            'score' => $request->score,
-            'notes' => $request->notes,
-            'status' => $request->status,
-        ]);
+        $data = $request->all();
+
+        if ($request->interview_type == 'online') {
+            $data['interview_place'] = null;
+        }
+
+        if ($request->interview_type == 'offline') {
+            $data['meeting_link'] = null;
+        }
+
+        InterviewTest::create($data);   
 
         return redirect()->route('admin.interview.index')
             ->with('success', 'Data wawancara berhasil disimpan.');

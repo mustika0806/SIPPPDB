@@ -28,4 +28,8 @@ class User extends Authenticatable
     {
         return $this->hasOne(DaftarUlang::class, 'user_id', 'id');
     }
+   public function interview()
+{
+    return $this->hasOne(InterviewsTest::class, 'user_id', 'id');
+}
 }

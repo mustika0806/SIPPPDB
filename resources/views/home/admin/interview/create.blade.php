@@ -1,56 +1,215 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
-        <h3>Tambah Data Wawancara</h3>
+<div class="container">
 
-        <form action="{{ route('admin.interview.store') }}" method="POST">
-            @csrf
-            <div class="mb-3">
-                <label>Nama Siswa</label>
-                <select name="user_id" class="form-control" required>
-                    <option value="">Pilih Siswa</option>
-                    @foreach($students as $student)
-                        <option value="{{ $student->id }}">{{ $student->name }}</option>
-                    @endforeach
-                </select>
-            </div>
+    <div class="card shadow-sm border-0">
+        <div class="card-header bg-white">
+            <h4 class="mb-0 text-success font-weight-bold">Tambah Data Wawancara</h4>
+            <small class="text-muted">Tambahkan jadwal dan hasil seleksi wawancara calon peserta didik</small>
+        </div>
 
-            <div class="mb-3">
-                <label>Tanggal Wawancara</label>
-                <input type="date" name="interview_date" class="form-control" required>
-            </div>
+        <div class="card-body">
 
-            <div class="mb-3">
-                <label for="meeting_link" class="form-label">Link Wawancara Online (Zoom/Meet)</label>
-                <input type="url" name="meeting_link" id="meeting_link"
-                    class="form-control @error('meeting_link') is-invalid @enderror" value="{{ old('meeting_link') }}"
-                    placeholder="https://zoom.us/j/xxxx atau https://meet.google.com/xxxx">
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <strong>Terjadi kesalahan input.</strong>
+                    <ul class="mb-0 mt-2">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
 
-                @error('meeting_link')
-                    <div class="invalid-feedback">{{ $message }}</div>
-                @enderror
-            </div>
-            <div class="mb-3">
-                <label>Nilai</label>
-                <input type="number" name="score" class="form-control" min="0" max="100" required>
-            </div>
+            <form action="{{ route('admin.interview.store') }}" method="POST">
+                @csrf
 
-            <div class="mb-3">
-                <label>Catatan</label>
-                <textarea name="notes" class="form-control"></textarea>
-            </div>
+                <div class="mb-3">
+                    <label class="form-label">Nama Siswa</label>
+                    <select name="user_id" class="form-control" required>
+                        <option value="">-- Pilih Siswa --</option>
+                        @foreach($students as $student)
+                            <option value="{{ $student->id }}" {{ old('user_id') == $student->id ? 'selected' : '' }}>
+                                {{ $student->name }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
 
-            <div class="mb-3">
-                <label>Status</label>
-                <select name="status" class="form-control" required>
-                    <option value="belum">Belum</option>
-                    <option value="lulus">Lulus</option>
-                    <option value="tidak_lulus">Tidak Lulus</option>
-                </select>
-            </div>
+                <div class="mb-3">
+                    <label class="form-label">Jenis Wawancara</label>
+                    <select name="interview_type" id="interview_type" class="form-control" required>
+                        <option value="">-- Pilih Jenis Wawancara --</option>
 
-            <button type="submit" class="btn btn-primary">Simpan</button>
-        </form>
+                        <option value="online" {{ old('interview_type') == 'online' ? 'selected' : '' }}>
+                            Online / Google Meet
+                        </option>
+
+                        <option value="offline" {{ old('interview_type') == 'offline' ? 'selected' : '' }}>
+                            Offline / Tatap Muka
+                        </option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Tanggal Wawancara</label>
+                    <input type="date"
+                           name="interview_date"
+                           class="form-control"
+                           value="{{ old('interview_date') }}"
+                           required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Jam Wawancara</label>
+                    <input type="time"
+                           name="interview_time"
+                           class="form-control"
+                           value="{{ old('interview_time') }}"
+                           required>
+                </div>
+
+                <div class="mb-3" id="onlineField" style="display: none;">
+                    <label class="form-label">Link Wawancara Online</label>
+                    <input type="url"
+                           name="meeting_link"
+                           id="meeting_link"
+                           class="form-control"
+                           value="{{ old('meeting_link') }}"
+                           placeholder="https://meet.google.com/xxx-xxxx-xxx">
+
+                    <small class="text-muted">
+                        Diisi jika wawancara dilakukan secara online.
+                    </small>
+                </div>
+
+                <div class="mb-3" id="offlineField" style="display: none;">
+                    <label class="form-label">Lokasi Wawancara Offline</label>
+                    <input type="text"
+                           name="interview_place"
+                           id="interview_place"
+                           class="form-control"
+                           value="{{ old('interview_place') }}"
+                           placeholder="Contoh: Ruang Panitia PPDB SMK Ma'arif NU Kota Batam">
+
+                    <small class="text-muted">
+                        Diisi jika wawancara dilakukan secara offline.
+                    </small>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Nomor WhatsApp Panitia</label>
+                    <input type="text"
+                           name="whatsapp_number"
+                           class="form-control"
+                           value="{{ old('whatsapp_number') }}"
+                           placeholder="Contoh: 6281234567890">
+
+                    <small class="text-muted">
+                        Nomor ini digunakan siswa untuk konfirmasi jadwal wawancara.
+                    </small>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Nilai</label>
+                    <input type="number"
+                           name="score"
+                           class="form-control"
+                           min="0"
+                           max="100"
+                           value="{{ old('score') }}"
+                           placeholder="Masukkan nilai setelah wawancara selesai">
+
+                    <small class="text-muted">
+                        Boleh dikosongkan jika wawancara belum dilaksanakan.
+                    </small>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Catatan</label>
+                    <textarea name="notes"
+                              class="form-control"
+                              rows="4"
+                              placeholder="Masukkan catatan wawancara jika ada">{{ old('notes') }}</textarea>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Status</label>
+                    <select name="status" class="form-control" required>
+                        <option value="belum" {{ old('status') == 'belum' ? 'selected' : '' }}>
+                            Belum Mulai
+                        </option>
+
+                        <option value="terjadwal" {{ old('status', 'terjadwal') == 'terjadwal' ? 'selected' : '' }}>
+                            Terjadwal
+                        </option>
+
+                        <option value="lulus" {{ old('status') == 'lulus' ? 'selected' : '' }}>
+                            Lulus
+                        </option>
+
+                        <option value="tidak_lulus" {{ old('status') == 'tidak_lulus' ? 'selected' : '' }}>
+                            Tidak Lulus
+                        </option>
+                    </select>
+                </div>
+
+                <div class="d-flex justify-content-between">
+                    <a href="{{ route('admin.interview.index') }}" class="btn btn-secondary">
+                        Kembali
+                    </a>
+
+                    <button type="submit" class="btn btn-success">
+                        Simpan
+                    </button>
+                </div>
+
+            </form>
+        </div>
     </div>
+
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const interviewType = document.getElementById('interview_type');
+        const onlineField = document.getElementById('onlineField');
+        const offlineField = document.getElementById('offlineField');
+        const meetingLink = document.getElementById('meeting_link');
+        const interviewPlace = document.getElementById('interview_place');
+
+        function toggleInterviewFields() {
+            if (interviewType.value === 'online') {
+                onlineField.style.display = 'block';
+                offlineField.style.display = 'none';
+
+                meetingLink.required = true;
+                interviewPlace.required = false;
+                interviewPlace.value = '';
+
+            } else if (interviewType.value === 'offline') {
+                onlineField.style.display = 'none';
+                offlineField.style.display = 'block';
+
+                meetingLink.required = false;
+                meetingLink.value = '';
+                interviewPlace.required = true;
+
+            } else {
+                onlineField.style.display = 'none';
+                offlineField.style.display = 'none';
+
+                meetingLink.required = false;
+                interviewPlace.required = false;
+
+                meetingLink.value = '';
+                interviewPlace.value = '';
+            }
+        }
+
+        interviewType.addEventListener('change', toggleInterviewFields);
+        toggleInterviewFields();
+    });
+</script>
 @endsection

@@ -1,81 +1,144 @@
-@extends('layouts.app')
+@extends('layouts.app', ['title' => 'Seleksi Wawancara'])
 
 @section('content')
-    <div class="container py-5" style="background: #f4f8f6; min-height: 100vh;">
-
-        <div class="row justify-content-center">
-            <div class="col-md-6">
-
-                <div class="card shadow rounded-3 border-0">
-
-                    {{-- Header --}}
-                    <div class="card-header bg-success text-white text-center py-3 rounded-top">
-                        <h5 class="mb-0 fw-bold">Informasi Wawancara</h5>
-                    </div>
-
-                    {{-- Body --}}
-                    <div class="card-body p-4">
-
-                        <div class="mb-3">
-                            <small class="text-secondary d-block mb-1">Nama Siswa</small>
-                            <span class="fw-bold">{{ $interview->user->name ?? auth()->user()->name }}</span>
-                        </div>
-
-                        <div class="mb-3">
-                            <small class="text-secondary d-block mb-1">Tanggal Wawancara</small>
-                            <span class="fw-bold">
-                                @if($interview->interview_date)
-                                    {{ \Carbon\Carbon::parse($interview->interview_date)->format('d M Y') }}
-                                @else
-                                    Belum dijadwalkan
-                                @endif
-                            </span>
-                        </div>
-
-                        <div class="mb-3">
-                            <small class="text-secondary d-block mb-1">Status Wawancara</small>
-                            @if($interview->status == 'belum')
-                                <span class="badge bg-warning text-dark">Menunggu</span>
-                            @elseif($interview->status == 'lulus')
-                                <span class="badge bg-success">Lulus</span>
-                            @elseif($interview->status == 'tidak_lulus')
-                                <span class="badge bg-danger">Tidak Lulus</span>
-                            @endif
-                        </div>
-
-                        <hr>
-
-                        <div class="mb-3">
-                            <small class="text-secondary d-block mb-1">Nilai Wawancara</small>
-                            @if($interview->score !== null && $interview->status != 'belum')
-                                <input type="text" class="form-control" value="{{ $interview->score }}" readonly>
-                            @else
-                                <p class="text-muted mb-0">Belum dinilai</p>
-                            @endif
-                        </div>
-
-                        <div class="mb-3">
-                            <small class="text-secondary d-block mb-1">Catatan Penguji</small>
-                            @if($interview->notes && $interview->status != 'belum')
-                                <div class="p-2 rounded" style="background-color: #d4f0e1; color:#004d3f;">
-                                    {{ $interview->notes }}
-                                </div>
-                            @else
-                                <p class="text-muted mb-0">Belum ada catatan dari penguji</p>
-                            @endif
-                        </div>
-
-                    </div>
-
-                    {{-- Footer --}}
-                    <a href="{{ route('dashboard') }}" class="btn btn-success px-5 rounded">
-                        Kembali
-                    </a>
-
-                </div>
-
-            </div>
+    <div class="card shadow mb-4">
+        <div class="card-header">
+            <h6 class="m-0 font-weight-bold text-primary">
+                Seleksi Wawancara
+            </h6>
         </div>
 
+        <div class="card-body">
+
+            @if (!$interview)
+                <div class="alert alert-warning">
+                    Jadwal wawancara belum tersedia. Silakan menunggu informasi dari panitia PPDB.
+                </div>
+            @else
+
+                @if ($interview->status == 'terjadwal')
+                    <div class="alert alert-info">
+                        Anda mendapatkan panggilan untuk mengikuti seleksi wawancara.
+                    </div>
+                @elseif ($interview->status == 'lulus')
+                    <div class="alert alert-success">
+                        Selamat! Anda dinyatakan <strong>LULUS</strong> pada tahap wawancara.
+                    </div>
+                @elseif ($interview->status == 'tidak_lulus')
+                    <div class="alert alert-danger">
+                        Mohon maaf, Anda dinyatakan <strong>TIDAK LULUS</strong> pada tahap wawancara.
+                    </div>
+                @else
+                    <div class="alert alert-warning">
+                        Data wawancara belum diproses oleh panitia.
+                    </div>
+                @endif
+
+                <table class="table table-bordered">
+                    <tr>
+                        <td width="230">Nama Siswa</td>
+                        <td>{{ Auth::user()->name }}</td>
+                    </tr>
+
+                    <tr>
+                        <td>Jenis Wawancara</td>
+                        <td>
+                            @if ($interview->interview_type == 'online')
+                                <span class="badge badge-primary">Online / Google Meet</span>
+                            @elseif ($interview->interview_type == 'offline')
+                                <span class="badge badge-success">Offline / Tatap Muka</span>
+                            @else
+                                -
+                            @endif
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Tanggal Wawancara</td>
+                        <td>{{ $interview->interview_date ?? '-' }}</td>
+                    </tr>
+
+                    <tr>
+                        <td>Jam Wawancara</td>
+                        <td>{{ $interview->interview_time ?? '-' }}</td>
+                    </tr>
+
+                    @if ($interview->interview_type == 'online')
+                        <tr>
+                            <td>Link Google Meet</td>
+                            <td>
+                                @if ($interview->meeting_link)
+                                    <a href="{{ $interview->meeting_link }}" target="_blank" class="btn btn-sm btn-primary">
+                                        Masuk Google Meet
+                                    </a>
+                                @else
+                                    -
+                                @endif
+                            </td>
+                        </tr>
+                    @endif
+
+                    @if ($interview->interview_type == 'offline')
+                        <tr>
+                            <td>Tempat Wawancara</td>
+                            <td>{{ $interview->interview_place ?? '-' }}</td>
+                        </tr>
+                    @endif
+
+                    <tr>
+                        <td>Konfirmasi WhatsApp</td>
+                        <td>
+                            @if ($interview->whatsapp_number)
+                                @php
+                                    $waNumber = preg_replace('/[^0-9]/', '', $interview->whatsapp_number);
+                                    $message = urlencode(
+                                        "Assalamu'alaikum, saya " . ($interview->user->name ?? 'calon peserta didik') . ".\n\n" .
+                                        "Saya ingin mengonfirmasi jadwal wawancara PPDB.\n\n" .
+                                        "Jenis wawancara: " . $interview->interview_type . "\n" .
+                                        "Tanggal: " . ($interview->interview_date ? \Carbon\Carbon::parse($interview->interview_date)->format('d-m-Y') : '-') . "\n" .
+                                        "Jam: " . ($interview->interview_time ?? '-') . "\n" .
+                                        "Terima kasih."
+                                    );
+                                @endphp
+
+                                <a href="https://wa.me/{{ $waNumber }}?text={{ $message }}" target="_blank"
+                                    class="btn btn-sm btn-success">
+                                    Konfirmasi via WhatsApp
+                                </a>
+                            @else
+                                -
+                            @endif
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Status</td>
+                        <td>
+                            @if ($interview->status == 'lulus')
+                                <span class="badge badge-success">Lulus</span>
+                            @elseif ($interview->status == 'tidak_lulus')
+                                <span class="badge badge-danger">Tidak Lulus</span>
+                            @elseif ($interview->status == 'terjadwal')
+                                <span class="badge badge-info">Terjadwal</span>
+                            @else
+                                <span class="badge badge-warning">Belum Diproses</span>
+                            @endif
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Nilai Wawancara</td>
+                        <td>{{ $interview->score ?? '-' }}</td>
+                    </tr>
+
+                    <tr>
+                        <td>Catatan Panitia</td>
+                        <td>{{ $interview->notes ?? '-' }}</td>
+                    </tr>
+                </table>
+
+            @endif
+
+        </div>
     </div>
 @endsection
