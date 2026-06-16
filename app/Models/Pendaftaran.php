@@ -8,10 +8,24 @@ use Illuminate\Database\Eloquent\Model;
 class Pendaftaran extends Model
 {
     use HasFactory;
-    protected $guarded = ['id'];
+
+    protected $table = 'pendaftarans';
+
     protected $fillable = [
-    // field lainnya
-    'tes_quran',
-    'catatan_tes_quran',
-];
+        'user_id',
+        'nama',
+        'email',
+        'no_hp',
+        'alamat',
+        'mulai',
+        'berakhir',
+        'tahun_akademik',
+        'tes_quran',
+        'catatan_tes_quran',
+    ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

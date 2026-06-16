@@ -28,8 +28,8 @@ class SiswaPendaftaranController extends Controller
 
         try {
             // 1. Cek masa pendaftaran
-            $pendaftaran = Pendaftaran::whereDate('mulai', '<=', date('Y-m-d'))
-                ->whereDate('berakhir', '>', date('Y-m-d'))
+            $pendaftaran = Pendaftaran::whereDate('mulai', '<=', today())
+                ->whereDate('berakhir', '>=', today())
                 ->first();
 
             if (!$pendaftaran) {
@@ -60,7 +60,9 @@ class SiswaPendaftaranController extends Controller
     {
         $siswa = $request->validated();
         try {
-            $pendaftaran = Pendaftaran::whereDate('mulai', '<=', date('Y-m-d'))->whereDate('berakhir', '>', date('Y-m-d'))->first();
+            $pendaftaran = Pendaftaran::whereDate('mulai', '<=', today())
+                ->whereDate('berakhir', '>=', today())
+                ->first();
             if (!$pendaftaran) {
                 return response()->json(['error', 'Maaf kami sedang tidak membuka pendaftaran']);
             }
@@ -99,7 +101,9 @@ class SiswaPendaftaranController extends Controller
             }
         }
         try {
-            $pendaftaran = Pendaftaran::whereDate('mulai', '<=', date('Y-m-d'))->whereDate('berakhir', '>', date('Y-m-d'))->first();
+            $pendaftaran = Pendaftaran::whereDate('mulai', '<=', today())
+                ->whereDate('berakhir', '>=', today())
+                ->first();
             if (!$pendaftaran) {
                 return response()->json(['error', 'Maaf kami sedang tidak membuka pendaftaran']);
             }
@@ -119,7 +123,9 @@ class SiswaPendaftaranController extends Controller
     {
         $siswa = $request->validated();
         try {
-            $pendaftaran = Pendaftaran::whereDate('mulai', '<=', date('Y-m-d'))->whereDate('berakhir', '>', date('Y-m-d'))->first();
+            $pendaftaran = Pendaftaran::whereDate('mulai', '<=', today())
+                ->whereDate('berakhir', '>=', today())
+                ->first();
             if (!$pendaftaran) {
                 return response()->json(['error', 'Maaf kami sedang tidak membuka pendaftaran']);
             }
