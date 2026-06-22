@@ -172,11 +172,28 @@
                             </style>
 
                             <!-- PENDAFTARAN -->
+                            <!-- PENDAFTARAN -->
                             <div class="col-lg-4 col-md-12 text-center">
 
                                 <h6 class="font-weight-bold text-uppercase">
                                     PENDAFTARAN
-</h6>
+                                </h6>
+
+                                @if ($jadwalAktif)
+                                    <p class="regular text-muted mb-2">
+                                        Pendaftaran dibuka pada
+                                        <br>
+                                        <strong>
+                                            {{ \Carbon\Carbon::parse($jadwalAktif->mulai)->translatedFormat('d F Y') }}
+                                            -
+                                            {{ \Carbon\Carbon::parse($jadwalAktif->berakhir)->translatedFormat('d F Y') }}
+                                        </strong>
+                                    </p>
+                                @else
+                                    <p class="regular text-muted mb-2">
+                                        Belum ada gelombang pendaftaran yang sedang berlangsung.
+                                    </p>
+                                @endif
 
                                 <button type="button" class="btn btn-outline-success btn-sm btn-gelombang"
                                     data-toggle="modal" data-target="#modalGelombang">
@@ -186,6 +203,7 @@
 
                             </div>
 
+                            <!-- MODAL JADWAL GELOMBANG -->
                             <!-- MODAL JADWAL GELOMBANG -->
                             <div class="modal fade" id="modalGelombang" tabindex="-1">
                                 <div class="modal-dialog modal-dialog-centered modal-lg">
@@ -203,13 +221,174 @@
 
                                         <div class="modal-body">
 
+                                            @forelse ($gelombangs as $gelombang)
+                                                @php
+                                                    $today = \Carbon\Carbon::today();
+
+                                                    $mulaiPendaftaran = \Carbon\Carbon::parse($gelombang->mulai);
+                                                    $akhirPendaftaran = \Carbon\Carbon::parse($gelombang->berakhir);
+
+                                                    $mulaiVerifikasi = $akhirPendaftaran->copy()->addDay();
+                                                    $akhirVerifikasi = $akhirPendaftaran->copy()->addDays(7);
+
+                                                    $mulaiDaftarUlang = $akhirVerifikasi->copy()->addDay();
+                                                    $akhirDaftarUlang = $akhirVerifikasi->copy()->addDays(7);
+
+                                                    if ($today->between($mulaiPendaftaran, $akhirPendaftaran)) {
+                                                        $statusText = 'Pendaftaran Berlangsung';
+                                                        $badgeClass = 'badge-success';
+                                                    } elseif ($today->between($mulaiVerifikasi, $akhirVerifikasi)) {
+                                                        $statusText = 'Verifikasi & Validasi';
+                                                        $badgeClass = 'badge-info';
+                                                    } elseif ($today->between($mulaiDaftarUlang, $akhirDaftarUlang)) {
+                                                        $statusText = 'Pengumuman & Daftar Ulang';
+                                                        $badgeClass = 'badge-primary';
+                                                    } elseif ($today->lessThan($mulaiPendaftaran)) {
+                                                        $statusText = 'Belum Dibuka';
+                                                        $badgeClass = 'badge-warning';
+                                                    } else {
+                                                        $statusText = 'Selesai';
+                                                        $badgeClass = 'badge-secondary';
+                                                    }
+                                                @endphp
+
+                                                <div class="card border-0 shadow-sm mb-3">
+                                                    <div class="card-body">
+
+                                                        <div class="d-flex justify-content-between align-items-center mb-3">
+                                                            <div>
+                                                                <h6 class="mb-0 font-weight-bold text-success">
+                                                                    Gelombang {{ $loop->iteration }}
+                                                                </h6>
+
+                                                                @if ($gelombang->tahun_akademik)
+                                                                    <small class="text-muted">
+                                                                        Tahun Akademik {{ $gelombang->tahun_akademik }}
+                                                                    </small>
+                                                                @endif
+                                                            </div>
+
+                                                            <span class="badge {{ $badgeClass }}"
+                                                                style="font-size: 13px; padding: 8px 12px;">
+                                                                {{ $statusText }}
+                                                            </span>
+                                                        </div>
+
+                                                        <div class="table-responsive">
+                                                            <table class="table table-sm table-bordered mb-0">
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td width="35%">
+                                                                            <strong>Pendaftaran</strong>
+                                                                        </td>
+                                                                        <td>
+                                                                            {{ $mulaiPendaftaran->translatedFormat('d F Y') }}
+                                                                            -
+                                                                            {{ $akhirPendaftaran->translatedFormat('d F Y') }}
+                                                                        </td>
+                                                                    </tr>
+
+                                                                    <tr>
+                                                                        <td>
+                                                                            <strong>Verifikasi dan Validasi</strong>
+                                                                        </td>
+                                                                        <td>
+                                                                            {{ $mulaiVerifikasi->translatedFormat('d F Y') }}
+                                                                            -
+                                                                            {{ $akhirVerifikasi->translatedFormat('d F Y') }}
+                                                                        </td>
+                                                                    </tr>
+
+                                                                    <tr>
+                                                                        <td>
+                                                                            <strong>Pengumuman dan Daftar Ulang</strong>
+                                                                        </td>
+                                                                        <td>
+                                                                            {{ $mulaiDaftarUlang->translatedFormat('d F Y') }}
+                                                                            -
+                                                                            {{ $akhirDaftarUlang->translatedFormat('d F Y') }}
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            @empty
+                                                <div class="alert alert-warning mb-0 text-center">
+                                                    Jadwal gelombang PPDB belum tersedia.
+                                                </div>
+                                            @endforelse
+
                                         </div>
 
                                     </div>
                                 </div>
                             </div>
 
-                            
+                            <div class="col-lg-4 col-md-12 mt-5 mt-lg-0 text-center">
+                                <h6 class="font-weight-bold text-capitalize">VERIFIKASI & VALIDASI</h6>
+
+                                @if ($jadwalAktif)
+                                    @php
+                                        $akhirPendaftaran = \Carbon\Carbon::parse($jadwalAktif->berakhir);
+
+                                        $mulaiVerifikasi = $akhirPendaftaran->copy()->addDay();
+                                        $akhirVerifikasi = $akhirPendaftaran->copy()->addDays(7);
+                                    @endphp
+
+                                    <p class="regular text-muted" id="teks-verifikasi">
+                                        Verifikasi & Validasi
+                                        <br>
+                                        <b>
+                                            {{ $mulaiVerifikasi->translatedFormat('d F') }}
+                                            -
+                                            {{ $akhirVerifikasi->translatedFormat('d F Y') }}
+                                        </b>
+                                    </p>
+                                @else
+                                    <p class="regular text-muted" id="teks-verifikasi">
+                                        Jadwal verifikasi dan validasi belum tersedia
+                                    </p>
+                                @endif
+                            </div>
+
+                            <div class="col-lg-4 col-md-12 mt-5 mt-lg-0 text-center">
+                                <h6 class="font-weight-bold text-capitalize">PENGUMUMAN & DAFTAR ULANG</h6>
+
+                                @if ($jadwalAktif)
+                                    @php
+                                        $akhirPendaftaran = \Carbon\Carbon::parse($jadwalAktif->berakhir);
+
+                                        // Verifikasi dan validasi: 1 minggu setelah pendaftaran berakhir
+                                        $mulaiVerifikasi = $akhirPendaftaran->copy()->addDay();
+                                        $akhirVerifikasi = $akhirPendaftaran->copy()->addDays(7);
+
+                                        // Pengumuman dan daftar ulang: 1 minggu setelah verifikasi selesai
+                                        $mulaiDaftarUlang = $akhirVerifikasi->copy()->addDay();
+                                        $akhirDaftarUlang = $akhirVerifikasi->copy()->addDays(7);
+                                    @endphp
+
+                                    <p class="regular text-muted" id="teks-pengumuman">
+                                        Pengumuman & Daftar Ulang
+                                        <br>
+                                        <b>
+                                            {{ $mulaiDaftarUlang->translatedFormat('d F') }}
+                                            -
+                                            {{ $akhirDaftarUlang->translatedFormat('d F Y') }}
+                                        </b>
+                                    </p>
+                                @else
+                                    <p class="regular text-muted" id="teks-pengumuman">
+                                        Jadwal pengumuman dan daftar ulang belum tersedia
+                                    </p>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
             <!-- Informasi Sekolah & Program Unggulan -->
             <section class="py-5 bg-white" id="info-ppdb">

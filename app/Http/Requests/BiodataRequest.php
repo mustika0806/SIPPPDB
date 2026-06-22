@@ -24,28 +24,47 @@ class BiodataRequest extends FormRequest
         return [
             'name' => 'required|string|max:255',
             'nama_panggilan' => 'required|string',
-            'tinggi_badan' => 'required|numeric',
-            'berat_badan' => 'required|numeric',
-            'tanggal_pendaftaran' => 'required|date',
+
+            'nisn' => 'nullable|string',
+            'nik' => 'nullable|string',
+
             'jenis_kelamin' => 'required|in:Laki-Laki,Perempuan',
-            'agama' => 'required|in:islam,kristen,katholik,hindu,budha,konghuchu',
-            'tanggal_lahir' => 'required|date',
-            'jumlah_saudara' => 'required|string',
+            'agama' => 'required|in:Islam,Kristen,Katolik,Hindu,Buddha', // FIX CASE
+
             'tempat_lahir' => 'required|string',
-            'rt_rw' => 'required|string',
-            'kode_pos' => 'required|string',
+            'tanggal_lahir' => 'required|date',
+
+            'no_akta_lahir' => 'nullable|string',
+
+            'kewarganegaraan' => 'nullable|string',
+            'kebutuhan_khusus' => 'nullable|string',
+            'anak_ke' => 'nullable|integer',
+
             'alamat_asal' => 'required|string',
-            'kelurahan' => 'required|string',
-            'kecamatan' => 'required|string',
-            'kota' => 'required|string',
-            'provinsi' => 'required|string',
-            'no_telp' => 'required|string',
-            'no_hp' => 'required|string',
-            'alamat_email' => 'required|string',
-            'kegiatan_olahraga' => 'required|in:Aktif,Cukup,Kurang',
-            'kegiatan_kesenian' => 'required|in:Aktif,Cukup,Kurang',
-            'prestasi' => 'required|string',
-            'status_tempat' => 'required|in:rumah sendiri,kontrakan,kosan',
+            'rt' => 'nullable|string',
+            'rw' => 'nullable|string',
+            'dusun' => 'nullable|string',
+
+            'kode_pos' => 'nullable|string',
+            'kelurahan' => 'nullable|string',
+            'kecamatan' => 'nullable|string',
+            'kota' => 'nullable|string',
+
+            'lintang' => 'nullable|string',
+            'bujur' => 'nullable|string',
+
+            'nama_ayah' => 'nullable|string',
+            'nama_ibu' => 'nullable|string',
+            'pekerjaan_ayah' => 'nullable|string',
+            'pekerjaan_ibu' => 'nullable|string',
+
+            'no_telp' => 'nullable|string',
+
+            'tempat_tinggal' => 'nullable|string',
+            'transportasi' => 'nullable|string',
+
+            'no_kks' => 'nullable|string',
+            'kps_pkp' => 'nullable|boolean',
         ];
     }
 }
