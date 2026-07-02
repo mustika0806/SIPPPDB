@@ -21,10 +21,6 @@ class SekolahRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            'sekolah_asal' => 'nullable|string',
-           'nilai_ijazah' => 'required|numeric',
-            'nisn' => 'required|numeric',
-        ];
+        return [];
     }
 }

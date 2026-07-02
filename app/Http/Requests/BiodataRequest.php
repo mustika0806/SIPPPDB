@@ -24,47 +24,44 @@ class BiodataRequest extends FormRequest
         return [
             'name' => 'required|string|max:255',
             'nama_panggilan' => 'required|string',
-
-            'nisn' => 'nullable|string',
-            'nik' => 'nullable|string',
-
+            'tinggi_badan' => 'required|numeric',
+            'berat_badan' => 'required|numeric',
+            'nik' => 'required|string',
+            'tanggal_pendaftaran' => 'required|date',
             'jenis_kelamin' => 'required|in:Laki-Laki,Perempuan',
-            'agama' => 'required|in:Islam,Kristen,Katolik,Hindu,Buddha', // FIX CASE
-
+            'agama' => 'required|in:Islam,Kristen,Katholik,Hindu,Budha,Konghuchu',
             'tempat_lahir' => 'required|string',
             'tanggal_lahir' => 'required|date',
-
-            'no_akta_lahir' => 'nullable|string',
-
-            'kewarganegaraan' => 'nullable|string',
-            'kebutuhan_khusus' => 'nullable|string',
-            'anak_ke' => 'nullable|integer',
-
+            'jumlah_saudara' => 'required|numeric',
+            'no_akta_lahir' => 'required|string',
+            'kewarganegaraan' => 'required|in:Indonesia,Asing',
+            'kebutuhan_khusus' => 'required|in:Tidak,Netra,Rungu,Grahita,Wicara,Daksa,Autis',
+            'anak_ke' => 'required|numeric',
             'alamat_asal' => 'required|string',
-            'rt' => 'nullable|string',
-            'rw' => 'nullable|string',
-            'dusun' => 'nullable|string',
-
-            'kode_pos' => 'nullable|string',
-            'kelurahan' => 'nullable|string',
-            'kecamatan' => 'nullable|string',
-            'kota' => 'nullable|string',
-
-            'lintang' => 'nullable|string',
-            'bujur' => 'nullable|string',
-
-            'nama_ayah' => 'nullable|string',
-            'nama_ibu' => 'nullable|string',
-            'pekerjaan_ayah' => 'nullable|string',
-            'pekerjaan_ibu' => 'nullable|string',
-
-            'no_telp' => 'nullable|string',
-
-            'tempat_tinggal' => 'nullable|string',
-            'transportasi' => 'nullable|string',
-
-            'no_kks' => 'nullable|string',
-            'kps_pkp' => 'nullable|boolean',
+            'rt' => 'required|string',
+            'rw' => 'required|string',
+            'dusun' => 'required|string',
+            'kode_pos' => 'required|string',
+            'kelurahan' => 'required|string',
+            'kecamatan' => 'required|string',
+            'kota' => 'required|string',
+            'provinsi' => 'required|string',
+            'lintang' => 'required|string',
+            'bujur' => 'required|string',
+            'nama_ayah' => 'required|string',
+            'nama_ibu' => 'required|string',
+            'pekerjaan_ayah' => 'required|string',
+            'pekerjaan_ibu' => 'required|string',
+            'no_telp' => 'required|string',
+            'no_hp' => 'required|string',
+            'alamat_email' => 'required|string',
+            'kegiatan_olahraga' => 'required|in:Aktif,Cukup,Kurang',
+            'kegiatan_kesenian' => 'required|in:Aktif,Cukup,Kurang',
+            'prestasi' => 'required|string',
+            'status_tempat' => 'required|in:rumah sendiri,kontrakan,kosan',
+            'transportasi' => 'required|in:Jalan Kaki,Kendaraan Pribadi,Angkutan Umum,Sepeda',
+            'no_kks' => 'required|string',
+            'kps_pkp' => 'required|in:Tidak,Ya',
         ];
     }
 }

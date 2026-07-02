@@ -66,13 +66,23 @@
                     </div>
 
                     <div class="col-md-4">
-                        <label>NISN</label>
-                        <input type="text" id="nisn" class="form-control">
+                        <label>Tinggi Badan</label>
+                        <input type="number" id="tinggi_badan" class="form-control">
+                    </div>
+
+                    <div class="col-md-4">
+                        <label>Berat Badan</label>
+                        <input type="number" id="berat_badan" class="form-control">
                     </div>
 
                     <div class="col-md-4 mt-2">
                         <label>NIK</label>
                         <input type="text" id="nik" class="form-control">
+                    </div>
+
+                    <div class="col-md-4 mt-2">
+                        <label>Tanggal Pendaftaran</label>
+                        <input type="date" id="tanggal_pendaftaran" class="form-control">
                     </div>
 
                     <div class="col-md-4 mt-2">
@@ -106,6 +116,11 @@
                     </div>
 
                     <div class="col-md-4 mt-2">
+                        <label>Jumlah Saudara</label>
+                        <input type="number" id="jumlah_saudara" class="form-control">
+                    </div>
+
+                    <div class="col-md-4 mt-2">
                         <label>No Akta Lahir</label>
                         <input type="text" id="no_akta_lahir" class="form-control">
                     </div>
@@ -120,21 +135,21 @@
                     <div class="col-md-4">
                         <label>Kewarganegaraan</label>
                         <select id="kewarganegaraan" class="form-control">
-                            <option>Indonesia (WNI)</option>
-                            <option>Asing (WNA)</option>
+                            <option>Indonesia</option>
+                            <option>Asing</option>
                         </select>
                     </div>
 
                     <div class="col-md-4">
                         <label>Kebutuhan Khusus</label>
                         <select id="kebutuhan_khusus" class="form-control">
-                            <option value="0">Tidak</option>
-                            <option value="1">Netra</option>
-                            <option value="2">Rungu</option>
-                            <option value="3">Grahita</option>
-                            <option value="4">Wicara</option>
-                            <option value="5">Daksa</option>
-                            <option value="6">Autis</option>
+                            <option>Tidak</option>
+                            <option>Netra</option>
+                            <option>Rungu</option>
+                            <option>Grahita</option>
+                            <option>Wicara</option>
+                            <option>Daksa</option>
+                            <option>Autis</option>
                         </select>
                     </div>
 
@@ -190,6 +205,11 @@
                         <input type="text" id="kota" class="form-control">
                     </div>
 
+                    <div class="col-md-4 mt-2">
+                        <label>Provinsi</label>
+                        <input type="text" id="provinsi" class="form-control">
+                    </div>
+
                     <div class="col-md-6 mt-2">
                         <label>Lintang</label>
                         <input type="text" id="lintang" class="form-control">
@@ -232,6 +252,46 @@
                         <input type="text" id="no_telp" class="form-control">
                     </div>
 
+                    <div class="col-md-4 mt-2">
+                        <label>No HP Siswa</label>
+                        <input type="text" id="no_hp" class="form-control">
+                    </div>
+
+                </div>
+
+                {{-- ================= Pribadi ================= --}}
+                <div class="block-title">Pribadi</div>
+
+                <div class="row">
+
+                    <div class="col-md-4 mt-2">
+                        <label>Alamat Email</label>
+                        <input type="text" id="alamat_email" class="form-control">
+                    </div>
+
+                    <div class="col-md-4 mt-2">
+                        <label>Kegiatan Olahraga</label>
+                        <select id="kegiatan_olahraga" class="form-control">
+                            <option>Aktif</option>
+                            <option>Cukup</option>
+                            <option>Kurang</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-4 mt-2">
+                        <label>Kegiatan Kesenian</label>
+                        <select id="kegiatan_kesenian" class="form-control">
+                            <option>Aktif</option>
+                            <option>Cukup</option>
+                            <option>Kurang</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-4 mt-2">
+                        <label>Prestasi</label>
+                        <input type="text" id="prestasi" class="form-control">
+                    </div>
+
                 </div>
 
                 {{-- ================= SOSIAL ================= --}}
@@ -241,11 +301,10 @@
 
                     <div class="col-md-4">
                         <label>Tempat Tinggal</label>
-                        <select id="tempat_tinggal" class="form-control">
-                            <option>Bersama Orang Tua</option>
-                            <option>Wali</option>
-                            <option>Kos</option>
-                            <option>Asrama</option>
+                        <select id="status_tempat" class="form-control">
+                            <option>rumah sendiri</option>
+                            <option>kontrakan</option>
+                            <option>kosan</option>
                         </select>
                     </div>
 
@@ -267,8 +326,8 @@
                     <div class="col-md-4 mt-2">
                         <label>Penerima KPS/PKH</label>
                         <select id="kps_pkp" class="form-control">
-                            <option value="0">Tidak</option>
-                            <option value="1">Ya</option>
+                            <option>Tidak</option>
+                            <option>Ya</option>
                         </select>
                     </div>
 
@@ -284,7 +343,7 @@
 
     @push('js')
         <script>
-            $('#next').on('click', function () {
+            $('#next').on('click', function() {
 
                 $.ajax({
                     url: "{{ route('siswa.pendaftaran.biodata') }}",
@@ -294,12 +353,15 @@
 
                         name: $('#name').val(),
                         nama_panggilan: $('#nama_panggilan').val(),
-                        nisn: $('#nisn').val(),
+                        tinggi_badan: $('#tinggi_badan').val(),
+                        berat_badan: $('#berat_badan').val(),
                         nik: $('#nik').val(),
+                        tanggal_pendaftaran: $('#tanggal_pendaftaran').val(),
                         jenis_kelamin: $('#jenis_kelamin').val(),
                         agama: $('#agama').val(),
                         tempat_lahir: $('#tempat_lahir').val(),
                         tanggal_lahir: $('#tanggal_lahir').val(),
+                        jumlah_saudara: $('#jumlah_saudara').val(),
                         no_akta_lahir: $('#no_akta_lahir').val(),
 
                         kewarganegaraan: $('#kewarganegaraan').val(),
@@ -314,6 +376,7 @@
                         kelurahan: $('#kelurahan').val(),
                         kecamatan: $('#kecamatan').val(),
                         kota: $('#kota').val(),
+                        provinsi: $('#kota').val(),
                         lintang: $('#lintang').val(),
                         bujur: $('#bujur').val(),
 
@@ -322,19 +385,26 @@
                         pekerjaan_ayah: $('#pekerjaan_ayah').val(),
                         pekerjaan_ibu: $('#pekerjaan_ibu').val(),
                         no_telp: $('#no_telp').val(),
+                        no_hp: $('#no_hp').val(),
 
-                        tempat_tinggal: $('#tempat_tinggal').val(),
+                        alamat_email: $('#alamat_email').val(),
+                        kegiatan_olahraga: $('#kegiatan_olahraga').val(),
+                        kegiatan_kesenian: $('#kegiatan_kesenian').val(),
+                        prestasi: $('#prestasi').val(),
+
+
+                        status_tempat: $('#status_tempat').val(),
                         transportasi: $('#transportasi').val(),
                         no_kks: $('#no_kks').val(),
                         kps_pkp: $('#kps_pkp').val(),
                     },
 
-                    success: function (res) {
+                    success: function(res) {
                         console.log("CLICK TRIGGERED ke sukses");
                         window.location.href = res.url;
                     },
 
-                    error: function (xhr) {
+                    error: function(xhr) {
                         console.log("CLICK TRIGGERED");
                         console.log(xhr.responseJSON);
                         alert(JSON.stringify(xhr.responseJSON));
@@ -344,5 +414,4 @@
             });
         </script>
     @endpush
-
 @endsection

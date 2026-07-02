@@ -21,8 +21,6 @@
         @include('home.siswa.pendaftaran.biodata')
     @elseif (request()->get('step') == 'wali')
         @include('home.siswa.pendaftaran.wali')
-    @elseif (request()->get('step') == 'sekolah')
-        @include('home.siswa.pendaftaran.sekolah')
     @endif
     <ul class="mt-3 text-danger">
         <li>Mohon inputkan data yang valid</li>
@@ -31,7 +29,7 @@
     </ul>
     @if ($step != null && $step != 'kelas')
         <a href="javascript:;void(0)" id="previous" class="btn btn-warning mt-3 mx-2">
-            @if ($step == 'biodata' || $step == 'wali' || $step == 'sekolah')
+            @if ($step == 'biodata' || $step == 'wali')
                 Sebelumnya
             @endif
         </a>
@@ -40,7 +38,7 @@
         @if ($step == 'kelas' || $step == 'wali' || $step == 'biodata' || $step == null)
             Lanjut
         @endif
-        @if ($step == 'sekolah')
+        @if ($step == 'wali')
             Simpan
         @endif
     </a>

@@ -26,6 +26,7 @@ class SiswaUploadDokumenController extends Controller
             'file_raport' => 'nullable|mimes:jpg,jpeg,png|max:2048',
             'file_ijazah' => 'nullable|mimes:jpg,jpeg,png|max:2048',
             'file_kip' => 'nullable|mimes:jpg,jpeg,png|max:2048',
+            'file_keputusan' => 'nullable|mimes:jpg,jpeg,png|max:2048',
             'file_foto' => 'nullable|mimes:jpg,jpeg,png|max:2048',
         ]);
 
@@ -40,6 +41,7 @@ class SiswaUploadDokumenController extends Controller
             $file_raport = $request->hasFile('file_raport') ? FileHelper::uploadFile($request->file('file_raport'), 'uploads/dokumen') : ($dokumen->file_raport ?? null);
             $file_ijazah = $request->hasFile('file_ijazah') ? FileHelper::uploadFile($request->file('file_ijazah'), 'uploads/dokumen') : ($dokumen->file_ijazah ?? null);
             $file_kip = $request->hasFile('file_kip') ? FileHelper::uploadFile($request->file('file_kip'), 'uploads/dokumen') : ($dokumen->file_kip ?? null);
+            $file_keputusan = $request->hasFile('file_keputusan') ? FileHelper::uploadFile($request->file('file_keputusan'), 'uploads/dokumen') : ($dokumen->file_keputusan ?? null);
             $file_foto = $request->hasFile('file_foto') ? FileHelper::uploadFile($request->file('file_foto'), 'uploads/dokumen') : ($dokumen->file_foto ?? null);
             if ($dokumen) {
                 $dokumen->update([
@@ -49,6 +51,7 @@ class SiswaUploadDokumenController extends Controller
                     'file_raport' => $file_raport,
                     'file_ijazah' => $file_ijazah,
                     'file_kip' => $file_kip,
+                    'file_keputusan' => $file_keputusan,
                     'file_foto' => $file_foto,
                     'status' => 'Menunggu Konfirmasi '
                 ]);
@@ -64,6 +67,7 @@ class SiswaUploadDokumenController extends Controller
                     'file_raport' => $file_raport,
                     'file_ijazah' => $file_ijazah,
                     'file_kip' => $file_kip,
+                    'file_keputusan' => $file_keputusan,
                     'file_foto' => $file_foto,
                 ]);
             }

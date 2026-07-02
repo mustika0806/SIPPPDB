@@ -93,6 +93,7 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/siswa/{siswa}/download', 'download')->name('siswa.download');
             Route::get('/siswa/{siswa}/cetak', 'cetak')->name('siswa.cetak');
             Route::get('/siswa/{siswa}/dokumen_download', 'dokumen_download')->name('siswa.dokumen_download');
+            Route::get('/siswa/{siswa}/dokumen_cetak', 'dokumen_cetak')->name('siswa.dokumen_cetak');
             Route::get('siswa/lulus/{siswa}', 'lulus')->name('siswa.lulus');
         });
 
@@ -101,44 +102,44 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/daftar_ulang', 'index')->name('daftar_ulang.index');
         });
 
-        // // Data master: Kriteria
-        // Route::controller(KriteriaController::class)->group(function () {
-        //     Route::get('/kriteria', 'index')->name('kriteria.index');
-        //     Route::post('/kriteria/store', 'store')->name('kriteria.store');
-        //     Route::post('/kriteria/{kriteria}/update', 'update')->name('kriteria.update');
-        //     Route::delete('/kriteria/{kriteria}/destroy', 'destroy')->name('kriteria.destroy');
-        //     Route::get('/kriteria/getKriteria', 'getKriteria')->name('kriteria.getKriteria');
-        // });
+        // Data master: Kriteria
+        Route::controller(KriteriaController::class)->group(function () {
+            Route::get('/kriteria', 'index')->name('kriteria.index');
+            Route::post('/kriteria/store', 'store')->name('kriteria.store');
+            Route::post('/kriteria/{kriteria}/update', 'update')->name('kriteria.update');
+            Route::delete('/kriteria/{kriteria}/destroy', 'destroy')->name('kriteria.destroy');
+            Route::get('/kriteria/getKriteria', 'getKriteria')->name('kriteria.getKriteria');
+        });
 
-        // // Data master: Aspek
-        // Route::controller(AspekController::class)->group(function () {
-        //     Route::get('/aspek', 'index')->name('aspek.index');
-        //     Route::post('/aspek/store', 'store')->name('aspek.store');
-        //     Route::post('/aspek/{aspek}/update', 'update')->name('aspek.update');
-        //     Route::delete('/aspek/{aspek}/destroy', 'destroy')->name('aspek.destroy');
-        // });
+        // Data master: Aspek
+        Route::controller(AspekController::class)->group(function () {
+            Route::get('/aspek', 'index')->name('aspek.index');
+            Route::post('/aspek/store', 'store')->name('aspek.store');
+            Route::post('/aspek/{aspek}/update', 'update')->name('aspek.update');
+            Route::delete('/aspek/{aspek}/destroy', 'destroy')->name('aspek.destroy');
+        });
 
-        //
+        
 
-        // // Perhitungan
-        // Route::controller(PerhitunganController::class)->group(function () {
-        //     Route::get('/perhitungan', 'index')->name('perhitungan.index');
-        //     Route::get('/perhitungan/aspek_keluarga', 'calcAK')->name('perhitungan.calcAK');
-        //     Route::get('/perhitungan/aspek_sosial_ekonomi', 'calcASE')->name('perhitungan.calcASE');
-        //     Route::get('/perhitungan/aspek_akademik', 'calcAA')->name('perhitungan.calcAA');
-        // });
+        // Perhitungan
+        Route::controller(PerhitunganController::class)->group(function () {
+            Route::get('/perhitungan', 'index')->name('perhitungan.index');
+            Route::get('/perhitungan/aspek_keluarga', 'calcAK')->name('perhitungan.calcAK');
+            Route::get('/perhitungan/aspek_sosial_ekonomi', 'calcASE')->name('perhitungan.calcASE');
+            Route::get('/perhitungan/aspek_akademik', 'calcAA')->name('perhitungan.calcAA');
+        });
 
-        // // Hasil Akhir
-        // Route::controller(HasilAkhirController::class)->group(function () {
-        //     Route::get('/hasil_akhir', 'index')->name('hasil_akhir.index');
-        // });
+        // Hasil Akhir
+        Route::controller(HasilAkhirController::class)->group(function () {
+            Route::get('/hasil_akhir', 'index')->name('hasil_akhir.index');
+        });
 
-        // // Rekap
-        // Route::controller(RekapController::class)->group(function () {
-        //     Route::get('/rekap', 'index')->name('rekap.index');
-        //     Route::post('/rekap/update', 'update')->name('rekap.update');
-        //     Route::get('/rekap/print', 'print')->name('rekap.print');
-        // });
+        // Rekap
+        Route::controller(RekapController::class)->group(function () {
+            Route::get('/rekap', 'index')->name('rekap.index');
+            Route::post('/rekap/update', 'update')->name('rekap.update');
+            Route::get('/rekap/print', 'print')->name('rekap.print');
+        });
 
         // Alumni
         Route::controller(AlumniController::class)->as('alumni.')->group(function () {

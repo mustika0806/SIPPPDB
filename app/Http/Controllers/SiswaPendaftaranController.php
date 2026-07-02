@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\BiodataRequest;
-use App\Http\Requests\SekolahRequest;
+use App\Http\Requests\WaliRequest;
 use App\Http\Requests\SiswaPendaftaranRequest;
 use App\Models\Kelas;
 use App\Models\Pendaftaran;
@@ -62,7 +62,6 @@ class SiswaPendaftaranController extends Controller
 
     public function store(SiswaPendaftaranRequest $request)
     {
-        dd($request->validated());
         $data = $request->validated();
 
         try {
@@ -90,7 +89,6 @@ class SiswaPendaftaranController extends Controller
                 'success' => true,
                 'message' => 'Data siswa berhasil disimpan'
             ]);
-
         } catch (\Exception $e) {
             return response()->json([
                 'error' => $e->getMessage()
@@ -128,7 +126,6 @@ class SiswaPendaftaranController extends Controller
                 'message' => 'Biodata tersimpan',
                 'url' => route('siswa.pendaftaran.index') . '?step=wali'
             ]);
-
         } catch (\Exception $e) {
 
             return response()->json([
@@ -143,11 +140,13 @@ class SiswaPendaftaranController extends Controller
         STEP: WALI
     ====================================================== */
 
-    public function wali(Request $request)
+    public function wali(WaliRequest $request)
     {
         $validator = Validator::make($request->all(), [
             'sekolah_asal' => 'nullable|string',
+            'nilai_ijazah' => 'required|numeric',
             'nilai_rata' => 'required|numeric',
+            'nisn' => 'required|numeric',
         ]);
 
         if ($validator->fails()) {
@@ -178,35 +177,6 @@ class SiswaPendaftaranController extends Controller
 
             $siswa->update($data);
 
-            return response()->json([
-                'success' => true,
-                'url' => route('siswa.pendaftaran.index') . '?step=sekolah'
-            ]);
-
-        } catch (\Exception $e) {
-            return response()->json([
-                'error' => 'Gagal menyimpan data wali'
-            ], 500);
-        }
-    }
-
-    /* ======================================================
-        STEP: SEKOLAH
-    ====================================================== */
-
-    public function sekolah(SekolahRequest $request)
-    {
-        $data = $request->validated();
-
-        try {
-            $pendaftaran = $this->activePendaftaran();
-
-            if (!$pendaftaran) {
-                return response()->json([
-                    'error' => 'Pendaftaran tidak aktif'
-                ], 403);
-            }
-
             $data['pendaftaran_id'] = $pendaftaran->id;
 
             $data['is_save'] = true;
@@ -218,10 +188,9 @@ class SiswaPendaftaranController extends Controller
                 'success' => true,
                 'url' => route('siswa.pendaftaran.index')
             ]);
-
         } catch (\Exception $e) {
             return response()->json([
-                'error' => 'Gagal menyimpan data sekolah'
+                'error' => 'Gagal menyimpan data wali'
             ], 500);
         }
     }

@@ -23,6 +23,10 @@
             </div>
         </div>
         <div class="form-group">
+            <label for="nilai_ijazah">Nilai Ijazah</label>
+            <input type="number" class="form-control @error('nilai_ijazah') is-invalid @enderror" name="nilai_ijazah"
+                id="nilai_ijazah" placeholder="Nilai Ijazah"
+                value="{{ isset($siswa) ? $siswa->nilai_ijazah : old('nilai_ijazah') }}">
             <div class="invalid-feedback">
             </div>
         </div>
@@ -31,6 +35,13 @@
             <input type="number" class="form-control @error('nilai_rata') is-invalid @enderror" name="nilai_rata"
                 id="nilai_rata" placeholder="Nilai Rata"
                 value="{{ isset($siswa) ? $siswa->nilai_rata : old('nilai_rata') }}">
+            <div class="invalid-feedback">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="nisn">NISN</label>
+            <input type="text" class="form-control @error('nisn') is-invalid @enderror" name="nisn" id="nisn"
+                placeholder="NISN" value="{{ isset($siswa) ? $siswa->nisn : old('nisn') }}">
             <div class="invalid-feedback">
             </div>
         </div>
@@ -97,14 +108,18 @@
         $(document).ready(function() {
             $('#next').on('click', function() {
                 var sekolah_asal = $('#sekolah_asal').val();
+                var nilai_ijazah = $('#nilai_ijazah').val();
                 var nilai_rata = $('#nilai_rata').val();
+                var nisn = $('#nisn').val();
                 $.ajax({
                     url: '{{ route('siswa.pendaftaran.wali') }}',
                     type: 'POST',
                     data: {
                         _token: '{{ csrf_token() }}',
                         sekolah_asal: sekolah_asal,
+                        nilai_ijazah: nilai_ijazah,
                         nilai_rata: nilai_rata,
+                        nisn: nisn,
                     },
                     success: function(response) {
                         window.location.href = response.url;

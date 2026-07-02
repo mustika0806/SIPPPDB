@@ -12,7 +12,7 @@
             <div class="modal-body">
                 <div class="table-responsive">
                     <table class="table">
-@if (isset($item->dokumen_siswa->file_kk))
+                        @if (isset($item->dokumen_siswa->file_kk))
                             <tr>
                                 <td>Berkas KK</td>
                                 <td>
@@ -59,6 +59,14 @@
                                     <img src="{{ $item->dokumen_siswa->file_kip != null ? url($item->dokumen_siswa->file_kip) : '' }}"
                                         alt="gambar Berkas KIP" style="width: 100%; max-width: 600px; height: auto;"
                                         class="img-fluid">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Berkas Surat Pindahan</td>
+                                <td>
+                                    <img src="{{ $item->dokumen_siswa->file_keputusan != null ? url($item->dokumen_siswa->file_keputusan) : '' }}"
+                                        alt="gambar Berkas Surat Pindahan"
+                                        style="width: 100%; max-width: 600px; height: auto;" class="img-fluid">
                                 </td>
                             </tr>
                             <tr>

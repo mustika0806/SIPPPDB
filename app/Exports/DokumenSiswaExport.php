@@ -26,6 +26,7 @@ class DokumenSiswaExport implements FromCollection, WithDrawings, WithMapping, W
             "file_raport" => $this->siswa->dokumen_siswa->file_raport,
             "file_ijazah" => $this->siswa->dokumen_siswa->file_ijazah,
             "file_kip" => $this->siswa->dokumen_siswa->file_kip,
+            "file_keputusan" => $this->siswa->dokumen_siswa->file_keputusan,
             "file_foto" => $this->siswa->dokumen_siswa->file_foto
         ];
     }
@@ -51,13 +52,14 @@ class DokumenSiswaExport implements FromCollection, WithDrawings, WithMapping, W
             'E' => 25, // Atur lebar Kolom E
             'F' => 25, // Atur lebar Kolom F
             'G' => 25, // Atur lebar Kolom G
+            'H' => 25, // Atur lebar Kolom H
         ];
     }
 
     public function drawings()
     {
         $drawings = [];
-        $columns = ['A', 'B', 'C', 'D', 'E', 'F', 'G'];
+        $columns = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
         $colIndex = 0;
 
         foreach ($this->data as $key => $path) {
@@ -95,7 +97,7 @@ class DokumenSiswaExport implements FromCollection, WithDrawings, WithMapping, W
                 $event->sheet->getDelegate()->getRowDimension(2)->setRowHeight(140);
 
                 // Atur lebar masing-masing kolom A sampai E secara manual
-                $columns = ['A', 'B', 'C', 'D', 'E', 'F', 'G'];
+                $columns = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
                 foreach ($columns as $col) {
                     $event->sheet->getDelegate()->getColumnDimension($col)->setWidth(30);
                 }

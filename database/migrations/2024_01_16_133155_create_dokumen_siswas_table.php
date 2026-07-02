@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('file_raport');
             $table->string('file_ijazah');
             $table->string('file_kip');
+            $table->string('file_keputusan');
             $table->string('file_foto');
             $table->enum('status', ['Menunggu Konfirmasi', 'Perbaiki Dokumen', 'Diterima'])->default('Menunggu Konfirmasi');
             $table->timestamps();

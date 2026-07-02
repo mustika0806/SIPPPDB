@@ -14,7 +14,7 @@
                                 @isset($siswa)
                                     Halaman Pendaftaran
                                 @else
-                                    {{ $step == 'wali' ? 'Data Wali' : ($step == 'sekolah' ? 'Data Sekolah' : ($step == 'biodata' ? 'Biodata' : 'Pilih Jurusan')) }}
+                                    {{ $step == 'wali' ? 'Data Wali' : ($step == 'wali' ? 'Data Wali' : ($step == 'biodata' ? 'Biodata' : 'Pilih Jurusan')) }}
                                 @endisset
                             </h6>
                         </div>
@@ -113,7 +113,7 @@
         var back =
             '{{ $step == 'biodata' ? 'kelas' : ($step == 'wali' ? 'biodata' : ($step == 'sekolah' ? 'wali' : '')) }}';
         $('#previous').on('click', function() {
-            window.location.href = '{{ url()->current() }}' + `?step=${back}`
+            window.location.href = '{{ url()->current() }}' + ?step=${back}
         });
     </script>
 @endpush

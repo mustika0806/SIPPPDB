@@ -65,23 +65,23 @@
                             disabled>
                             <option value="">-- Pilih Agama --</option>
                             <option value="islam"
-                                {{ isset($item) ? ($item->agama == 'islam' ? 'selected' : '') : (old('agam') == 'islam' ? 'selected' : '') }}>
-                                islam</option>
+                                {{ isset($item) ? ($item->agama == 'Islam' ? 'selected' : '') : (old('agama') == 'Islam' ? 'selected' : '') }}>
+                                Islam</option>
                             <option value="kristen"
-                                {{ isset($item) ? ($item->agama == 'kristen' ? 'selected' : '') : (old('agama') == 'kristen' ? 'selected' : '') }}>
-                                kristen</option>
+                                {{ isset($item) ? ($item->agama == 'Kristen' ? 'selected' : '') : (old('agama') == 'Kristen' ? 'selected' : '') }}>
+                                Kristen</option>
                             <option value="katholik"
-                                {{ isset($item) ? ($item->agama == 'katholik' ? 'selected' : '') : (old('agam') == 'katholik' ? 'selected' : '') }}>
-                                katholik</option>
+                                {{ isset($item) ? ($item->agama == 'Katholik' ? 'selected' : '') : (old('agama') == 'Katholik' ? 'selected' : '') }}>
+                                Katholik</option>
                             <option value="hindu"
-                                {{ isset($item) ? ($item->agama == 'hindu' ? 'selected' : '') : (old('agama') == 'hindu' ? 'selected' : '') }}>
-                                hindu</option>
+                                {{ isset($item) ? ($item->agama == 'Hindu' ? 'selected' : '') : (old('agama') == 'Hindu' ? 'selected' : '') }}>
+                                Hindu</option>
                             <option value="budha"
-                                {{ isset($item) ? ($item->agama == 'budha' ? 'selected' : '') : (old('agam') == 'budha' ? 'selected' : '') }}>
-                                budha</option>
+                                {{ isset($item) ? ($item->agama == 'Budha' ? 'selected' : '') : (old('agama') == 'Budha' ? 'selected' : '') }}>
+                                Budha</option>
                             <option value="konghuchu"
-                                {{ isset($item) ? ($item->agama == 'konghuchu' ? 'selected' : '') : (old('agama') == 'konghuchu' ? 'selected' : '') }}>
-                                konghuchu</option>
+                                {{ isset($item) ? ($item->agama == 'Konghuchu' ? 'selected' : '') : (old('agama') == 'Konghuchu' ? 'selected' : '') }}>
+                                Konghuchu</option>
                         </select>
                     </div>
                     <div class="col">
@@ -112,10 +112,16 @@
                             value="{{ isset($item) ? $item->tempat_lahir : old('tempat_lahir') }}" disabled>
                     </div>
                     <div class="col">
-                        <label for="rt_rw">RT/RW</label>
-                        <input type="text" class="form-control @error('rt_rw') is-invalid @enderror"
-                            name="rt_rw" id="rt_rw" placeholder="RT/RW"
-                            value="{{ isset($item) ? $item->rt_rw : old('rt_rw') }}" disabled>
+                        <label for="rt">RT</label>
+                        <input type="text" class="form-control @error('rt') is-invalid @enderror" name="rt"
+                            id="rt" placeholder="RT" value="{{ isset($item) ? $item->rt : old('rt') }}"
+                            disabled>
+                    </div>
+                    <div class="col">
+                        <label for="rw">RW</label>
+                        <input type="text" class="form-control @error('rw') is-invalid @enderror" name="rw"
+                            id="rw" placeholder="RW" value="{{ isset($item) ? $item->rw : old('rw') }}"
+                            disabled>
                     </div>
                     <div class="col">
                         <label for="kode_pos">Kode Pos</label>
@@ -235,6 +241,18 @@
                             name="nilai_ijazah" id="nilai_ijazah" placeholder="Nilai Ijazah"
                             value="{{ isset($item) ? $item->nilai_ijazah : old('nilai_ijazah') }}" disabled>
                     </div>
+                    <div class="col">
+                        <label for="nik">NIK</label>
+                        <input type="text" class="form-control @error('nik') is-invalid @enderror" name="nik"
+                            id="nik" placeholder="NIK" value="{{ isset($item) ? $item->nik : old('nik') }}"
+                            disabled>
+                    </div>
+                    <div class="col">
+                        <label for="no_akta_lahir">No Akta Lahir</label>
+                        <input type="text" class="form-control @error('no_akta_lahir') is-invalid @enderror"
+                            name="no_akta_lahir" id="no_akta_lahir" placeholder="no_akta_lahir"
+                            value="{{ isset($item) ? $item->no_akta_lahir : old('no_akta_lahir') }}" disabled>
+                    </div>
                 </div>
                 <div class="row mt-2">
                     <div class="col">
@@ -256,6 +274,47 @@
                             <option value="kosan"
                                 {{ isset($item) ? ($item->status_tempat == 'kosan' ? 'selected' : '') : (old('status_tempat') == 'kosan' ? 'selected' : '') }}>
                                 kosan</option>
+                        </select>
+                    </div>
+                    <div class="col">
+                        <label for="kewarganegaraan">Kewarganegaraan</label>
+                        <select class="form-control @error('kewarganegaraan') is-invalid @enderror"
+                            name="kewarganegaraan" id="kewarganegaraan" disabled>
+                            <option value="">-- Pilih Kewarganegaraan --</option>
+                            <option value="Indonesia"
+                                {{ isset($item) ? ($item->kewarganegaraan == 'Indonesia' ? 'selected' : '') : (old('kewarganegaraan') == 'Indonesia' ? 'selected' : '') }}>
+                                Indonesia</option>
+                            <option value="Asing"
+                                {{ isset($item) ? ($item->kewarganegaraan == 'Asing' ? 'selected' : '') : (old('kewarganegaraan') == 'Asing' ? 'selected' : '') }}>
+                                Asing</option>
+                        </select>
+                    </div>
+                    <div class="col">
+                        <label for="kebutuhan_khusus">Kebutuhan Khusus</label>
+                        <select class="form-control @error('kebutuhan_khusus') is-invalid @enderror"
+                            name="kebutuhan_khusus" id="kebutuhan_khusus" disabled>
+                            <option value="">-- Pilih Kebutuhan Khusus --</option>
+                            <option value="Tidak"
+                                {{ isset($item) ? ($item->kebutuhan_khusus == 'Tidak' ? 'selected' : '') : (old('kebutuhan_khusus') == 'Tidak' ? 'selected' : '') }}>
+                                Tidak</option>
+                            <option value="Netra"
+                                {{ isset($item) ? ($item->kebutuhan_khusus == 'Netra' ? 'selected' : '') : (old('kebutuhan_khusus') == 'Netra' ? 'selected' : '') }}>
+                                Netra</option>
+                            <option value="Rungu"
+                                {{ isset($item) ? ($item->kebutuhan_khusus == 'Rungu' ? 'selected' : '') : (old('kebutuhan_khusus') == 'Rungu' ? 'selected' : '') }}>
+                                Rungu</option>
+                            <option value="Grahita"
+                                {{ isset($item) ? ($item->kebutuhan_khusus == 'Grahita' ? 'selected' : '') : (old('kebutuhan_khusus') == 'Grahita' ? 'selected' : '') }}>
+                                Grahita</option>
+                            <option value="Wicara"
+                                {{ isset($item) ? ($item->kebutuhan_khusus == 'Wicara' ? 'selected' : '') : (old('kebutuhan_khusus') == 'Wicara' ? 'selected' : '') }}>
+                                Wicara</option>
+                            <option value="Daksa"
+                                {{ isset($item) ? ($item->kebutuhan_khusus == 'Daksa' ? 'selected' : '') : (old('kebutuhan_khusus') == 'Daksa' ? 'selected' : '') }}>
+                                Daksa</option>
+                            <option value="Autis"
+                                {{ isset($item) ? ($item->kebutuhan_khusus == 'Autis' ? 'selected' : '') : (old('kebutuhan_khusus') == 'Autis' ? 'selected' : '') }}>
+                                Autis</option>
                         </select>
                     </div>
                     @include('home.admin.siswa.wali')

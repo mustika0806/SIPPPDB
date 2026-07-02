@@ -111,7 +111,7 @@
                     <img id="img-preview" class="img-fluid" style="max-height: 150px; display: none;">
                 </div>
             </div>
-            <label for="file_ijazah">Upload Ijazah/SKL SMP</label>
+            <label for="file_ijazah">Upload Ijazah SMP/SKL SMP</label>
             <input type="file" class="form-control @error('file_ijazah') is-invalid @enderror" name="file_ijazah"
                 id="file_ijazah" accept=".jpeg, .jpg, .png" onchange="previewImage()">
 
@@ -140,6 +140,30 @@
                 id="file_kip" accept=".jpeg, .jpg, .png" onchange="previewImage()">
 
             @error('file_kip')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+            @enderror
+        </div>
+        <div class="col">
+            @if (isset($dokumen->file_keputusan))
+                <div class="row">
+                    <div class="col">
+                        <img src="{{ url($dokumen->file_keputusan) }}" width="100" class="img-fluid">
+                    </div>
+                </div>
+            @endif
+            <!-- Elemen untuk Preview Gambar Baru -->
+            <div class="row mb-2">
+                <div class="col">
+                    <img id="img-preview" class="img-fluid" style="max-height: 150px; display: none;">
+                </div>
+            </div>
+            <label for="file_keputusan">Upload Surat Pindahan (Khusus Anak Pindahan)</label>
+            <input type="file" class="form-control @error('file_keputusan') is-invalid @enderror"
+                name="file_keputusan" id="file_keputusan" accept=".jpeg, .jpg, .png" onchange="previewImage()">
+
+            @error('file_keputusan')
                 <div class="invalid-feedback">
                     {{ $message }}
                 </div>

@@ -77,7 +77,6 @@
                                                 <div class="bg-white py-2 collapse-inner rounded">
                                                     <a class="collapse-item" href="{{ route('admin.kriteria.index') }}">Data Kriteria</a>
                                                     <a class="collapse-item" href="{{ route('admin.aspek.index') }}">Data Aspek</a>
-                                                    <a class="collapse-item" href="{{ route('admin.penilaian.index') }}">Data Penilaian</a>
                                                 </div>
                                             </div>
                                         </li> -->
@@ -158,12 +157,15 @@
         </li>
 
         <!-- 6. Seleksi Wawancara -->
-        <li class="nav-item {{ request()->routeIs('siswa.interview.*') ? 'active' : '' }}">
-            <a class="nav-link" href="{{ route('siswa.interview.index') }}">
-                <i class="fas fa-comments"></i>
-                <span>Seleksi Wawancara</span>
-            </a>
-        </li>
+        @if (auth()->user()->quranTest && auth()->user()->quranTest->score !== null)
+            <li class="nav-item {{ request()->routeIs('siswa.interview.*') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('siswa.interview.index') }}">
+                    <i class="fas fa-comments"></i>
+                    <span>Seleksi Wawancara</span>
+                </a>
+            </li>
+        @endif
+
 
         <!-- 7. Pengumuman -->
         @if (Route::has('siswa.pengumuman.index'))

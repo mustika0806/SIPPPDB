@@ -24,6 +24,7 @@ class Siswa extends Model
         'tanggal_pendaftaran' => 'date',
         'is_save' => 'boolean',
         'tinggi_badan' => 'integer',
+        'jumlah_saudara' => 'integer',
         'berat_badan' => 'integer',
         'nilai_ijazah' => 'integer',
         'nilai_rata' => 'integer',
@@ -50,12 +51,12 @@ class Siswa extends Model
         return $this->belongsTo(Pendaftaran::class);
     }
 
-    public function dokumen(): HasOne
+    public function dokumen_siswa(): HasOne
     {
         return $this->hasOne(DokumenSiswa::class);
     }
 
-    public function dokumenPindahan(): HasOne
+    public function dokumen_siswa_pindahan(): HasOne
     {
         return $this->hasOne(DokumenSiswaPindahan::class);
     }
@@ -104,7 +105,6 @@ class Siswa extends Model
         return match (true) {
             empty($this->nisn) => 'biodata',
             empty($this->nilai_rata) => 'wali',
-            empty($this->sekolah_asal) => 'sekolah',
             default => 'selesai',
         };
     }
