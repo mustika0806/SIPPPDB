@@ -13,36 +13,110 @@ class SiswaUploadDokumenController extends Controller
     public function index()
     {
         $siswa = Siswa::where('user_id', auth()->user()->id)->first();
+
+        if (!$siswa) {
+            return redirect()->back()->with('error', 'Data siswa tidak ditemukan.');
+        }
+
         $dokumen = DokumenSiswa::where('siswa_id', $siswa->id)->first();
+
+        // Tetap disiapkan kalau nanti ingin memakai dokumen khusus pindahan tambahan
         $pindahan = DokumenSiswaPindahan::where('siswa_id', $siswa->id)->first();
+
         return view('home.siswa.dokumen.index', compact('siswa', 'dokumen', 'pindahan'));
     }
+
     public function store(Request $request)
     {
-        $request->validate([
-            'file_kk' => 'nullable|mimes:jpg,jpeg,png|max:2048',
-            'file_ktp' => 'nullable|mimes:jpg,jpeg,png|max:2048',
-            'file_akta' => 'nullable|mimes:jpg,jpeg,png|max:2048',
-            'file_raport' => 'nullable|mimes:jpg,jpeg,png|max:2048',
-            'file_ijazah' => 'nullable|mimes:jpg,jpeg,png|max:2048',
-            'file_kip' => 'nullable|mimes:jpg,jpeg,png|max:2048',
-            'file_keputusan' => 'nullable|mimes:jpg,jpeg,png|max:2048',
-            'file_foto' => 'nullable|mimes:jpg,jpeg,png|max:2048',
-        ]);
-
         try {
             $siswa = Siswa::where('user_id', auth()->user()->id)->first();
+
+            if (!$siswa) {
+                return redirect()->back()->with('error', 'Data siswa tidak ditemukan.');
+            }
+
             $dokumen = DokumenSiswa::where('siswa_id', $siswa->id)->first();
 
-            // Jika dokumen sudah ada, gunakan yang sudah tersimpan jika tidak ada file baru diupload
-            $file_kk = $request->hasFile('file_kk') ? FileHelper::uploadFile($request->file('file_kk'), 'uploads/dokumen') : ($dokumen->file_kk ?? null);
-            $file_ktp = $request->hasFile('file_ktp') ? FileHelper::uploadFile($request->file('file_ktp'), 'uploads/dokumen') : ($dokumen->file_ktp ?? null);
-            $file_akta = $request->hasFile('file_akta') ? FileHelper::uploadFile($request->file('file_akta'), 'uploads/dokumen') : ($dokumen->file_akta ?? null);
-            $file_raport = $request->hasFile('file_raport') ? FileHelper::uploadFile($request->file('file_raport'), 'uploads/dokumen') : ($dokumen->file_raport ?? null);
-            $file_ijazah = $request->hasFile('file_ijazah') ? FileHelper::uploadFile($request->file('file_ijazah'), 'uploads/dokumen') : ($dokumen->file_ijazah ?? null);
-            $file_kip = $request->hasFile('file_kip') ? FileHelper::uploadFile($request->file('file_kip'), 'uploads/dokumen') : ($dokumen->file_kip ?? null);
-            $file_keputusan = $request->hasFile('file_keputusan') ? FileHelper::uploadFile($request->file('file_keputusan'), 'uploads/dokumen') : ($dokumen->file_keputusan ?? null);
-            $file_foto = $request->hasFile('file_foto') ? FileHelper::uploadFile($request->file('file_foto'), 'uploads/dokumen') : ($dokumen->file_foto ?? null);
+            /*
+            |--------------------------------------------------------------------------
+            | VALIDASI FILE
+            |--------------------------------------------------------------------------
+            | Semua file dibuat nullable agar saat update siswa tidak wajib upload ulang.
+            | Surat pindahan juga dibuat nullable karena hanya untuk siswa pindahan.
+            */
+            $request->validate([
+                'file_kk' => 'nullable|mimes:jpg,jpeg,png|max:2048',
+                'file_ktp' => 'nullable|mimes:jpg,jpeg,png|max:2048',
+                'file_akta' => 'nullable|mimes:jpg,jpeg,png|max:2048',
+                'file_raport' => 'nullable|mimes:jpg,jpeg,png|max:2048',
+                'file_ijazah' => 'nullable|mimes:jpg,jpeg,png|max:2048',
+                'file_kip' => 'nullable|mimes:jpg,jpeg,png|max:2048',
+                'file_keputusan' => 'nullable|mimes:jpg,jpeg,png|max:2048',
+                'file_foto' => 'nullable|mimes:jpg,jpeg,png|max:2048',
+            ], [
+                'file_kk.mimes' => 'File KK harus berformat jpg, jpeg, atau png.',
+                'file_ktp.mimes' => 'File KTP orang tua harus berformat jpg, jpeg, atau png.',
+                'file_akta.mimes' => 'File akta harus berformat jpg, jpeg, atau png.',
+                'file_raport.mimes' => 'File raport harus berformat jpg, jpeg, atau png.',
+                'file_ijazah.mimes' => 'File ijazah harus berformat jpg, jpeg, atau png.',
+                'file_kip.mimes' => 'File KKS/KIP harus berformat jpg, jpeg, atau png.',
+                'file_keputusan.mimes' => 'Surat pindahan harus berformat jpg, jpeg, atau png.',
+                'file_foto.mimes' => 'File pas foto harus berformat jpg, jpeg, atau png.',
+
+                'file_kk.max' => 'Ukuran file KK maksimal 2MB.',
+                'file_ktp.max' => 'Ukuran file KTP orang tua maksimal 2MB.',
+                'file_akta.max' => 'Ukuran file akta maksimal 2MB.',
+                'file_raport.max' => 'Ukuran file raport maksimal 2MB.',
+                'file_ijazah.max' => 'Ukuran file ijazah maksimal 2MB.',
+                'file_kip.max' => 'Ukuran file KKS/KIP maksimal 2MB.',
+                'file_keputusan.max' => 'Ukuran surat pindahan maksimal 2MB.',
+                'file_foto.max' => 'Ukuran file pas foto maksimal 2MB.',
+            ]);
+
+            /*
+            |--------------------------------------------------------------------------
+            | UPLOAD FILE
+            |--------------------------------------------------------------------------
+            | Kalau user upload file baru, file baru akan disimpan.
+            | Kalau tidak upload file baru, file lama tetap dipakai.
+            */
+            $file_kk = $request->hasFile('file_kk')
+                ? FileHelper::uploadFile($request->file('file_kk'), 'uploads/dokumen')
+                : ($dokumen->file_kk ?? null);
+
+            $file_ktp = $request->hasFile('file_ktp')
+                ? FileHelper::uploadFile($request->file('file_ktp'), 'uploads/dokumen')
+                : ($dokumen->file_ktp ?? null);
+
+            $file_akta = $request->hasFile('file_akta')
+                ? FileHelper::uploadFile($request->file('file_akta'), 'uploads/dokumen')
+                : ($dokumen->file_akta ?? null);
+
+            $file_raport = $request->hasFile('file_raport')
+                ? FileHelper::uploadFile($request->file('file_raport'), 'uploads/dokumen')
+                : ($dokumen->file_raport ?? null);
+
+            $file_ijazah = $request->hasFile('file_ijazah')
+                ? FileHelper::uploadFile($request->file('file_ijazah'), 'uploads/dokumen')
+                : ($dokumen->file_ijazah ?? null);
+
+            $file_kip = $request->hasFile('file_kip')
+                ? FileHelper::uploadFile($request->file('file_kip'), 'uploads/dokumen')
+                : ($dokumen->file_kip ?? null);
+
+            $file_keputusan = $request->hasFile('file_keputusan')
+                ? FileHelper::uploadFile($request->file('file_keputusan'), 'uploads/dokumen')
+                : ($dokumen->file_keputusan ?? null);
+
+            $file_foto = $request->hasFile('file_foto')
+                ? FileHelper::uploadFile($request->file('file_foto'), 'uploads/dokumen')
+                : ($dokumen->file_foto ?? null);
+
+            /*
+            |--------------------------------------------------------------------------
+            | SIMPAN ATAU UPDATE DOKUMEN SISWA
+            |--------------------------------------------------------------------------
+            */
             if ($dokumen) {
                 $dokumen->update([
                     'file_kk' => $file_kk,
@@ -53,10 +127,7 @@ class SiswaUploadDokumenController extends Controller
                     'file_kip' => $file_kip,
                     'file_keputusan' => $file_keputusan,
                     'file_foto' => $file_foto,
-                    'status' => 'Menunggu Konfirmasi '
-                ]);
-                $siswa->update([
-                    'status' => 'Menunggu Konfirmasi'
+                    'status' => 'Menunggu Konfirmasi',
                 ]);
             } else {
                 DokumenSiswa::create([
@@ -69,77 +140,27 @@ class SiswaUploadDokumenController extends Controller
                     'file_kip' => $file_kip,
                     'file_keputusan' => $file_keputusan,
                     'file_foto' => $file_foto,
+                    'status' => 'Menunggu Konfirmasi',
                 ]);
             }
 
-            if ($request->pindahan == true) {
-                $request->validate([
-                    'surat_pindah' => 'nullable|mimes:jpg,jpeg,png|max:2048',
-                    'raport_terakhir' => 'nullable|mimes:jpg,jpeg,png|max:2048',
-                    'keterangan_prilaku_baik' => 'nullable|mimes:jpg,jpeg,png|max:2048',
-                    'rekomendasi' => 'nullable|mimes:jpg,jpeg,png|max:2048',
-                    'surat_perwalian' => 'nullable|mimes:jpg,jpeg,png|max:2048',
-                    'sertifikat_akreditasi_sekolah' => 'nullable|mimes:jpg,jpeg,png|max:2048',
-                    'ktp_ayah' => 'nullable|mimes:jpg,jpeg,png|max:2048',
-                    'ktp_ibu' => 'nullable|mimes:jpg,jpeg,png|max:2048',
-                    'ktp_wali' => 'nullable|mimes:jpg,jpeg,png|max:2048',
-                ]);
+            /*
+            |--------------------------------------------------------------------------
+            | UPDATE STATUS SISWA
+            |--------------------------------------------------------------------------
+            */
+            $siswa->update([
+                'status' => 'Menunggu Konfirmasi',
+            ]);
 
-                $pindahan = DokumenSiswaPindahan::where('siswa_id', $siswa->id)->first();
+            return redirect()
+                ->back()
+                ->with('success', 'Berhasil mengupload dokumen.');
 
-                $surat_pindah = $request->hasFile('surat_pindah') ? FileHelper::uploadFile($request->file('surat_pindah'), 'uploads/dokumen_pindahan') : ($pindahan->surat_pindah ?? null);
-                $raport_terakhir = $request->hasFile('raport_terakhir') ? FileHelper::uploadFile($request->file('raport_terakhir'), 'uploads/dokumen_pindahan') : ($pindahan->raport_terakhir ?? null);
-                $keterangan_prilaku_baik = $request->hasFile('keterangan_prilaku_baik') ? FileHelper::uploadFile($request->file('keterangan_prilaku_baik'), 'uploads/dokumen_pindahan') : ($pindahan->keterangan_prilaku_baik ?? null);
-                $rekomendasi = $request->hasFile('rekomendasi') ? FileHelper::uploadFile($request->file('rekomendasi'), 'uploads/dokumen_pindahan') : ($pindahan->rekomendasi ?? null);
-                $surat_perwalian = $request->hasFile('surat_perwalian') ? FileHelper::uploadFile($request->file('surat_perwalian'), 'uploads/dokumen_pindahan') : ($pindahan->surat_perwalian ?? null);
-                $sertifikat_akreditasi_sekolah = $request->hasFile('sertifikat_akreditasi_sekolah') ? FileHelper::uploadFile($request->file('sertifikat_akreditasi_sekolah'), 'uploads/dokumen_pindahan') : ($pindahan->sertifikat_akreditasi_sekolah ?? null);
-                $ktp_ayah = $request->hasFile('ktp_ayah') ? FileHelper::uploadFile($request->file('ktp_ayah'), 'uploads/dokumen_pindahan') : ($dokumen->ktp_ayah ?? null);
-                $ktp_ibu = $request->hasFile('ktp_ibu') ? FileHelper::uploadFile($request->file('ktp_ibu'), 'uploads/dokumen_pindahan') : ($dokumen->ktp_ibu ?? null);
-                $ktp_wali = $request->hasFile('ktp_wali') ? FileHelper::uploadFile($request->file('ktp_wali'), 'uploads/dokumen_pindahan') : ($dokumen->ktp_wali ?? null);
-
-                if ($pindahan) {
-                    $pindahan->update([
-                        'surat_pindah' => $surat_pindah,
-                        'raport_terakhir' => $raport_terakhir,
-                        'keterangan_prilaku_baik' => $keterangan_prilaku_baik,
-                        'rekomendasi' => $rekomendasi,
-                        'surat_perwalian' => $surat_perwalian,
-                        'sertifikat_akreditasi_sekolah' => $sertifikat_akreditasi_sekolah,
-                        'ktp_ayah' => $ktp_ayah,
-                        'ktp_ibu' => $ktp_ibu,
-                        'ktp_wali' => $ktp_wali,
-                    ]);
-                    $dokumen->update([
-                        'status' => 'Menunggu Konfirmasi'
-                    ]);
-                    $siswa->update([
-                        'status' => 'Menunggu Konfirmasi'
-                    ]);
-                } else {
-                    DokumenSiswaPindahan::create([
-                        'siswa_id' => $siswa->id,
-                        'surat_pindah' => $surat_pindah,
-                        'raport_terakhir' => $raport_terakhir,
-                        'keterangan_prilaku_baik' => $keterangan_prilaku_baik,
-                        'rekomendasi' => $rekomendasi,
-                        'surat_perwalian' => $surat_perwalian,
-                        'sertifikat_akreditasi_sekolah' => $sertifikat_akreditasi_sekolah,
-                        'ktp_ayah' => $ktp_ayah,
-                        'ktp_ibu' => $ktp_ibu,
-                        'ktp_wali' => $ktp_wali,
-                    ]);
-                    $dokumen->update([
-                        'status' => 'Menunggu Konfirmasi'
-                    ]);
-                    $siswa->update([
-                        'status' => 'Menunggu Konfirmasi'
-                    ]);
-                }
-            }
-
-            return redirect()->back()->with('success', 'Berhasil mengupload dokumen');
         } catch (\Throwable $th) {
-            return redirect()->back()->with('error', 'Gagal mengupload dokumen');
+            return redirect()
+                ->back()
+                ->with('error', 'Gagal mengupload dokumen: ' . $th->getMessage());
         }
     }
 }

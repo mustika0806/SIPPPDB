@@ -158,7 +158,16 @@
                         <input type="number" id="anak_ke" class="form-control">
                     </div>
 
+                    <div class="col-md-4 mt-2">
+                        <label>Apakah Siswa Pindahan?</label>
+                        <select id="pindahan" class="form-control">
+                            <option value="Tidak">Tidak</option>
+                            <option value="Ya">Ya</option>
+                        </select>
+                    </div>
+
                 </div>
+
 
                 {{-- ================= ALAMAT ================= --}}
                 <div class="block-title">Alamat Lengkap</div>
@@ -343,7 +352,7 @@
 
     @push('js')
         <script>
-            $('#next').on('click', function() {
+            $('#next').on('click', function () {
 
                 $.ajax({
                     url: "{{ route('siswa.pendaftaran.biodata') }}",
@@ -352,6 +361,7 @@
                         _token: "{{ csrf_token() }}",
 
                         name: $('#name').val(),
+                        nama_lengkap: $('#name').val(),
                         nama_panggilan: $('#nama_panggilan').val(),
                         tinggi_badan: $('#tinggi_badan').val(),
                         berat_badan: $('#berat_badan').val(),
@@ -367,6 +377,7 @@
                         kewarganegaraan: $('#kewarganegaraan').val(),
                         kebutuhan_khusus: $('#kebutuhan_khusus').val(),
                         anak_ke: $('#anak_ke').val(),
+                        pindahan:$('#pindahan').val(),
 
                         alamat_asal: $('#alamat_asal').val(),
                         rt: $('#rt').val(),
@@ -399,12 +410,12 @@
                         kps_pkp: $('#kps_pkp').val(),
                     },
 
-                    success: function(res) {
+                    success: function (res) {
                         console.log("CLICK TRIGGERED ke sukses");
                         window.location.href = res.url;
                     },
 
-                    error: function(xhr) {
+                    error: function (xhr) {
                         console.log("CLICK TRIGGERED");
                         console.log(xhr.responseJSON);
                         alert(JSON.stringify(xhr.responseJSON));

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\InterviewTest;
 use App\Models\User;
+use App\Models\Siswa;
 use Illuminate\Http\Request;
 
 class InterviewTestController extends Controller
@@ -46,7 +47,18 @@ class InterviewTestController extends Controller
             $data['meeting_link'] = null;
         }
 
-        InterviewTest::create($data);   
+        $interview = InterviewTest::create($data);
+
+        // Simpan nilai wawancara ke tabel siswas jika score sudah diisi
+        if ($request->score !== null) {
+            $siswa = Siswa::where('user_id', $request->user_id)->first();
+
+            if ($siswa) {
+                $siswa->update([
+                    'nilai_wawancara' => $request->score,
+                ]);
+            }
+        }
 
         return redirect()->route('admin.interview.index')
             ->with('success', 'Data wawancara berhasil disimpan.');
@@ -63,7 +75,7 @@ class InterviewTestController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'user_id' => 'required',
+            'user_id' => 'required|exists:users,id',
             'interview_date' => 'required|date',
             'meeting_link' => 'nullable|url',
             'score' => 'required|numeric|min:0|max:100',
@@ -81,6 +93,15 @@ class InterviewTestController extends Controller
             'notes' => $request->notes,
             'status' => $request->status,
         ]);
+
+        // Simpan nilai wawancara ke tabel siswas
+        $siswa = Siswa::where('user_id', $request->user_id)->first();
+
+        if ($siswa) {
+            $siswa->update([
+                'nilai_wawancara' => $request->score,
+            ]);
+        }
 
         return redirect()->route('admin.interview.index')
             ->with('success', 'Data wawancara berhasil diperbarui.');

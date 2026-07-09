@@ -28,6 +28,9 @@ class Siswa extends Model
         'berat_badan' => 'integer',
         'nilai_ijazah' => 'integer',
         'nilai_rata' => 'integer',
+        'nilai_quran' => 'integer',
+        'nilai_wawancara' => 'integer',
+        'total_nilai' => 'decimal:2',
     ];
 
     /*
@@ -98,6 +101,10 @@ class Siswa extends Model
     public function isMenunggu(): bool
     {
         return $this->status === 'Menunggu Konfirmasi';
+    }
+    public function isTidakDiterima(): bool
+    {
+        return $this->status === 'Tidak Diterima';
     }
 
     public function progressStep(): string

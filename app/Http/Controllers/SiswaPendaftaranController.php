@@ -115,6 +115,7 @@ class SiswaPendaftaranController extends Controller
             }
 
             $data['pendaftaran_id'] = $pendaftaran->id;
+            $data['nama_lengkap'] = $data['name'];
 
             $this->saveSiswa($data);
 

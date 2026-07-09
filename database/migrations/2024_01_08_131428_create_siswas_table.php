@@ -19,6 +19,7 @@ return new class extends Migration
             $table->foreignIdFor(User::class)->constrained()->cascadeOnDelete();
             $table->foreignIdFor(Kelas::class)->constrained()->cascadeOnDelete();
             $table->foreignIdFor(Pendaftaran::class)->constrained()->cascadeOnDelete();
+            $table->text('nama_lengkap')->nullable();
             $table->text('nama_panggilan')->nullable();
             $table->bigInteger('tinggi_badan')->nullable();
             $table->bigInteger('berat_badan')->nullable();

@@ -5,6 +5,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\AdminKelasController;
 use App\Http\Controllers\InterviewTestController;
 use App\Http\Controllers\AdminQuranTesController;
+use App\Http\Controllers\AdminHasilSeleksiController;
 use App\Http\Controllers\AdminPendaftaranController;
 use App\Http\Controllers\AdminSiswaBaruController;
 use App\Http\Controllers\AdminDaftarUlangController;
@@ -12,7 +13,6 @@ use App\Http\Controllers\KriteriaController;
 use App\Http\Controllers\AspekController;
 use App\Http\Controllers\PenilaianController;
 use App\Http\Controllers\PerhitunganController;
-use App\Http\Controllers\HasilAkhirController;
 use App\Http\Controllers\RekapController;
 use App\Http\Controllers\AlumniController;
 use App\Http\Controllers\AdminGaleriController;
@@ -25,6 +25,7 @@ use App\Http\Controllers\SiswaDaftarUlangController;
 use App\Http\Controllers\SiswaKelasController;
 use App\Http\Controllers\SiswaTesQuranController;
 use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\SiswaPengumumanController;
 
 Route::middleware(['auth'])->group(function () {
 
@@ -119,7 +120,7 @@ Route::middleware(['auth'])->group(function () {
             Route::delete('/aspek/{aspek}/destroy', 'destroy')->name('aspek.destroy');
         });
 
-        
+
 
         // Perhitungan
         Route::controller(PerhitunganController::class)->group(function () {
@@ -129,9 +130,11 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/perhitungan/aspek_akademik', 'calcAA')->name('perhitungan.calcAA');
         });
 
-        // Hasil Akhir
-        Route::controller(HasilAkhirController::class)->group(function () {
+        // Data Hasil Akhir / Hasil Seleksi
+        Route::controller(AdminHasilSeleksiController::class)->group(function () {
             Route::get('/hasil_akhir', 'index')->name('hasil_akhir.index');
+            Route::post('/hasil_akhir/proses/{id}', 'proses')->name('hasil_akhir.proses');
+            Route::post('/hasil_akhir/proses-semua', 'prosesSemua')->name('hasil_akhir.proses-semua');
         });
 
         // Rekap
@@ -243,5 +246,9 @@ Route::prefix('siswa')->as('siswa.')->group(function () {
 // Notifications
 Route::controller(NotificationController::class)->group(function () {
     Route::get('/notifications/{user}/read', 'read')->name('notifications.read');
+});
+
+Route::controller(SiswaPengumumanController::class)->group(function () {
+    Route::get('/pengumuman', 'index')->name('pengumuman.index');
 });
 

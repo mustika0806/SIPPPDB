@@ -14,16 +14,29 @@ return new class extends Migration
     {
         Schema::create('dokumen_siswas', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Siswa::class)->constrained()->cascadeOnDelete();
+
+            $table->foreignIdFor(Siswa::class)
+                ->constrained()
+                ->cascadeOnDelete();
+
             $table->string('file_kk');
             $table->string('file_ktp');
             $table->string('file_akta');
             $table->string('file_raport');
             $table->string('file_ijazah');
             $table->string('file_kip');
-            $table->string('file_keputusan');
+
+            // Surat pindahan boleh kosong
+            $table->string('file_keputusan')->nullable();
+
             $table->string('file_foto');
-            $table->enum('status', ['Menunggu Konfirmasi', 'Perbaiki Dokumen', 'Diterima'])->default('Menunggu Konfirmasi');
+
+            $table->enum('status', [
+                'Menunggu Konfirmasi',
+                'Perbaiki Dokumen',
+                'Diterima'
+            ])->default('Menunggu Konfirmasi');
+
             $table->timestamps();
         });
     }

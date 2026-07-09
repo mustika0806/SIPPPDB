@@ -9,12 +9,30 @@ class QuranTes extends Model
 {
     use HasFactory;
 
+    protected $table = 'quran_tes';
+
     protected $fillable = [
         'user_id',
         'test_date',
-        'video_path', // bisa mp4, mp3, wav, dll
+
+        // Detail bacaan siswa
+        'juz',
+        'surat',
+        'ayat',
+        'keterangan_bacaan',
+
+        // File video
+        'video_path',
+
+        // Penilaian admin
         'score',
         'notes',
+        'status',
+    ];
+
+    protected $casts = [
+        'test_date' => 'date',
+        'score' => 'integer',
     ];
 
     public function user()
