@@ -44,7 +44,7 @@
                     Bacaan boleh dipilih secara bebas dari Juz 1 sampai Juz 30.
                 </p>
 
-                <ol class="mb-2">
+                <ol class="mb-0">
                     <li>Bacaan minimal 1 halaman mushaf Al-Qur’an.</li>
                     <li>Jika memilih surat pendek, minimal membaca 10–15 ayat.</li>
                     <li>Durasi video sekitar 2–5 menit.</li>
@@ -53,19 +53,6 @@
                     <li>Sebelum membaca, calon siswa menyebutkan nama lengkap dan nomor pendaftaran.</li>
                     <li>Format video MP4 dengan ukuran maksimal 50 MB.</li>
                 </ol>
-
-                <hr>
-
-                <h6 class="font-weight-bold mb-2">
-                    Data yang Harus Diisi
-                </h6>
-
-                <ul class="mb-0">
-                    <li>Juz yang dibaca.</li>
-                    <li>Nama surat.</li>
-                    <li>Ayat yang dibaca.</li>
-                    <li>Video membaca Al-Qur’an.</li>
-                </ul>
             </div>
 
             {{-- Tabel Tes Quran --}}
