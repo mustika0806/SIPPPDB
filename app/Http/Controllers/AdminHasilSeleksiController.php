@@ -34,8 +34,8 @@ class AdminHasilSeleksiController extends Controller
         $nilaiWawancara = (float) $siswa->nilai_wawancara;
 
         $totalNilai = ($nilaiRaport * 0.4) +
-                      ($nilaiQuran * 0.3) +
-                      ($nilaiWawancara * 0.3);
+            ($nilaiQuran * 0.3) +
+            ($nilaiWawancara * 0.3);
 
         $totalNilai = round($totalNilai, 2);
 
@@ -51,7 +51,7 @@ class AdminHasilSeleksiController extends Controller
                 ? 'Ruang Tata Usaha Sekolah'
                 : null,
             'catatan_admin' => $status === 'Diterima'
-                ? 'Selamat, Anda dinyatakan diterima. Silakan melakukan daftar ulang langsung di sekolah.'
+                ? 'Harap datang bersama orang tua/wali saat daftar ulang dan membawa hasil cetak pengumuman diterima ini sebagai bukti kelulusan seleksi.'
                 : 'Mohon maaf, Anda belum dinyatakan diterima pada seleksi kali ini.',
         ]);
 
@@ -82,8 +82,8 @@ class AdminHasilSeleksiController extends Controller
             $nilaiWawancara = (float) $siswa->nilai_wawancara;
 
             $totalNilai = ($nilaiRaport * 0.4) +
-                          ($nilaiQuran * 0.3) +
-                          ($nilaiWawancara * 0.3);
+                ($nilaiQuran * 0.3) +
+                ($nilaiWawancara * 0.3);
 
             $totalNilai = round($totalNilai, 2);
 
@@ -99,7 +99,7 @@ class AdminHasilSeleksiController extends Controller
                     ? 'Ruang Tata Usaha Sekolah'
                     : null,
                 'catatan_admin' => $status === 'Diterima'
-                    ? 'Selamat, Anda dinyatakan diterima. Silakan melakukan daftar ulang langsung di sekolah.'
+                    ? 'Harap datang bersama orang tua/wali saat daftar ulang dan membawa hasil cetak pengumuman diterima ini sebagai bukti kelulusan seleksi.'
                     : 'Mohon maaf, Anda belum dinyatakan diterima pada seleksi kali ini.',
             ]);
 

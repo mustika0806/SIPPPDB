@@ -115,20 +115,19 @@
                         </p>
                     </div>
 
-                    <div class="alert alert-success">
-                        <h3>SELAMAT</h3>
+                   <div class="alert alert-success">
+    <h4 class="font-weight-bold mb-2">
+        Selamat, Anda Dinyatakan <strong>DITERIMA</strong>
+    </h4>
 
-                        <h5>
-                            Anda dinyatakan <strong>DITERIMA</strong>
-                        </h5>
+    <hr>
 
-                        <hr>
-
-                        <p class="mb-0">
-                            Selamat, Anda dinyatakan diterima sebagai calon siswa baru
-                            SMKS Ma'arif NU Kota Batam.
-                        </p>
-                    </div>
+    <p class="mb-0">
+        Berdasarkan hasil seleksi penerimaan peserta didik baru,
+        Anda dinyatakan diterima sebagai calon siswa baru
+        SMKS Ma'arif NU Kota Batam.
+    </p>
+</div>
 
                     <div class="card mt-3">
                         <div class="card-header bg-primary text-white">
@@ -249,7 +248,7 @@
                                         </h6>
 
                                         <p class="text-muted small mb-0">
-                                            Calon siswa datang langsung ke sekolah sesuai jadwal yang telah ditentukan.
+                                            Calon siswa datang langsung ke sekolah bersama orang tua/wali sesuai jadwal yang telah ditentukan.
                                         </p>
                                     </div>
                                 </div>
@@ -264,23 +263,18 @@
                                         </div>
 
                                         <h6 class="font-weight-bold">
-                                            Konfirmasi Panitia
+                                            Pembayaran & Konfirmasi 
                                         </h6>
 
                                         <p class="text-muted small mb-0">
-                                            Panitia melakukan pengecekan data dan proses daftar ulang siswa.
+                                            Melakukan pembayaran biaya daftar ulang seperti seragam, uang pembangunan, SPP awal, dan biaya lainnya sesuai ketentuan sekolah.
                                         </p>
                                     </div>
                                 </div>
                             </div>
 
                         </div>
-
-                        <div class="alert alert-warning mt-3">
-                            <strong>Catatan:</strong>
-                            Informasi jadwal daftar ulang dan syarat administrasi mengikuti ketentuan pada halaman utama PPDB.
-                        </div>
-
+                        
                         <div class="text-right mt-3">
                             <a href="{{ route('home') }}#jumbotron-card" class="btn btn-info">
                                 <i class="fas fa-calendar-alt"></i>
