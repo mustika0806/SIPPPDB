@@ -2,32 +2,59 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\AspekKriteria;
-use App\Models\Galeri;
-use App\Models\HasilAkhir;
-use App\Models\Kelas;
-use App\Models\Kriteria;
-use App\Models\Penilaian;
-use App\Models\Post;
-use App\Models\Siswa;
-use App\Models\DaftarUlang;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Schema;
 
 class DashboardController extends Controller
 {
     public function index()
     {
-        $kelas = Kelas::all();
-        $siswa = Siswa::all();
-        $daftar_ulang = DaftarUlang::all();
-        $galeri = Galeri::all();
-        $posts = Post::all();
-        $aspek = AspekKriteria::get()->count();
-        $kriteria = Kriteria::get()->count();
-        $penilaian = Penilaian::get()->groupBy('siswa_id')->count();
-        $hasilAkhir = HasilAkhir::get()->count();
-        $siswaAlumni = Siswa::where('status_kelulusan', true)->get()->count();
-        // $rekapan = 
-        return view('home.index', compact('kelas', 'siswa',  'galeri', 'posts', 'aspek', 'kriteria', 'penilaian', 'hasilAkhir', 'siswaAlumni', 'daftar_ulang'));
+        $kelas = class_exists(\App\Models\Kelas::class)
+            ? \App\Models\Kelas::all()
+            : collect();
+
+        $siswa = class_exists(\App\Models\Siswa::class)
+            ? \App\Models\Siswa::all()
+            : collect();
+
+        $daftar_ulang = class_exists(\App\Models\DaftarUlang::class)
+            ? \App\Models\DaftarUlang::all()
+            : collect();
+
+        // Fitur lama yang tidak dipakai, dibuat kosong agar dashboard tidak error
+        $galeri = collect();
+        $posts = collect();
+
+        $aspek = 0;
+        $kriteria = 0;
+        $penilaian = 0;
+
+        // Hasil akhir dihitung dari siswa yang sudah punya total nilai
+        $hasilAkhir = class_exists(\App\Models\Siswa::class)
+            ? \App\Models\Siswa::whereNotNull('total_nilai')->count()
+            : 0;
+
+        // Alumni hanya dihitung kalau kolom status_kelulusan memang ada
+        $siswaAlumni = 0;
+
+        if (
+            class_exists(\App\Models\Siswa::class) &&
+            Schema::hasTable('siswas') &&
+            Schema::hasColumn('siswas', 'status_kelulusan')
+        ) {
+            $siswaAlumni = \App\Models\Siswa::where('status_kelulusan', true)->count();
+        }
+
+        return view('home.index', compact(
+            'kelas',
+            'siswa',
+            'daftar_ulang',
+            'galeri',
+            'posts',
+            'aspek',
+            'kriteria',
+            'penilaian',
+            'hasilAkhir',
+            'siswaAlumni'
+        ));
     }
 }

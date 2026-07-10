@@ -2,6 +2,40 @@
 
 @section('content')
 
+    {{-- ========================= WELCOME ========================= --}}
+    <div class="row">
+        <div class="col-xl-12 col-lg-12">
+            <div class="card shadow-sm border-0 mb-4">
+                <div class="card-header bg-white">
+                    <span class="text-primary font-weight-bold">
+                        Welcome
+                    </span>
+                </div>
+
+                <div class="card-body">
+                    @if(Auth::user()->level == 'admin')
+                        <h3 class="font-weight-bold text-gray-800 mb-2">
+                            Selamat Datang, Administrator
+                        </h3>
+
+                        <p class="text-muted mb-0">
+                            Kelola data PPDB mulai dari jurusan dan kuota, pembayaran, data pendaftar,
+                            seleksi tes Al-Qur’an, seleksi wawancara, hasil akhir, hingga rekapan pendaftaran.
+                        </p>
+                    @else
+                        <h3 class="font-weight-bold text-gray-800 mb-2">
+                            Selamat Datang, {{ Auth::user()->name }}
+                        </h3>
+
+                        <p class="text-muted mb-0">
+                            Silakan ikuti alur pendaftaran SIPPDB sesuai tahapan yang tersedia pada dashboard siswa.
+                        </p>
+                    @endif
+                </div>
+            </div>
+        </div>
+    </div>
+
     {{-- ========================= ADMIN DASHBOARD ========================= --}}
     @if (Auth::user()->level == 'admin')
         <div class="row">
@@ -69,90 +103,6 @@
                 </div>
             </div>
 
-            {{-- Data Aspek --}}
-            <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card border-left-primary shadow h-100 py-2">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-dark text-uppercase mb-1">
-                                    Data Aspek
-                                </div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                    {{ $aspek }}
-                                </div>
-                            </div>
-                            <div class="col-auto">
-                                <i class="fas fa-chart-bar fa-2x text-gray-300"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            {{-- Data Kriteria --}}
-            <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card border-left-success shadow h-100 py-2">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-dark text-uppercase mb-1">
-                                    Data Kriteria
-                                </div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                    {{ $kriteria }}
-                                </div>
-                            </div>
-                            <div class="col-auto">
-                                <i class="fas fa-chart-bar fa-2x text-gray-300"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            {{-- Data Penilaian --}}
-            <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card border-left-info shadow h-100 py-2">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-dark text-uppercase mb-1">
-                                    Data Penilaian
-                                </div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                    {{ $penilaian }}
-                                </div>
-                            </div>
-                            <div class="col-auto">
-                                <i class="fas fa-chart-bar fa-2x text-gray-300"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            {{-- Data Perhitungan --}}
-            <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card border-left-warning shadow h-100 py-2">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-dark text-uppercase mb-1">
-                                    Data Perhitungan
-                                </div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                    {{ $penilaian }}
-                                </div>
-                            </div>
-                            <div class="col-auto">
-                                <i class="fas fa-chart-bar fa-2x text-gray-300"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
             {{-- Data Hasil Akhir --}}
             <div class="col-xl-3 col-md-6 mb-4">
                 <div class="card border-left-primary shadow h-100 py-2">
@@ -197,27 +147,6 @@
 
         </div>
     @endif
-
-
-    {{-- ========================= WELCOME ========================= --}}
-    <div class="row">
-        <div class="col-xl-12 col-lg-12">
-            <div class="card shadow mb-4">
-                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary">
-                        Welcome
-                    </h6>
-                </div>
-
-                <div class="card-body">
-                    <h1>
-                        Selamat Datang {{ Auth::user()->name }}
-                    </h1>
-                </div>
-            </div>
-        </div>
-    </div>
-
 
     {{-- ========================= SISWA DASHBOARD ========================= --}}
     @if (auth()->check() && auth()->user()->level == 'siswa')
@@ -713,8 +642,7 @@
                 @foreach ($steps as $index => $item)
                     <div class="{{ $index == 6 ? 'col-lg-12 col-md-12' : 'col-lg-4 col-md-6' }} mb-4">
 
-                        <div class="card border-0 shadow h-100 text-center ppdb-step-card"
-                             data-status="{{ $item['status_kode'] }}">
+                        <div class="card border-0 shadow h-100 text-center ppdb-step-card" data-status="{{ $item['status_kode'] }}">
 
                             @if ($item['centang'])
                                 <div class="ppdb-check-done">
@@ -738,10 +666,7 @@
 
                                 <br>
 
-                                <img src="{{ $item['gambar'] }}"
-                                     width="90"
-                                     class="mb-3"
-                                     alt="{{ $item['judul'] }}">
+                                <img src="{{ $item['gambar'] }}" width="90" class="mb-3" alt="{{ $item['judul'] }}">
 
                                 <h4 class="font-weight-bold">
                                     {{ $item['judul'] }}

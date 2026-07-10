@@ -9,14 +9,11 @@ use App\Http\Controllers\AdminHasilSeleksiController;
 use App\Http\Controllers\AdminPendaftaranController;
 use App\Http\Controllers\AdminSiswaBaruController;
 use App\Http\Controllers\AdminDaftarUlangController;
-use App\Http\Controllers\KriteriaController;
-use App\Http\Controllers\AspekController;
-use App\Http\Controllers\PenilaianController;
-use App\Http\Controllers\PerhitunganController;
-use App\Http\Controllers\RekapController;
+use App\Http\Controllers\RekapanController;
 use App\Http\Controllers\AlumniController;
 use App\Http\Controllers\AdminGaleriController;
 use App\Http\Controllers\AdminInfoController;
+use App\Http\Controllers\AdminRekapanController;
 use App\Http\Controllers\AdminUserAdminController;
 use App\Http\Controllers\SiswaPendaftaranController;
 use App\Http\Controllers\SiswaUploadDokumenController;
@@ -103,33 +100,6 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/daftar_ulang', 'index')->name('daftar_ulang.index');
         });
 
-        // Data master: Kriteria
-        Route::controller(KriteriaController::class)->group(function () {
-            Route::get('/kriteria', 'index')->name('kriteria.index');
-            Route::post('/kriteria/store', 'store')->name('kriteria.store');
-            Route::post('/kriteria/{kriteria}/update', 'update')->name('kriteria.update');
-            Route::delete('/kriteria/{kriteria}/destroy', 'destroy')->name('kriteria.destroy');
-            Route::get('/kriteria/getKriteria', 'getKriteria')->name('kriteria.getKriteria');
-        });
-
-        // Data master: Aspek
-        Route::controller(AspekController::class)->group(function () {
-            Route::get('/aspek', 'index')->name('aspek.index');
-            Route::post('/aspek/store', 'store')->name('aspek.store');
-            Route::post('/aspek/{aspek}/update', 'update')->name('aspek.update');
-            Route::delete('/aspek/{aspek}/destroy', 'destroy')->name('aspek.destroy');
-        });
-
-
-
-        // Perhitungan
-        Route::controller(PerhitunganController::class)->group(function () {
-            Route::get('/perhitungan', 'index')->name('perhitungan.index');
-            Route::get('/perhitungan/aspek_keluarga', 'calcAK')->name('perhitungan.calcAK');
-            Route::get('/perhitungan/aspek_sosial_ekonomi', 'calcASE')->name('perhitungan.calcASE');
-            Route::get('/perhitungan/aspek_akademik', 'calcAA')->name('perhitungan.calcAA');
-        });
-
         // Data Hasil Akhir / Hasil Seleksi
         Route::controller(AdminHasilSeleksiController::class)->group(function () {
             Route::get('/hasil_akhir', 'index')->name('hasil_akhir.index');
@@ -138,10 +108,12 @@ Route::middleware(['auth'])->group(function () {
         });
 
         // Rekap
-        Route::controller(RekapController::class)->group(function () {
+        Route::controller(\App\Http\Controllers\RekapController::class)->group(function () {
             Route::get('/rekap', 'index')->name('rekap.index');
+            Route::get('/rekapan', 'index')->name('rekapan.index');
             Route::post('/rekap/update', 'update')->name('rekap.update');
             Route::get('/rekap/print', 'print')->name('rekap.print');
+            Route::get('/rekap/export-csv', 'exportCsv')->name('rekap.export-csv');
         });
 
         // Alumni
