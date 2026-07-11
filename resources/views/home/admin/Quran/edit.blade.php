@@ -108,7 +108,7 @@
                                 </div>
 
                                 <a href="{{ asset('storage/' . $quranTest->video_path) }}" target="_blank">
-                                    Lihat / Download File
+                                    Lihat 
                                 </a>
                             @else
                                 <div class="alert alert-warning">

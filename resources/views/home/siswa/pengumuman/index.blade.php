@@ -115,19 +115,19 @@
                         </p>
                     </div>
 
-                   <div class="alert alert-success">
-    <h4 class="font-weight-bold mb-2">
-        Selamat, Anda Dinyatakan <strong>DITERIMA</strong>
-    </h4>
+                    <div class="alert alert-success">
+                        <h4 class="font-weight-bold mb-2">
+                            Selamat, Anda Dinyatakan <strong>DITERIMA</strong>
+                        </h4>
 
-    <hr>
+                        <hr>
 
-    <p class="mb-0">
-        Berdasarkan hasil seleksi penerimaan peserta didik baru,
-        Anda dinyatakan diterima sebagai calon siswa baru
-        SMKS Ma'arif NU Kota Batam.
-    </p>
-</div>
+                        <p class="mb-0">
+                            Berdasarkan hasil seleksi penerimaan peserta didik baru,
+                            Anda dinyatakan diterima sebagai calon siswa baru
+                            SMKS Ma'arif NU Kota Batam.
+                        </p>
+                    </div>
 
                     <div class="card mt-3">
                         <div class="card-header bg-primary text-white">
@@ -263,7 +263,7 @@
                                         </div>
 
                                         <h6 class="font-weight-bold">
-                                            Pembayaran & Konfirmasi 
+                                            Pembayaran & Konfirmasi
                                         </h6>
 
                                         <p class="text-muted small mb-0">
@@ -274,7 +274,7 @@
                             </div>
 
                         </div>
-                        
+
                         <div class="text-right mt-3">
                             <a href="{{ route('home') }}#jumbotron-card" class="btn btn-info">
                                 <i class="fas fa-calendar-alt"></i>
@@ -297,7 +297,6 @@
 
             @elseif($siswa->status == 'Tidak Diterima')
 
-                {{-- AREA INI SAJA YANG DICETAK --}}
                 <div id="area-cetak-pengumuman">
 
                     <div class="text-center mb-4">
@@ -390,12 +389,7 @@
 
                 </div>
 
-                <div class="text-right mt-3 no-print">
-                    <button onclick="window.print()" class="btn btn-outline-secondary">
-                        <i class="fas fa-print"></i>
-                        Cetak Pengumuman
-                    </button>
-                </div>
+                {{-- Tombol cetak sengaja tidak ditampilkan untuk siswa yang tidak diterima --}}
 
             @else
 

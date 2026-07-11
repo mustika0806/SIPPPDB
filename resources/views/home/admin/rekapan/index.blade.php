@@ -3,6 +3,11 @@
 @section('content')
 
 <style>
+    .chart-box {
+        height: 310px;
+        position: relative;
+    }
+
     @media print {
         body * {
             visibility: hidden !important;
@@ -29,6 +34,30 @@
         #area-rekapan .card {
             box-shadow: none !important;
             border: 1px solid #dddddd !important;
+        }
+
+        /* Detail data pendaftar mulai di kertas baru */
+        #detail-data-pendaftar {
+            page-break-before: always;
+            break-before: page;
+            margin-top: 0 !important;
+        }
+
+        #detail-data-pendaftar .card-header {
+            page-break-after: avoid;
+        }
+
+        #detail-data-pendaftar table {
+            page-break-inside: auto;
+        }
+
+        #detail-data-pendaftar thead {
+            display: table-header-group;
+        }
+
+        #detail-data-pendaftar tr {
+            page-break-inside: avoid;
+            page-break-after: auto;
         }
 
         @page {
@@ -69,6 +98,7 @@
             </div>
         </div>
 
+        {{-- KARTU ANGKA --}}
         <div class="row">
 
             <div class="col-xl-3 col-md-6 mb-4">
@@ -181,64 +211,55 @@
 
         </div>
 
-        <div class="row">
+        {{-- PIE CHART --}}
+        <div class="row mb-4 no-print">
 
             <div class="col-lg-6 mb-4">
-                <div class="card shadow-sm border-0">
-                    <div class="card-header bg-primary text-white">
-                        <strong>Rekap Status Pendaftaran</strong>
+                <div class="card shadow-sm border-0 h-100">
+                    <div class="card-header bg-success text-white">
+                        <strong>
+                            <i class="fas fa-chart-pie"></i>
+                            Grafik Status Seleksi
+                        </strong>
                     </div>
 
                     <div class="card-body">
-                        <table class="table table-bordered mb-0">
-                            <tr>
-                                <th>Total Pendaftar</th>
-                                <td>{{ $totalPendaftar }}</td>
-                            </tr>
-
-                            <tr>
-                                <th>Menunggu Konfirmasi</th>
-                                <td>{{ $totalMenunggu }}</td>
-                            </tr>
-
-                            <tr>
-                                <th>Perbaiki Data</th>
-                                <td>{{ $totalPerbaikiData }}</td>
-                            </tr>
-
-                            <tr>
-                                <th>Perbaiki Dokumen</th>
-                                <td>{{ $totalPerbaikiDokumen }}</td>
-                            </tr>
-
-                            <tr>
-                                <th>Sudah Diproses Seleksi</th>
-                                <td>{{ $totalSudahDiproses }}</td>
-                            </tr>
-
-                            <tr>
-                                <th>Belum Diproses Seleksi</th>
-                                <td>{{ $totalBelumDiproses }}</td>
-                            </tr>
-
-                            <tr>
-                                <th>Diterima</th>
-                                <td>{{ $totalDiterima }}</td>
-                            </tr>
-
-                            <tr>
-                                <th>Tidak Diterima</th>
-                                <td>{{ $totalTidakDiterima }}</td>
-                            </tr>
-                        </table>
+                        <div class="chart-box">
+                            <canvas id="chartStatusSeleksi"></canvas>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <div class="col-lg-6 mb-4">
+                <div class="card shadow-sm border-0 h-100">
+                    <div class="card-header bg-primary text-white">
+                        <strong>
+                            <i class="fas fa-chart-pie"></i>
+                            Grafik Pendaftar per Jurusan
+                        </strong>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="chart-box">
+                            <canvas id="chartJurusan"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        {{-- TABEL REKAP PER JURUSAN --}}
+        <div class="row">
+
+            <div class="col-lg-12 mb-4">
                 <div class="card shadow-sm border-0">
                     <div class="card-header bg-success text-white">
-                        <strong>Rekap Pendaftar per Jurusan</strong>
+                        <strong>
+                            <i class="fas fa-list"></i>
+                            Rekap Pendaftar per Jurusan
+                        </strong>
                     </div>
 
                     <div class="card-body">
@@ -246,7 +267,7 @@
                             <thead class="thead-light">
                                 <tr>
                                     <th>Jurusan</th>
-                                    <th width="25%">Jumlah</th>
+                                    <th width="20%">Jumlah</th>
                                 </tr>
                             </thead>
 
@@ -272,9 +293,12 @@
         </div>
 
         {{-- DETAIL DATA PENDAFTAR --}}
-        <div class="card shadow-sm border-0 mt-4">
-            <div class="card-header bg-dark text-white">
-                <strong>Detail Data Pendaftar</strong>
+        <div id="detail-data-pendaftar" class="card shadow-sm border-0 mt-4">
+            <div class="card-header bg-success text-white">
+                <strong>
+                    <i class="fas fa-users"></i>
+                    Detail Data Pendaftar
+                </strong>
             </div>
 
             <div class="card-body">
@@ -348,5 +372,85 @@
     </div>
 
 </div>
+
+{{-- CHART JS --}}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const statusCanvas = document.getElementById('chartStatusSeleksi');
+
+        if (statusCanvas) {
+            new Chart(statusCanvas, {
+                type: 'pie',
+                data: {
+                    labels: [
+                        'Diterima',
+                        'Tidak Diterima',
+                        'Belum Diproses'
+                    ],
+                    datasets: [{
+                        data: [
+                            {{ $totalDiterima }},
+                            {{ $totalTidakDiterima }},
+                            {{ $totalBelumDiproses }}
+                        ],
+                        backgroundColor: [
+                            '#28a745',
+                            '#dc3545',
+                            '#ffc107'
+                        ],
+                        borderColor: '#ffffff',
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }
+            });
+        }
+
+        const jurusanCanvas = document.getElementById('chartJurusan');
+
+        if (jurusanCanvas) {
+            new Chart(jurusanCanvas, {
+                type: 'pie',
+                data: {
+                    labels: @json(($rekapJurusan ?? collect())->keys()->values()),
+                    datasets: [{
+                        data: @json(($rekapJurusan ?? collect())->values()->values()),
+                        backgroundColor: [
+                            '#007bff',
+                            '#28a745',
+                            '#ffc107',
+                            '#dc3545',
+                            '#17a2b8',
+                            '#6f42c1',
+                            '#fd7e14',
+                            '#20c997'
+                        ],
+                        borderColor: '#ffffff',
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }
+            });
+        }
+    });
+</script>
 
 @endsection
