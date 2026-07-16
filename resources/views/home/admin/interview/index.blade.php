@@ -35,18 +35,104 @@
                             <th>Nilai</th>
                             <th>Catatan</th>
                             <th>Status</th>
-                            <th>WhatsApp</th>
+                            <th>Konfirmasi ke Siswa</th>
                             <th width="15%">Aksi</th>
                         </tr>
                     </thead>
 
                     <tbody>
                         @forelse($interviews as $item)
+                            @php
+                                $namaSiswa = $item->user->name ?? '-';
+
+                                $tanggalWawancara = $item->interview_date
+                                    ? \Carbon\Carbon::parse($item->interview_date)->format('d-m-Y')
+                                    : '-';
+
+                                $jamWawancara = $item->interview_time ?? '-';
+
+                                $jenisWawancara = $item->interview_type == 'online'
+                                    ? 'Online'
+                                    : ($item->interview_type == 'offline' ? 'Offline' : 'Belum ditentukan');
+
+                                if ($item->interview_type == 'online') {
+                                    $linkAtauLokasi = $item->meeting_link ?? 'Link belum tersedia';
+                                } elseif ($item->interview_type == 'offline') {
+                                    $linkAtauLokasi = $item->interview_place ?? 'Lokasi belum tersedia';
+                                } else {
+                                    $linkAtauLokasi = '-';
+                                }
+
+                                /*
+                                |--------------------------------------------------------------------------
+                                | Ambil Nomor WA dari Data Siswa/User
+                                |--------------------------------------------------------------------------
+                                | Nomor WA tidak perlu diisi di form wawancara.
+                                | Sistem mengambil nomor dari biodata siswa atau akun user.
+                                */
+
+                                $siswaData = \App\Models\Siswa::where('user_id', $item->user_id)->first();
+
+                                $nomorWa = $siswaData->no_hp
+                                    ?? $siswaData->nomor_hp
+                                    ?? $siswaData->no_telepon
+                                    ?? $siswaData->no_telp
+                                    ?? $siswaData->telepon
+                                    ?? $siswaData->hp
+                                    ?? $siswaData->whatsapp
+                                    ?? $siswaData->whatsapp_number
+                                    ?? $item->user->no_hp
+                                    ?? $item->user->nomor_hp
+                                    ?? $item->user->no_telepon
+                                    ?? $item->user->phone
+                                    ?? $item->user->whatsapp
+                                    ?? $item->user->whatsapp_number
+                                    ?? null;
+
+                                $nomorWa = preg_replace('/[^0-9]/', '', $nomorWa ?? '');
+
+                                if (!empty($nomorWa)) {
+                                    if (substr($nomorWa, 0, 1) == '0') {
+                                        $nomorWa = '62' . substr($nomorWa, 1);
+                                    } elseif (substr($nomorWa, 0, 1) == '8') {
+                                        $nomorWa = '62' . $nomorWa;
+                                    }
+                                }
+
+                                /*
+                                |--------------------------------------------------------------------------
+                                | Cek Kelengkapan Jadwal
+                                |--------------------------------------------------------------------------
+                                | Tombol WA hanya muncul kalau jadwal sudah lengkap.
+                                */
+
+                                $jadwalLengkap = !empty($item->interview_date)
+                                    && !empty($item->interview_time)
+                                    && in_array($item->interview_type, ['online', 'offline']);
+
+                                if ($item->interview_type == 'online' && empty($item->meeting_link)) {
+                                    $jadwalLengkap = false;
+                                }
+
+                                if ($item->interview_type == 'offline' && empty($item->interview_place)) {
+                                    $jadwalLengkap = false;
+                                }
+
+                                $pesanWa =
+                                    "Assalamu'alaikum, " . $namaSiswa . ".\n\n" .
+                                    "Kami dari Panitia PPDB SMKS Ma'arif NU Kota Batam ingin menginformasikan jadwal seleksi wawancara Anda:\n\n" .
+                                    "Jenis Wawancara: " . $jenisWawancara . "\n" .
+                                    "Tanggal: " . $tanggalWawancara . "\n" .
+                                    "Jam: " . $jamWawancara . "\n" .
+                                    "Link/Lokasi: " . $linkAtauLokasi . "\n\n" .
+                                    "Mohon hadir tepat waktu dan mengikuti arahan panitia. Terima kasih.";
+                            @endphp
+
                             <tr>
                                 <td class="text-center">{{ $loop->iteration }}</td>
 
                                 <td>
-                                    <strong>{{ $item->user->name ?? '-' }}</strong>
+                                    <strong>{{ $namaSiswa }}</strong>
                                 </td>
 
                                 <td class="text-center">
@@ -60,15 +146,11 @@
                                 </td>
 
                                 <td class="text-center">
-                                    @if($item->interview_date)
-                                        {{ \Carbon\Carbon::parse($item->interview_date)->format('d-m-Y') }}
-                                    @else
-                                        -
-                                    @endif
+                                    {{ $tanggalWawancara }}
                                 </td>
 
                                 <td class="text-center">
-                                    {{ $item->interview_time ?? '-' }}
+                                    {{ $jamWawancara }}
                                 </td>
 
                                 <td>
@@ -97,7 +179,9 @@
                                     @endif
                                 </td>
 
-                                <td>{{ $item->notes ?? '-' }}</td>
+                                <td>
+                                    {{ $item->notes ?? '-' }}
+                                </td>
 
                                 <td class="text-center">
                                     @if($item->status == 'lulus')
@@ -112,14 +196,25 @@
                                 </td>
 
                                 <td class="text-center">
-                                    @if($item->user && $item->whatsapp_number)
-                                        <a href="https://wa.me/{{ $item->whatsapp_number }}"
+                                    @if(empty($nomorWa))
+                                        <span class="text-muted">Nomor tidak ada</span>
+                                    @elseif(!$jadwalLengkap)
+                                        <span class="badge badge-warning">
+                                            Lengkapi Jadwal
+                                        </span>
+                                    @else
+                                        <a href="https://wa.me/{{ $nomorWa }}?text={{ urlencode($pesanWa) }}"
                                            target="_blank"
                                            class="btn btn-success btn-sm">
-                                            <i class="fab fa-whatsapp"></i> Kirim {{ $item->whatsapp_number }}
+                                            <i class="fab fa-whatsapp"></i>
+                                            Konfirmasi ke Siswa
                                         </a>
-                                    @else
-                                        <span class="text-muted">Nomor tidak ada</span>
+
+                                        <br>
+
+                                        <small class="text-muted">
+                                            {{ $nomorWa }}
+                                        </small>
                                     @endif
                                 </td>
 

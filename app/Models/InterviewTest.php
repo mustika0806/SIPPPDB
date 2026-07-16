@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class InterviewTest extends Model
 {
     protected $table = 'interview_tests';
+
     protected $fillable = [
         'user_id',
         'interview_type',
@@ -14,10 +15,14 @@ class InterviewTest extends Model
         'interview_time',
         'interview_place',
         'meeting_link',
-        'whatsapp_number',
         'score',
         'status',
         'notes',
+    ];
+
+    protected $casts = [
+        'interview_date' => 'date',
+        'score' => 'integer',
     ];
 
     public function user()

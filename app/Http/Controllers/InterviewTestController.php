@@ -11,7 +11,9 @@ class InterviewTestController extends Controller
 {
     public function index()
     {
-        $interviews = InterviewTest::with('user')->latest()->get();
+        $interviews = InterviewTest::with('user')
+            ->latest()
+            ->get();
 
         return view('home.admin.interview.index', compact('interviews'));
     }
@@ -30,14 +32,18 @@ class InterviewTestController extends Controller
             'interview_type' => 'required|in:online,offline',
             'interview_date' => 'required|date',
             'interview_time' => 'required',
-            'meeting_link' => 'nullable|url',
-            'interview_place' => 'nullable|string|max:255',
-            'score' => 'nullable|numeric|min:0|max:100',
-            'status' => 'required|in:belum,terjadwal,lulus,tidak_lulus',
-            'notes' => 'nullable|string',
+            'meeting_link' => 'required_if:interview_type,online|nullable|url',
+            'interview_place' => 'required_if:interview_type,offline|nullable|string|max:255',
         ]);
 
-        $data = $request->all();
+        $data = $request->only([
+            'user_id',
+            'interview_type',
+            'interview_date',
+            'interview_time',
+            'meeting_link',
+            'interview_place',
+        ]);
 
         if ($request->interview_type == 'online') {
             $data['interview_place'] = null;
@@ -47,21 +53,15 @@ class InterviewTestController extends Controller
             $data['meeting_link'] = null;
         }
 
-        $interview = InterviewTest::create($data);
+        // Saat tambah data, wawancara baru sebatas jadwal
+        $data['score'] = null;
+        $data['notes'] = null;
+        $data['status'] = 'terjadwal';
 
-        // Simpan nilai wawancara ke tabel siswas jika score sudah diisi
-        if ($request->score !== null) {
-            $siswa = Siswa::where('user_id', $request->user_id)->first();
-
-            if ($siswa) {
-                $siswa->update([
-                    'nilai_wawancara' => $request->score,
-                ]);
-            }
-        }
+        InterviewTest::create($data);
 
         return redirect()->route('admin.interview.index')
-            ->with('success', 'Data wawancara berhasil disimpan.');
+            ->with('success', 'Jadwal wawancara berhasil ditambahkan.');
     }
 
     public function edit($id)
@@ -76,30 +76,56 @@ class InterviewTestController extends Controller
     {
         $request->validate([
             'user_id' => 'required|exists:users,id',
+            'interview_type' => 'required|in:online,offline',
             'interview_date' => 'required|date',
-            'meeting_link' => 'nullable|url',
-            'score' => 'required|numeric|min:0|max:100',
+            'interview_time' => 'required',
+            'meeting_link' => 'required_if:interview_type,online|nullable|url',
+            'interview_place' => 'required_if:interview_type,offline|nullable|string|max:255',
+            'score' => 'nullable|numeric|min:0|max:100',
             'notes' => 'nullable|string',
-            'status' => 'required|in:belum,lulus,tidak_lulus',
         ]);
 
         $interview = InterviewTest::findOrFail($id);
 
-        $interview->update([
-            'user_id' => $request->user_id,
-            'interview_date' => $request->interview_date,
-            'meeting_link' => $request->meeting_link,
-            'score' => $request->score,
-            'notes' => $request->notes,
-            'status' => $request->status,
+        $data = $request->only([
+            'user_id',
+            'interview_type',
+            'interview_date',
+            'interview_time',
+            'meeting_link',
+            'interview_place',
+            'score',
+            'notes',
         ]);
 
-        // Simpan nilai wawancara ke tabel siswas
+        if ($request->interview_type == 'online') {
+            $data['interview_place'] = null;
+        }
+
+        if ($request->interview_type == 'offline') {
+            $data['meeting_link'] = null;
+        }
+
+        // Status wawancara otomatis berdasarkan nilai
+        if ($request->score === null || $request->score === '') {
+            $data['score'] = null;
+            $data['status'] = 'terjadwal';
+        } elseif ($request->score >= 70) {
+            $data['status'] = 'lulus';
+        } else {
+            $data['status'] = 'tidak_lulus';
+        }
+
+        $interview->update($data);
+
+        // Sinkronkan nilai wawancara ke tabel siswas
         $siswa = Siswa::where('user_id', $request->user_id)->first();
 
         if ($siswa) {
             $siswa->update([
-                'nilai_wawancara' => $request->score,
+                'nilai_wawancara' => ($request->score === null || $request->score === '')
+                    ? null
+                    : $request->score,
             ]);
         }
 

@@ -11,26 +11,21 @@
         <div class="card-body">
 
             @if (!$interview)
+
                 <div class="alert alert-warning">
                     Jadwal wawancara belum tersedia. Silakan menunggu informasi dari panitia PPDB.
                 </div>
+
             @else
 
-                @if ($interview->status == 'terjadwal')
-                    <div class="alert alert-info">
-                        Anda mendapatkan panggilan untuk mengikuti seleksi wawancara.
-                    </div>
-                @elseif ($interview->status == 'lulus')
+                {{-- ALERT HANYA MUNCUL KALAU SUDAH ADA HASIL --}}
+                @if ($interview->status == 'lulus')
                     <div class="alert alert-success">
                         Selamat! Anda dinyatakan <strong>LULUS</strong> pada tahap wawancara.
                     </div>
                 @elseif ($interview->status == 'tidak_lulus')
                     <div class="alert alert-danger">
                         Mohon maaf, Anda dinyatakan <strong>TIDAK LULUS</strong> pada tahap wawancara.
-                    </div>
-                @else
-                    <div class="alert alert-warning">
-                        Data wawancara belum diproses oleh panitia.
                     </div>
                 @endif
 
@@ -44,9 +39,13 @@
                         <td>Jenis Wawancara</td>
                         <td>
                             @if ($interview->interview_type == 'online')
-                                <span class="badge badge-primary">Online / Google Meet</span>
+                                <span class="badge badge-primary">
+                                    Online / Google Meet
+                                </span>
                             @elseif ($interview->interview_type == 'offline')
-                                <span class="badge badge-success">Offline / Tatap Muka</span>
+                                <span class="badge badge-success">
+                                    Offline / Tatap Muka
+                                </span>
                             @else
                                 -
                             @endif
@@ -55,12 +54,16 @@
 
                     <tr>
                         <td>Tanggal Wawancara</td>
-                        <td>{{ $interview->interview_date ?? '-' }}</td>
+                        <td>
+                            {{ $interview->interview_date ? \Carbon\Carbon::parse($interview->interview_date)->format('d-m-Y') : '-' }}
+                        </td>
                     </tr>
 
                     <tr>
                         <td>Jam Wawancara</td>
-                        <td>{{ $interview->interview_time ?? '-' }}</td>
+                        <td>
+                            {{ $interview->interview_time ? \Carbon\Carbon::parse($interview->interview_time)->format('H:i') : '-' }}
+                        </td>
                     </tr>
 
                     @if ($interview->interview_type == 'online')
@@ -68,7 +71,9 @@
                             <td>Link Google Meet</td>
                             <td>
                                 @if ($interview->meeting_link)
-                                    <a href="{{ $interview->meeting_link }}" target="_blank" class="btn btn-sm btn-primary">
+                                    <a href="{{ $interview->meeting_link }}"
+                                       target="_blank"
+                                       class="btn btn-sm btn-primary">
                                         Masuk Google Meet
                                     </a>
                                 @else
@@ -81,60 +86,52 @@
                     @if ($interview->interview_type == 'offline')
                         <tr>
                             <td>Tempat Wawancara</td>
-                            <td>{{ $interview->interview_place ?? '-' }}</td>
+                            <td>
+                                {{ $interview->interview_place ?? '-' }}
+                            </td>
                         </tr>
                     @endif
-
-                    <tr>
-                        <td>Konfirmasi WhatsApp</td>
-                        <td>
-                            @if ($interview->whatsapp_number)
-                                @php
-                                    $waNumber = preg_replace('/[^0-9]/', '', $interview->whatsapp_number);
-                                    $message = urlencode(
-                                        "Assalamu'alaikum, saya " . ($interview->user->name ?? 'calon peserta didik') . ".\n\n" .
-                                        "Saya ingin mengonfirmasi jadwal wawancara PPDB.\n\n" .
-                                        "Jenis wawancara: " . $interview->interview_type . "\n" .
-                                        "Tanggal: " . ($interview->interview_date ? \Carbon\Carbon::parse($interview->interview_date)->format('d-m-Y') : '-') . "\n" .
-                                        "Jam: " . ($interview->interview_time ?? '-') . "\n" .
-                                        "Terima kasih."
-                                    );
-                                @endphp
-
-                                <a href="https://wa.me/{{ $waNumber }}?text={{ $message }}" target="_blank"
-                                    class="btn btn-sm btn-success">
-                                    Konfirmasi via WhatsApp
-                                </a>
-                            @else
-                                -
-                            @endif
-                        </td>
-                    </tr>
 
                     <tr>
                         <td>Status</td>
                         <td>
                             @if ($interview->status == 'lulus')
-                                <span class="badge badge-success">Lulus</span>
+                                <span class="badge badge-success">
+                                    Lulus
+                                </span>
                             @elseif ($interview->status == 'tidak_lulus')
-                                <span class="badge badge-danger">Tidak Lulus</span>
+                                <span class="badge badge-danger">
+                                    Tidak Lulus
+                                </span>
                             @elseif ($interview->status == 'terjadwal')
-                                <span class="badge badge-info">Terjadwal</span>
+                                <span class="badge badge-info">
+                                    Terjadwal
+                                </span>
                             @else
-                                <span class="badge badge-warning">Belum Diproses</span>
+                                <span class="badge badge-warning">
+                                    Belum Diproses
+                                </span>
                             @endif
                         </td>
                     </tr>
 
-                    <tr>
-                        <td>Nilai Wawancara</td>
-                        <td>{{ $interview->score ?? '-' }}</td>
-                    </tr>
+                    @if($interview->status == 'lulus' || $interview->status == 'tidak_lulus')
+                        <tr>
+                            <td>Nilai Wawancara</td>
+                            <td>
+                                {{ $interview->score ?? '-' }}
+                            </td>
+                        </tr>
 
-                    <tr>
-                        <td>Catatan Panitia</td>
-                        <td>{{ $interview->notes ?? '-' }}</td>
-                    </tr>
+                        @if(!empty($interview->notes))
+                            <tr>
+                                <td>Catatan Panitia</td>
+                                <td>
+                                    {{ $interview->notes }}
+                                </td>
+                            </tr>
+                        @endif
+                    @endif
                 </table>
 
             @endif

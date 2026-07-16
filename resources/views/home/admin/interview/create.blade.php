@@ -5,8 +5,12 @@
 
     <div class="card shadow-sm border-0">
         <div class="card-header bg-white">
-            <h4 class="mb-0 text-success font-weight-bold">Tambah Data Wawancara</h4>
-            <small class="text-muted">Tambahkan jadwal dan hasil seleksi wawancara calon peserta didik</small>
+            <h4 class="mb-0 text-success font-weight-bold">
+                Tambah Jadwal Wawancara
+            </h4>
+            <small class="text-muted">
+                Tambahkan jadwal seleksi wawancara calon peserta didik
+            </small>
         </div>
 
         <div class="card-body">
@@ -29,6 +33,7 @@
                     <label class="form-label">Nama Siswa</label>
                     <select name="user_id" class="form-control" required>
                         <option value="">-- Pilih Siswa --</option>
+
                         @foreach($students as $student)
                             <option value="{{ $student->id }}" {{ old('user_id') == $student->id ? 'selected' : '' }}>
                                 {{ $student->name }}
@@ -91,69 +96,13 @@
                            id="interview_place"
                            class="form-control"
                            value="{{ old('interview_place') }}"
-                           placeholder="Contoh: Ruang Panitia PPDB SMK Ma'arif NU Kota Batam">
+                           placeholder="Contoh: Ruang Panitia PPDB SMKS Ma'arif NU Kota Batam">
 
                     <small class="text-muted">
                         Diisi jika wawancara dilakukan secara offline.
                     </small>
                 </div>
-
-                <div class="mb-3">
-                    <label class="form-label">Nomor WhatsApp Panitia</label>
-                    <input type="text"
-                           name="whatsapp_number"
-                           class="form-control"
-                           value="{{ old('whatsapp_number') }}"
-                           placeholder="Contoh: 6281234567890">
-
-                    <small class="text-muted">
-                        Nomor ini digunakan siswa untuk konfirmasi jadwal wawancara.
-                    </small>
-                </div>
-
-                <div class="mb-3">
-                    <label class="form-label">Nilai</label>
-                    <input type="number"
-                           name="score"
-                           class="form-control"
-                           min="0"
-                           max="100"
-                           value="{{ old('score') }}"
-                           placeholder="Masukkan nilai setelah wawancara selesai">
-
-                    <small class="text-muted">
-                        Boleh dikosongkan jika wawancara belum dilaksanakan.
-                    </small>
-                </div>
-
-                <div class="mb-3">
-                    <label class="form-label">Catatan</label>
-                    <textarea name="notes"
-                              class="form-control"
-                              rows="4"
-                              placeholder="Masukkan catatan wawancara jika ada">{{ old('notes') }}</textarea>
-                </div>
-
-                <div class="mb-3">
-                    <label class="form-label">Status</label>
-                    <select name="status" class="form-control" required>
-                        <option value="belum" {{ old('status') == 'belum' ? 'selected' : '' }}>
-                            Belum Mulai
-                        </option>
-
-                        <option value="terjadwal" {{ old('status', 'terjadwal') == 'terjadwal' ? 'selected' : '' }}>
-                            Terjadwal
-                        </option>
-
-                        <option value="lulus" {{ old('status') == 'lulus' ? 'selected' : '' }}>
-                            Lulus
-                        </option>
-
-                        <option value="tidak_lulus" {{ old('status') == 'tidak_lulus' ? 'selected' : '' }}>
-                            Tidak Lulus
-                        </option>
-                    </select>
-                </div>
+                
 
                 <div class="d-flex justify-content-between">
                     <a href="{{ route('admin.interview.index') }}" class="btn btn-secondary">
@@ -161,7 +110,7 @@
                     </a>
 
                     <button type="submit" class="btn btn-success">
-                        Simpan
+                        Simpan Jadwal
                     </button>
                 </div>
 
