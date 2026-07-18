@@ -34,6 +34,6 @@ class DatabaseSeeder extends Seeder
             'tahun_akademik' => date('Y'),
         ]);
         \App\Models\Category::factory(10)->create();
-        \App\Models\Post::factory(10)->create();
+        // \App\Models\Post::factory(10)->create();
     }
 }

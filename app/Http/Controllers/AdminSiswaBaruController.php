@@ -130,12 +130,20 @@ class AdminSiswaBaruController extends Controller
             return redirect()->back()->with('error', 'Data siswa gagal diunduh');
         }
     }
-    public function cetak()
+    public function cetak($id)
     {
-        $item['siswa'] = Siswa::all();
+        $item = Siswa::with(['user', 'kelas'])->findOrFail($id);
 
-        $pdf = Pdf::loadView('home.admin.siswa.cetak', $item);
-        return $pdf->download('biodata siswa.pdf');
+        $namaFile = 'Biodata-' .
+            str_replace(' ', '-', $item->user->name) .
+            '.pdf';
+
+        $pdf = Pdf::loadView(
+            'home.admin.siswa.cetak',
+            compact('item')
+        )->setPaper('a4', 'portrait');
+
+        return $pdf->download($namaFile);
     }
     public function dokumen_download(Siswa $siswa)
     {
@@ -148,7 +156,45 @@ class AdminSiswaBaruController extends Controller
             dd($th->getMessage());
         }
     }
-    public function lulus(Siswa $siswa)
+    public function dokumen_cetak(Siswa $siswa)
+{
+    try {
+        $siswa->load([
+            'user',
+            'kelas',
+            'dokumen_siswa',
+            'dokumen_siswa_pindahan',
+        ]);
+
+        if (!$siswa->dokumen_siswa) {
+            return redirect()->back()
+                ->with('error', 'Data dokumen siswa belum tersedia');
+        }
+
+        if ($siswa->dokumen_siswa->status != 'Diterima') {
+            return redirect()->back()
+                ->with('error', 'Data dokumen siswa belum diterima');
+        }
+
+        $namaSiswa = optional($siswa->user)->name ?? 'siswa';
+
+        $namaFile = 'Dokumen-' .
+            str_replace(' ', '-', $namaSiswa) .
+            '.pdf';
+
+        $pdf = Pdf::loadView(
+            'home.admin.siswa.dokumen_cetak',
+            compact('siswa')
+        )->setPaper('a4', 'portrait');
+
+        return $pdf->download($namaFile);
+    } catch (\Throwable $th) {
+        return redirect()->back()->with(
+            'error',
+            'Gagal mencetak dokumen: ' . $th->getMessage()
+        );
+    }
+}    public function lulus(Siswa $siswa)
     {
         try {
             if ($siswa->status_kelulusan == true) {

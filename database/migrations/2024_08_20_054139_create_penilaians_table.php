@@ -16,7 +16,6 @@ return new class extends Migration
         Schema::create('penilaians', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Siswa::class)->constrained()->cascadeOnDelete();
-            $table->foreignIdFor(AspekKriteria::class)->constrained()->cascadeOnDelete();
             $table->integer('nilai');
             $table->enum('tipe', ['NCF', 'NSF']);
             $table->string('kode');

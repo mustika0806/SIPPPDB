@@ -22,13 +22,14 @@ return new class extends Migration
             // =====================
             // CLEANER STRUCTURE (optional improvement)
             // =====================
-            $table->string('nama_lengkap')->nullable()->after('user_id');
+            // $table->string('nama_lengkap')->nullable()->after('user_id');
 
             // =====================
             // INDEX (performance penting untuk PPDB)
             // =====================
             $table->index(['user_id', 'pendaftaran_id']);
             $table->index('status');
+            
         });
     }
 

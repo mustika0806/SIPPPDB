@@ -373,7 +373,7 @@
                     {{-- VERIFIKASI --}}
                     <div class="col-lg-4 col-md-12 mt-5 mt-lg-0 text-center">
                         <h6 class="font-weight-bold text-uppercase">
-                            VERIFIKASI & VALIDASI
+                            Seleksi
                         </h6>
 
                         @if ($jadwalAktif)

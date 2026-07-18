@@ -1,327 +1,582 @@
-<!-- Logout Modal-->
-<div class="modal fade" id="detailSiswa-{{ $loop->iteration }}" tabindex="-1" role="dialog"
-    aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
+<style>
+    .detail-siswa-modal .modal-content {
+        overflow: hidden;
+        border: 0;
+        border-radius: 12px;
+    }
+
+    .detail-siswa-modal .modal-header {
+        padding: 18px 22px;
+        color: #fff;
+        background: linear-gradient(135deg, #4e73df, #224abe);
+        border-bottom: 0;
+    }
+
+    .detail-siswa-modal .modal-header .close {
+        color: #fff;
+        text-shadow: none;
+        opacity: .9;
+    }
+
+    .detail-siswa-modal .modal-body {
+        max-height: 72vh;
+        padding: 20px 22px;
+        overflow-y: auto;
+        background: #f8f9fc;
+    }
+
+    .detail-section {
+        padding: 16px;
+        margin-bottom: 18px;
+        background: #fff;
+        border: 1px solid #e3e6f0;
+        border-radius: 9px;
+        box-shadow: 0 2px 5px rgba(58, 59, 69, .05);
+    }
+
+    .detail-section:last-child {
+        margin-bottom: 0;
+    }
+
+    .detail-section-title {
+        padding-bottom: 9px;
+        margin: 0 0 14px;
+        color: #4e73df;
+        font-size: 14px;
+        font-weight: 700;
+        border-bottom: 1px solid #e3e6f0;
+    }
+
+    .detail-item {
+        height: 100%;
+        min-height: 67px;
+        padding: 10px 12px;
+        background: #f8f9fc;
+        border-left: 3px solid #4e73df;
+        border-radius: 5px;
+    }
+
+    .detail-label {
+        display: block;
+        margin-bottom: 4px;
+        color: #858796;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: .25px;
+        text-transform: uppercase;
+    }
+
+    .detail-value {
+        display: block;
+        color: #3a3b45;
+        font-size: 14px;
+        font-weight: 600;
+        overflow-wrap: anywhere;
+    }
+
+    .detail-siswa-modal .modal-footer {
+        padding: 12px 22px;
+        background: #fff;
+        border-top: 1px solid #e3e6f0;
+    }
+
+    @media (max-width: 767.98px) {
+        .detail-siswa-modal .modal-dialog {
+            margin: 10px;
+        }
+
+        .detail-siswa-modal .modal-body {
+            max-height: 76vh;
+            padding: 14px;
+        }
+    }
+</style>
+
+<div class="modal fade detail-siswa-modal"
+    id="detailSiswa-{{ $loop->iteration }}"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="detailSiswaLabel-{{ $loop->iteration }}"
+    aria-hidden="true">
+
+    <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
+
+            {{-- HEADER MODAL --}}
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Biodata Siswa
+                <div>
+                    <h5 class="modal-title font-weight-bold"
+                        id="detailSiswaLabel-{{ $loop->iteration }}">
+                        <i class="fas fa-user-graduate mr-2"></i>
+                        Biodata Siswa
+                    </h5>
+
+                    <small>
+                        {{ optional($item->user)->name ?? 'Nama siswa tidak tersedia' }}
+                    </small>
+                </div>
+
+                <div class="d-flex align-items-center">
                     @if ($item->pindahan == 'Ya')
-                        <span class="badge bg-warning">Pindahan</span>
+                        <span class="badge badge-warning mr-3 px-2 py-1">
+                            Siswa Pindahan
+                        </span>
                     @endif
-                </h5>
-                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
+
+                    <button class="close"
+                        type="button"
+                        data-dismiss="modal"
+                        aria-label="Tutup">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
             </div>
+
+            {{-- ISI MODAL --}}
             <div class="modal-body">
-                <div class="row">
-                    <div class="col">
-                        <label for="name">Nama Lengkap</label>
-                        <input type="text" class="form-control @error('name') is-invalid @enderror" name="name"
-                            id="name" placeholder="Nama Lengkap" value="{{ $item->user->name }}" disabled>
-                    </div>
-                    <div class="col">
-                        <label for="nama_panggilan">Nama Panggilan</label>
-                        <input type="text" class="form-control @error('nama_panggilan') is-invalid @enderror"
-                            name="nama_panggilan" id="nama_panggilan" placeholder="Nama Panggilan"
-                            value="{{ isset($item) ? $item->nama_panggilan : old('nama_panggilan') }}" disabled>
-                    </div>
-                    <div class="col">
-                        <label for="tinggi_badan">Tinggi Badan</label>
-                        <input type="number" class="form-control @error('tinggi_badan') is-invalid @enderror"
-                            name="tinggi_badan" id="tinggi_badan" placeholder="Tinggi Badan"
-                            value="{{ isset($item) ? $item->tinggi_badan : old('tinggi_badan') }}" disabled>
-                    </div>
-                    <div class="col">
-                        <label for="berat_badan">Berat Badan</label>
-                        <input type="number" class="form-control @error('berat_badan') is-invalid @enderror"
-                            name="berat_badan" id="berat_badan" placeholder="Berat Badan"
-                            value="{{ isset($item) ? $item->berat_badan : old('berat_badan') }}" disabled>
-                    </div>
-                    <div class="col">
-                        <label for="kelas_id">Jurusan</label>
-                        <select class="form-control @error('kelas_id') is-invalid @enderror" name="kelas_id"
-                            id="kelas_id" disabled>
-                            <option value="">-- Pilih Jurusan --</option>
-                            @foreach ($kelas as $kls)
-                                <option value="{{ $kls->id }}"
-                                    {{ isset($item) ? ($item->kelas_id == $kls->id ? 'selected' : '') : (old('kelas_id') == $kls->id ? 'selected' : '') }}>
-                                    {{ $kls->nama_jurusan }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
-                <div class="row mt-2">
-                    <div class="col">
-                        <label for="tanggal_pendaftaran">Tanggal Pendaftaran</label>
-                        <input type="date" class="form-control @error('tanggal_pendaftaran') is-invalid @enderror"
-                            name="tanggal_pendaftaran" id="tanggal_pendaftaran" placeholder="Tanggal Pendaftaran"
-                            value="{{ isset($item) ? $item->tanggal_pendaftaran : old('tanggal_pendaftaran') }}"
-                            disabled>
-                    </div>
-                    <div class="col">
-                        <label for="agama">Agama</label>
-                        <select class="form-control @error('agama') is-invalid @enderror" name="agama" id="agama"
-                            disabled>
-                            <option value="">-- Pilih Agama --</option>
-                            <option value="islam"
-                                {{ isset($item) ? ($item->agama == 'Islam' ? 'selected' : '') : (old('agama') == 'Islam' ? 'selected' : '') }}>
-                                Islam</option>
-                            <option value="kristen"
-                                {{ isset($item) ? ($item->agama == 'Kristen' ? 'selected' : '') : (old('agama') == 'Kristen' ? 'selected' : '') }}>
-                                Kristen</option>
-                            <option value="katholik"
-                                {{ isset($item) ? ($item->agama == 'Katholik' ? 'selected' : '') : (old('agama') == 'Katholik' ? 'selected' : '') }}>
-                                Katholik</option>
-                            <option value="hindu"
-                                {{ isset($item) ? ($item->agama == 'Hindu' ? 'selected' : '') : (old('agama') == 'Hindu' ? 'selected' : '') }}>
-                                Hindu</option>
-                            <option value="budha"
-                                {{ isset($item) ? ($item->agama == 'Budha' ? 'selected' : '') : (old('agama') == 'Budha' ? 'selected' : '') }}>
-                                Budha</option>
-                            <option value="konghuchu"
-                                {{ isset($item) ? ($item->agama == 'Konghuchu' ? 'selected' : '') : (old('agama') == 'Konghuchu' ? 'selected' : '') }}>
-                                Konghuchu</option>
-                        </select>
-                    </div>
-                    <div class="col">
-                        <label for="jenis_kelamin">Jenis Kelamin</label>
-                        <select class="form-control @error('jenis_kelamin') is-invalid @enderror" name="jenis_kelamin"
-                            id="jenis_kelamin" disabled>
-                            <option value="">-- Pilih Jenis Kelamin --</option>
-                            <option value="Laki-Laki"
-                                {{ isset($item) ? ($item->jenis_kelamin == 'Laki-Laki' ? 'selected' : '') : (old('jenis_kelamin') == 'Laki-Laki' ? 'selected' : '') }}>
-                                Laki-Laki</option>
-                            <option value="Perempuan"
-                                {{ isset($item) ? ($item->jenis_kelamin == 'Perempuan' ? 'selected' : '') : (old('jenis_kelamin') == 'Perempuan' ? 'selected' : '') }}>
-                                Perempuan</option>
-                        </select>
-                    </div>
-                    <div class="col">
-                        <label for="jumlah_saudara">Jumlah Saudara</label>
-                        <input type="text" class="form-control @error('jumlah_saudara') is-invalid @enderror"
-                            name="jumlah_saudara" id="jumlah_saudara" placeholder="Kandung, Tiri, Angkat"
-                            value="{{ isset($item) ? $item->jumlah_saudara : old('jumlah_saudara') }}" disabled>
-                    </div>
-                </div>
-                <div class="row mt-2">
-                    <div class="col">
-                        <label for="tempat_lahir">Tempat Lahir</label>
-                        <input type="text" class="form-control @error('tempat_lahir') is-invalid @enderror"
-                            name="tempat_lahir" id="tempat_lahir" placeholder="Tempat Lahir"
-                            value="{{ isset($item) ? $item->tempat_lahir : old('tempat_lahir') }}" disabled>
-                    </div>
-                    <div class="col">
-                        <label for="rt">RT</label>
-                        <input type="text" class="form-control @error('rt') is-invalid @enderror" name="rt"
-                            id="rt" placeholder="RT" value="{{ isset($item) ? $item->rt : old('rt') }}"
-                            disabled>
-                    </div>
-                    <div class="col">
-                        <label for="rw">RW</label>
-                        <input type="text" class="form-control @error('rw') is-invalid @enderror" name="rw"
-                            id="rw" placeholder="RW" value="{{ isset($item) ? $item->rw : old('rw') }}"
-                            disabled>
-                    </div>
-                    <div class="col">
-                        <label for="kode_pos">Kode Pos</label>
-                        <input type="text" class="form-control @error('kode_pos') is-invalid @enderror"
-                            name="kode_pos" id="kode_pos" placeholder="Kode Pos"
-                            value="{{ isset($item) ? $item->kode_pos : old('kode_pos') }}" disabled>
-                    </div>
-                    <div class="col">
-                        <label for="tanggal_lahir">Tanggal Lahir</label>
-                        <input type="date" class="form-control @error('tanggal_lahir') is-invalid @enderror"
-                            name="tanggal_lahir" id="tanggal_lahir" placeholder="Tanggal Lahir"
-                            value="{{ isset($item) ? $item->tanggal_lahir : old('tanggal_lahir') }}" disabled>
-                    </div>
-                    <div class="col">
-                        <label for="provinsi">Provinsi</label>
-                        <input type="text" class="form-control @error('provinsi') is-invalid @enderror"
-                            name="provinsi" id="provinsi" placeholder="provinsi"
-                            value="{{ isset($item) ? $item->provinsi : old('provinsi') }}" disabled>
-                    </div>
-                </div>
-                <div class="row mt-2">
-                    <div class="col">
-                        <label for="kelurahan">Kelurahan</label>
-                        <input type="text" class="form-control @error('kelurahan') is-invalid @enderror"
-                            name="kelurahan" id="kelurahan" placeholder="Kelurahan"
-                            value="{{ isset($item) ? $item->kelurahan : old('kelurahan') }}" disabled>
-                    </div>
-                    <div class="col">
-                        <label for="kecamatan">Kecamatan</label>
-                        <input type="text" class="form-control @error('kecamatan') is-invalid @enderror"
-                            name="kecamatan" id="kecamatan" placeholder="Kecamatan"
-                            value="{{ isset($item) ? $item->kelurahan : old('kecamatan') }}" disabled>
-                    </div>
-                    <div class="col">
-                        <label for="kota">Kota/Kabupaten</label>
-                        <input type="text" class="form-control @error('kota') is-invalid @enderror"
-                            name="kota" id="kota" placeholder="Kota/Kabupaten"
-                            value="{{ isset($item) ? $item->kota : old('kota') }}" disabled>
-                    </div>
-                    <div class="col">
-                        <label for="no_telp">No Telp Ortu</label>
-                        <input type="text" class="form-control @error('no_telp') is-invalid @enderror"
-                            name="no_telp" id="no_telp" placeholder="No Telp Ortu"
-                            value="{{ isset($item) ? $item->no_telp : old('no_telp') }}" disabled>
-                    </div>
-                </div>
-                <div class="row mt-2">
-                    <div class="col">
-                        <label for="alamat_asal">Alamat</label>
-                        <input type="text" class="form-control @error('alamat_asal') is-invalid @enderror"
-                            name="alamat_asal" id="alamat_asal" placeholder="Alamat Asal"
-                            value="{{ isset($item) ? $item->alamat_asal : old('alamat_asal') }}" disabled>
-                    </div>
-                    <div class="col">
-                        <label for="no_hp">No Hp Siswa</label>
-                        <input type="text" class="form-control @error('no_hp') is-invalid @enderror"
-                            name="no_hp" id="no_hp" placeholder="No Hp Siswa"
-                            value="{{ isset($item) ? $item->no_hp : old('no_hp') }}" disabled>
-                    </div>
-                    <div class="col">
-                        <label for="alamat_email">Alamat Email</label>
-                        <input type="text" class="form-control @error('alamat_email') is-invalid @enderror"
-                            name="alamat_email" id="alamat_email" placeholder="Alamat Email"
-                            value="{{ isset($item) ? $item->alamat_email : old('alamat_email') }}" disabled>
-                    </div>
-                </div>
-                <div class="row mt-2">
-                    <div class="col">
-                        <label for="kegiatan_olahraga">Kegiatan Olahraga</label>
-                        <select class="form-control @error('kegiatan_olahraga') is-invalid @enderror"
-                            name="kegiatan_olahraga" id="kegiatan_olahraga" disabled>
-                            <option value="Aktif"
-                                {{ isset($item) ? ($item->kegiatan_olahraga == 'Aktif' ? 'selected' : '') : (old('kegiatan_olahraga') == 'Aktif' ? 'selected' : '') }}>
-                                Aktif</option>
-                            <option value="Cukup"
-                                {{ isset($item) ? ($item->kegiatan_olahraga == 'Cukup' ? 'selected' : '') : (old('kegiatan_olahraga') == 'Cukup' ? 'selected' : '') }}>
-                                Cukup</option>
-                            <option value="Kurang"
-                                {{ isset($item) ? ($item->kegiatan_olahraga == 'Kurang' ? 'selected' : '') : (old('kegiatan_olahraga') == 'Kurang' ? 'selected' : '') }}>
-                                Kurang</option>
-                        </select>
-                    </div>
-                    <div class="col">
-                        <label for="kegiatan_kesenian">Kegiatan Kesenian</label>
-                        <select class="form-control @error('kegiatan_kesenian') is-invalid @enderror"
-                            name="kegiatan_kesenian" id="kegiatan_kesenian" disabled>
-                            <option value="Aktif"
-                                {{ isset($item) ? ($item->kegiatan_kesenian == 'Aktif' ? 'selected' : '') : (old('kegiatan_kesenian') == 'Aktif' ? 'selected' : '') }}>
-                                Aktif</option>
-                            <option value="Cukup"
-                                {{ isset($item) ? ($item->kegiatan_kesenian == 'Cukup' ? 'selected' : '') : (old('kegiatan_kesenian') == 'Cukup' ? 'selected' : '') }}>
-                                Cukup</option>
-                            <option value="Kurang"
-                                {{ isset($item) ? ($item->kegiatan_kesenian == 'Kurang' ? 'selected' : '') : (old('kegiatan_kesenian') == 'Kurang' ? 'selected' : '') }}>
-                                Kurang</option>
-                        </select>
-                    </div>
-                    <div class="col">
-                        <label for="prestasi">Prestasi yang dicapai</label>
-                        <input type="text" class="form-control @error('prestasi') is-invalid @enderror"
-                            name="prestasi" id="prestasi" placeholder=""
-                            value="{{ isset($item) ? $item->prestasi : old('prestasi') }}" disabled>
-                        <div class="invalid-feedback">
+
+                {{-- INFORMASI PENDAFTARAN --}}
+                <div class="detail-section">
+                    <h6 class="detail-section-title">
+                        <i class="fas fa-clipboard-list mr-2"></i>
+                        Informasi Pendaftaran
+                    </h6>
+
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <div class="detail-item">
+                                <span class="detail-label">Nama Lengkap</span>
+                                <span class="detail-value">
+                                    {{ optional($item->user)->name ?? '-' }}
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 mb-3">
+                            <div class="detail-item">
+                                <span class="detail-label">Nama Panggilan</span>
+                                <span class="detail-value">
+                                    {{ $item->nama_panggilan ?: '-' }}
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 mb-3">
+                            <div class="detail-item">
+                                <span class="detail-label">Jurusan</span>
+                                <span class="detail-value">
+                                    {{ optional($item->kelas)->nama_jurusan ?? '-' }}
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 mb-3 mb-md-0">
+                            <div class="detail-item">
+                                <span class="detail-label">
+                                    Tanggal Pendaftaran
+                                </span>
+
+                                <span class="detail-value">
+                                    {{ $item->tanggal_pendaftaran
+                                        ? \Carbon\Carbon::parse($item->tanggal_pendaftaran)->format('d-m-Y')
+                                        : '-' }}
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 mb-3 mb-md-0">
+                            <div class="detail-item">
+                                <span class="detail-label">
+                                    Status Pendaftaran
+                                </span>
+
+                                <span class="detail-value">
+                                    {{ $item->status ?: '-' }}
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="detail-item">
+                                <span class="detail-label">
+                                    Jenis Pendaftar
+                                </span>
+
+                                <span class="detail-value">
+                                    {{ $item->pindahan == 'Ya'
+                                        ? 'Siswa Pindahan'
+                                        : 'Siswa Baru' }}
+                                </span>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="row mt-2">
-                    <div class="col">
-                        <label for="sekolah_asal">Sekolah Asal</label>
-                        <input type="text" class="form-control @error('sekolah_asal') is-invalid @enderror"
-                            name="sekolah_asal" id="sekolah_asal" placeholder="Sekolah Asal"
-                            value="{{ isset($item) ? $item->sekolah_asal : old('sekolah_asal') }}" disabled>
-                    </div>
-                    <div class="col">
-                        <label for="nilai_ijazah">Nilai Ijazah</label>
-                        <input type="number" class="form-control @error('nilai_ijazah') is-invalid @enderror"
-                            name="nilai_ijazah" id="nilai_ijazah" placeholder="Nilai Ijazah"
-                            value="{{ isset($item) ? $item->nilai_ijazah : old('nilai_ijazah') }}" disabled>
-                    </div>
-                    <div class="col">
-                        <label for="nik">NIK</label>
-                        <input type="text" class="form-control @error('nik') is-invalid @enderror" name="nik"
-                            id="nik" placeholder="NIK" value="{{ isset($item) ? $item->nik : old('nik') }}"
-                            disabled>
-                    </div>
-                    <div class="col">
-                        <label for="no_akta_lahir">No Akta Lahir</label>
-                        <input type="text" class="form-control @error('no_akta_lahir') is-invalid @enderror"
-                            name="no_akta_lahir" id="no_akta_lahir" placeholder="no_akta_lahir"
-                            value="{{ isset($item) ? $item->no_akta_lahir : old('no_akta_lahir') }}" disabled>
+
+                {{-- IDENTITAS PRIBADI --}}
+                <div class="detail-section">
+                    <h6 class="detail-section-title">
+                        <i class="fas fa-id-card mr-2"></i>
+                        Identitas Pribadi
+                    </h6>
+
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <div class="detail-item">
+                                <span class="detail-label">NIK</span>
+                                <span class="detail-value">
+                                    {{ $item->nik ?: '-' }}
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 mb-3">
+                            <div class="detail-item">
+                                <span class="detail-label">NISN</span>
+                                <span class="detail-value">
+                                    {{ $item->nisn ?: '-' }}
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 mb-3">
+                            <div class="detail-item">
+                                <span class="detail-label">
+                                    Nomor Akta Lahir
+                                </span>
+
+                                <span class="detail-value">
+                                    {{ $item->no_akta_lahir ?: '-' }}
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 mb-3">
+                            <div class="detail-item">
+                                <span class="detail-label">
+                                    Jenis Kelamin
+                                </span>
+
+                                <span class="detail-value">
+                                    {{ $item->jenis_kelamin ?: '-' }}
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 mb-3">
+                            <div class="detail-item">
+                                <span class="detail-label">Tempat Lahir</span>
+                                <span class="detail-value">
+                                    {{ $item->tempat_lahir ?: '-' }}
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 mb-3">
+                            <div class="detail-item">
+                                <span class="detail-label">Tanggal Lahir</span>
+
+                                <span class="detail-value">
+                                    {{ $item->tanggal_lahir
+                                        ? \Carbon\Carbon::parse($item->tanggal_lahir)->format('d-m-Y')
+                                        : '-' }}
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 mb-3">
+                            <div class="detail-item">
+                                <span class="detail-label">Agama</span>
+                                <span class="detail-value">
+                                    {{ $item->agama ?: '-' }}
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 mb-3">
+                            <div class="detail-item">
+                                <span class="detail-label">
+                                    Kewarganegaraan
+                                </span>
+
+                                <span class="detail-value">
+                                    {{ $item->kewarganegaraan ?: '-' }}
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 mb-3">
+                            <div class="detail-item">
+                                <span class="detail-label">
+                                    Kebutuhan Khusus
+                                </span>
+
+                                <span class="detail-value">
+                                    {{ $item->kebutuhan_khusus ?: '-' }}
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 mb-3 mb-md-0">
+                            <div class="detail-item">
+                                <span class="detail-label">
+                                    Jumlah Saudara
+                                </span>
+
+                                <span class="detail-value">
+                                    {{ $item->jumlah_saudara ?? '-' }}
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 mb-3 mb-md-0">
+                            <div class="detail-item">
+                                <span class="detail-label">Tinggi Badan</span>
+
+                                <span class="detail-value">
+                                    {{ $item->tinggi_badan
+                                        ? $item->tinggi_badan . ' cm'
+                                        : '-' }}
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="detail-item">
+                                <span class="detail-label">Berat Badan</span>
+
+                                <span class="detail-value">
+                                    {{ $item->berat_badan
+                                        ? $item->berat_badan . ' kg'
+                                        : '-' }}
+                                </span>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="row mt-2">
-                    <div class="col">
-                        <label for="nisn">NISN</label>
-                        <input type="text" class="form-control @error('nisn') is-invalid @enderror"
-                            name="nisn" id="nisn" placeholder="NISN"
-                            value="{{ isset($item) ? $item->nisn : old('nisn') }}" disabled>
+
+                {{-- ALAMAT DAN KONTAK --}}
+                <div class="detail-section">
+                    <h6 class="detail-section-title">
+                        <i class="fas fa-map-marker-alt mr-2"></i>
+                        Alamat dan Kontak
+                    </h6>
+
+                    <div class="row">
+                        <div class="col-12 mb-3">
+                            <div class="detail-item">
+                                <span class="detail-label">
+                                    Alamat Lengkap
+                                </span>
+
+                                <span class="detail-value">
+                                    {{ $item->alamat_asal ?: '-' }}
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 mb-3">
+                            <div class="detail-item">
+                                <span class="detail-label">RT/RW</span>
+
+                                <span class="detail-value">
+                                    {{ $item->rt ?: '-' }}
+                                    /
+                                    {{ $item->rw ?: '-' }}
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 mb-3">
+                            <div class="detail-item">
+                                <span class="detail-label">Kelurahan</span>
+                                <span class="detail-value">
+                                    {{ $item->kelurahan ?: '-' }}
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 mb-3">
+                            <div class="detail-item">
+                                <span class="detail-label">Kecamatan</span>
+                                <span class="detail-value">
+                                    {{ $item->kecamatan ?: '-' }}
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 mb-3">
+                            <div class="detail-item">
+                                <span class="detail-label">
+                                    Kota/Kabupaten
+                                </span>
+
+                                <span class="detail-value">
+                                    {{ $item->kota ?: '-' }}
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 mb-3">
+                            <div class="detail-item">
+                                <span class="detail-label">Provinsi</span>
+                                <span class="detail-value">
+                                    {{ $item->provinsi ?: '-' }}
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 mb-3">
+                            <div class="detail-item">
+                                <span class="detail-label">Kode Pos</span>
+                                <span class="detail-value">
+                                    {{ $item->kode_pos ?: '-' }}
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 mb-3">
+                            <div class="detail-item">
+                                <span class="detail-label">
+                                    Status Tempat Tinggal
+                                </span>
+
+                                <span class="detail-value">
+                                    {{ $item->status_tempat ?: '-' }}
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 mb-3">
+                            <div class="detail-item">
+                                <span class="detail-label">
+                                    Nomor HP Siswa
+                                </span>
+
+                                <span class="detail-value">
+                                    {{ $item->no_hp ?: '-' }}
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 mb-3">
+                            <div class="detail-item">
+                                <span class="detail-label">
+                                    Nomor Telepon Orang Tua
+                                </span>
+
+                                <span class="detail-value">
+                                    {{ $item->no_telp ?: '-' }}
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <div class="detail-item">
+                                <span class="detail-label">
+                                    Alamat Email
+                                </span>
+
+                                <span class="detail-value">
+                                    {{ $item->alamat_email ?: '-' }}
+                                </span>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col">
-                        <label for="status_tempat">Status Tempat Tinggal</label>
-                        <select class="form-control @error('status_tempat') is-invalid @enderror"
-                            name="status_tempat" id="status_tempat" disabled>
-                            <option value="rumah sendiri"
-                                {{ isset($item) ? ($item->status_tempat == 'rumah sendiri' ? 'selected' : '') : (old('status_tempat') == 'rumah sendiri' ? 'selected' : '') }}>
-                                rumah sendiri</option>
-                            <option value="kontrakan"
-                                {{ isset($item) ? ($item->status_tempat == 'kontrakan' ? 'selected' : '') : (old('status_tempat') == 'kontrakan' ? 'selected' : '') }}>
-                                kontrakan</option>
-                            <option value="kosan"
-                                {{ isset($item) ? ($item->status_tempat == 'kosan' ? 'selected' : '') : (old('status_tempat') == 'kosan' ? 'selected' : '') }}>
-                                kosan</option>
-                        </select>
+                </div>
+
+                {{-- PENDIDIKAN --}}
+                <div class="detail-section">
+                    <h6 class="detail-section-title">
+                        <i class="fas fa-school mr-2"></i>
+                        Data Pendidikan
+                    </h6>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3 mb-md-0">
+                            <div class="detail-item">
+                                <span class="detail-label">Sekolah Asal</span>
+                                <span class="detail-value">
+                                    {{ $item->sekolah_asal ?: '-' }}
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="detail-item">
+                                <span class="detail-label">Nilai Ijazah</span>
+                                <span class="detail-value">
+                                    {{ $item->nilai_ijazah ?? '-' }}
+                                </span>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col">
-                        <label for="kewarganegaraan">Kewarganegaraan</label>
-                        <select class="form-control @error('kewarganegaraan') is-invalid @enderror"
-                            name="kewarganegaraan" id="kewarganegaraan" disabled>
-                            <option value="">-- Pilih Kewarganegaraan --</option>
-                            <option value="Indonesia"
-                                {{ isset($item) ? ($item->kewarganegaraan == 'Indonesia' ? 'selected' : '') : (old('kewarganegaraan') == 'Indonesia' ? 'selected' : '') }}>
-                                Indonesia</option>
-                            <option value="Asing"
-                                {{ isset($item) ? ($item->kewarganegaraan == 'Asing' ? 'selected' : '') : (old('kewarganegaraan') == 'Asing' ? 'selected' : '') }}>
-                                Asing</option>
-                        </select>
+                </div>
+
+                {{-- MINAT DAN PRESTASI --}}
+                <div class="detail-section">
+                    <h6 class="detail-section-title">
+                        <i class="fas fa-trophy mr-2"></i>
+                        Minat dan Prestasi
+                    </h6>
+
+                    <div class="row">
+                        <div class="col-md-4 mb-3 mb-md-0">
+                            <div class="detail-item">
+                                <span class="detail-label">
+                                    Kegiatan Olahraga
+                                </span>
+
+                                <span class="detail-value">
+                                    {{ $item->kegiatan_olahraga ?: '-' }}
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 mb-3 mb-md-0">
+                            <div class="detail-item">
+                                <span class="detail-label">
+                                    Kegiatan Kesenian
+                                </span>
+
+                                <span class="detail-value">
+                                    {{ $item->kegiatan_kesenian ?: '-' }}
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="detail-item">
+                                <span class="detail-label">
+                                    Prestasi yang Dicapai
+                                </span>
+
+                                <span class="detail-value">
+                                    {{ $item->prestasi ?: '-' }}
+                                </span>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col">
-                        <label for="kebutuhan_khusus">Kebutuhan Khusus</label>
-                        <select class="form-control @error('kebutuhan_khusus') is-invalid @enderror"
-                            name="kebutuhan_khusus" id="kebutuhan_khusus" disabled>
-                            <option value="">-- Pilih Kebutuhan Khusus --</option>
-                            <option value="Tidak"
-                                {{ isset($item) ? ($item->kebutuhan_khusus == 'Tidak' ? 'selected' : '') : (old('kebutuhan_khusus') == 'Tidak' ? 'selected' : '') }}>
-                                Tidak</option>
-                            <option value="Netra"
-                                {{ isset($item) ? ($item->kebutuhan_khusus == 'Netra' ? 'selected' : '') : (old('kebutuhan_khusus') == 'Netra' ? 'selected' : '') }}>
-                                Netra</option>
-                            <option value="Rungu"
-                                {{ isset($item) ? ($item->kebutuhan_khusus == 'Rungu' ? 'selected' : '') : (old('kebutuhan_khusus') == 'Rungu' ? 'selected' : '') }}>
-                                Rungu</option>
-                            <option value="Grahita"
-                                {{ isset($item) ? ($item->kebutuhan_khusus == 'Grahita' ? 'selected' : '') : (old('kebutuhan_khusus') == 'Grahita' ? 'selected' : '') }}>
-                                Grahita</option>
-                            <option value="Wicara"
-                                {{ isset($item) ? ($item->kebutuhan_khusus == 'Wicara' ? 'selected' : '') : (old('kebutuhan_khusus') == 'Wicara' ? 'selected' : '') }}>
-                                Wicara</option>
-                            <option value="Daksa"
-                                {{ isset($item) ? ($item->kebutuhan_khusus == 'Daksa' ? 'selected' : '') : (old('kebutuhan_khusus') == 'Daksa' ? 'selected' : '') }}>
-                                Daksa</option>
-                            <option value="Autis"
-                                {{ isset($item) ? ($item->kebutuhan_khusus == 'Autis' ? 'selected' : '') : (old('kebutuhan_khusus') == 'Autis' ? 'selected' : '') }}>
-                                Autis</option>
-                        </select>
-                    </div>
+                </div>
+
+                {{-- DATA ORANG TUA/WALI --}}
+                <div class="detail-section">
+                    <h6 class="detail-section-title">
+                        <i class="fas fa-users mr-2"></i>
+                        Data Orang Tua/Wali
+                    </h6>
+
                     @include('home.admin.siswa.wali')
                 </div>
             </div>
+
+            {{-- FOOTER MODAL --}}
             <div class="modal-footer">
-                <button class="btn btn-secondary" type="button" data-dismiss="modal">Tutup</button>
+                <button class="btn btn-secondary px-4"
+                    type="button"
+                    data-dismiss="modal">
+                    <i class="fas fa-times mr-1"></i>
+                    Tutup
+                </button>
             </div>
         </div>
     </div>

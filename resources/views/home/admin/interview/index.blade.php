@@ -6,12 +6,17 @@
     <div class="card shadow-sm border-0">
         <div class="card-header bg-white d-flex justify-content-between align-items-center">
             <div>
-                <h4 class="mb-0 text-success font-weight-bold">Data Seleksi Wawancara</h4>
-                <small class="text-muted">Kelola jadwal dan hasil wawancara calon peserta didik</small>
+                <h4 class="mb-0 text-success font-weight-bold">
+                    Data Seleksi Wawancara
+                </h4>
+                <small class="text-muted">
+                    Kelola jadwal, jadwal ulang, konfirmasi, dan hasil wawancara calon peserta didik
+                </small>
             </div>
 
             <a href="{{ route('admin.interview.create') }}" class="btn btn-success btn-sm">
-                <i class="fas fa-plus"></i> Tambah Data
+                <i class="fas fa-plus"></i>
+                Tambah Jadwal
             </a>
         </div>
 
@@ -21,6 +26,12 @@
                     {{ session('success') }}
                 </div>
             @endif
+
+            <div class="alert alert-info">
+                <strong>Catatan:</strong>
+                Jika terdapat perubahan hari, jam, link, atau lokasi wawancara, gunakan tombol
+                <strong>Jadwal Ulang</strong>. Jangan menambah jadwal baru untuk siswa yang sama agar data tidak dobel.
+            </div>
 
             <div class="table-responsive">
                 <table class="table table-hover table-bordered align-middle">
@@ -36,7 +47,7 @@
                             <th>Catatan</th>
                             <th>Status</th>
                             <th>Konfirmasi ke Siswa</th>
-                            <th width="15%">Aksi</th>
+                            <th width="18%">Aksi</th>
                         </tr>
                     </thead>
 
@@ -49,7 +60,9 @@
                                     ? \Carbon\Carbon::parse($item->interview_date)->format('d-m-Y')
                                     : '-';
 
-                                $jamWawancara = $item->interview_time ?? '-';
+                                $jamWawancara = $item->interview_time
+                                    ? \Carbon\Carbon::parse($item->interview_time)->format('H:i')
+                                    : '-';
 
                                 $jenisWawancara = $item->interview_type == 'online'
                                     ? 'Online'
@@ -67,8 +80,6 @@
                                 |--------------------------------------------------------------------------
                                 | Ambil Nomor WA dari Data Siswa/User
                                 |--------------------------------------------------------------------------
-                                | Nomor WA tidak perlu diisi di form wawancara.
-                                | Sistem mengambil nomor dari biodata siswa atau akun user.
                                 */
 
                                 $siswaData = \App\Models\Siswa::where('user_id', $item->user_id)->first();
@@ -103,7 +114,6 @@
                                 |--------------------------------------------------------------------------
                                 | Cek Kelengkapan Jadwal
                                 |--------------------------------------------------------------------------
-                                | Tombol WA hanya muncul kalau jadwal sudah lengkap.
                                 */
 
                                 $jadwalLengkap = !empty($item->interview_date)
@@ -125,11 +135,14 @@
                                     "Tanggal: " . $tanggalWawancara . "\n" .
                                     "Jam: " . $jamWawancara . "\n" .
                                     "Link/Lokasi: " . $linkAtauLokasi . "\n\n" .
+                                    "Apabila terdapat perubahan jadwal, panitia akan menghubungi kembali melalui WhatsApp.\n\n" .
                                     "Mohon hadir tepat waktu dan mengikuti arahan panitia. Terima kasih.";
                             @endphp
 
                             <tr>
-                                <td class="text-center">{{ $loop->iteration }}</td>
+                                <td class="text-center">
+                                    {{ $loop->iteration }}
+                                </td>
 
                                 <td>
                                     <strong>{{ $namaSiswa }}</strong>
@@ -137,11 +150,17 @@
 
                                 <td class="text-center">
                                     @if($item->interview_type == 'online')
-                                        <span class="badge badge-primary">Online</span>
+                                        <span class="badge badge-primary">
+                                            Online
+                                        </span>
                                     @elseif($item->interview_type == 'offline')
-                                        <span class="badge badge-success">Offline</span>
+                                        <span class="badge badge-success">
+                                            Offline
+                                        </span>
                                     @else
-                                        <span class="badge badge-secondary">Belum Ditentukan</span>
+                                        <span class="badge badge-secondary">
+                                            Belum Ditentukan
+                                        </span>
                                     @endif
                                 </td>
 
@@ -156,16 +175,18 @@
                                 <td>
                                     @if($item->interview_type == 'online')
                                         @if($item->meeting_link)
-                                            <a href="{{ $item->meeting_link }}" target="_blank" class="btn btn-primary btn-sm">
+                                            <a href="{{ $item->meeting_link }}"
+                                               target="_blank"
+                                               class="btn btn-primary btn-sm">
                                                 Buka Link
                                             </a>
                                         @else
-                                            <span class="text-muted">Link belum tersedia</span>
+                                            <span class="text-muted">
+                                                Link belum tersedia
+                                            </span>
                                         @endif
-
                                     @elseif($item->interview_type == 'offline')
                                         {{ $item->interview_place ?? 'Lokasi belum tersedia' }}
-
                                     @else
                                         -
                                     @endif
@@ -173,7 +194,9 @@
 
                                 <td class="text-center">
                                     @if($item->score !== null)
-                                        <span class="badge badge-info p-2">{{ $item->score }}</span>
+                                        <span class="badge badge-info p-2">
+                                            {{ $item->score }}
+                                        </span>
                                     @else
                                         -
                                     @endif
@@ -185,19 +208,29 @@
 
                                 <td class="text-center">
                                     @if($item->status == 'lulus')
-                                        <span class="badge badge-success">Lulus</span>
+                                        <span class="badge badge-success">
+                                            Lulus
+                                        </span>
                                     @elseif($item->status == 'tidak_lulus')
-                                        <span class="badge badge-danger">Tidak Lulus</span>
+                                        <span class="badge badge-danger">
+                                            Tidak Lulus
+                                        </span>
                                     @elseif($item->status == 'terjadwal')
-                                        <span class="badge badge-info">Terjadwal</span>
+                                        <span class="badge badge-info">
+                                            Terjadwal
+                                        </span>
                                     @else
-                                        <span class="badge badge-secondary">Belum</span>
+                                        <span class="badge badge-secondary">
+                                            Belum
+                                        </span>
                                     @endif
                                 </td>
 
                                 <td class="text-center">
                                     @if(empty($nomorWa))
-                                        <span class="text-muted">Nomor tidak ada</span>
+                                        <span class="text-muted">
+                                            Nomor tidak ada
+                                        </span>
                                     @elseif(!$jadwalLengkap)
                                         <span class="badge badge-warning">
                                             Lengkapi Jadwal
@@ -219,20 +252,23 @@
                                 </td>
 
                                 <td class="text-center">
-                                    <a href="{{ route('admin.interview.edit', $item->id) }}" class="btn btn-warning btn-sm">
-                                        <i class="fas fa-edit"></i>
+                                    <a href="{{ route('admin.interview.edit', $item->id) }}"
+                                       class="btn btn-warning btn-sm mb-1">
+                                        <i class="fas fa-calendar-alt"></i>
+                                        Jadwal Ulang
                                     </a>
 
                                     <form action="{{ route('admin.interview.destroy', $item->id) }}"
                                           method="POST"
                                           class="d-inline"
-                                          onsubmit="return confirm('Yakin hapus data ini?')">
+                                          onsubmit="return confirm('Yakin hapus data wawancara ini?')">
                                         @csrf
                                         @method('DELETE')
 
-                                        <button type="submit" class="btn btn-danger btn-sm">
+                                        <!-- <button type="submit" class="btn btn-danger btn-sm mb-1">
                                             <i class="fas fa-trash"></i>
-                                        </button>
+                                            Hapus
+                                        </button> -->
                                     </form>
                                 </td>
                             </tr>

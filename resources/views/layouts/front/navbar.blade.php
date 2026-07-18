@@ -279,6 +279,616 @@
                 height: 300px !important;
             }
         }
+
+        /* ================================================================
+           PERAPIAN SECTION INFORMASI HINGGA FOOTER
+        ================================================================= */
+        #info-ppdb,
+        #syarat-administrasi,
+        #rincian-biaya,
+        #jalur-masuk,
+        #profil-sekolah,
+        #contact-us {
+            position: relative;
+            padding-top: 82px !important;
+            padding-bottom: 82px !important;
+        }
+
+        #info-ppdb,
+        #rincian-biaya,
+        #contact-us {
+            background: #ffffff !important;
+        }
+
+        #syarat-administrasi,
+        #jalur-masuk,
+        #profil-sekolah {
+            background: #f5faf7 !important;
+        }
+
+        #info-ppdb .container,
+        #syarat-administrasi .container,
+        #rincian-biaya .container,
+        #jalur-masuk .container,
+        #profil-sekolah .container,
+        #contact-us .container {
+            max-width: 1140px;
+        }
+
+        #info-ppdb .section-title,
+        #jalur-masuk .section-title,
+        #profil-sekolah .section-title,
+        #contact-us h2 {
+            margin-bottom: 12px;
+            color: #183d31 !important;
+            font-size: 36px;
+            font-weight: 800;
+            letter-spacing: -.4px;
+            line-height: 1.25;
+        }
+
+        #info-ppdb .section-title::after,
+        #jalur-masuk .section-title::after,
+        #profil-sekolah .section-title::after,
+        #contact-us h2::after {
+            display: block;
+            width: 58px;
+            height: 4px;
+            margin: 15px auto 0;
+            content: "";
+            background: linear-gradient(90deg, #087a55, #f4b83e);
+            border-radius: 10px;
+        }
+
+        #info-ppdb .text-center.mb-5,
+        #jalur-masuk .text-center.mb-5,
+        #profil-sekolah .text-center.mb-5,
+        #contact-us .text-center.mb-5 {
+            max-width: 760px;
+            margin-right: auto;
+            margin-left: auto;
+        }
+
+        #info-ppdb .info-wrapper {
+            overflow: hidden;
+            border: 1px solid #dfebe5;
+            border-radius: 20px;
+            background: linear-gradient(135deg, #ffffff, #f4fbf7);
+            box-shadow: 0 14px 36px rgba(24, 79, 60, .08);
+        }
+
+        #info-ppdb .info-left {
+            position: relative;
+            padding: 44px 48px 44px 64px;
+        }
+
+        #info-ppdb .info-left::before {
+            position: absolute;
+            top: 42px;
+            bottom: 42px;
+            left: 32px;
+            width: 5px;
+            content: "";
+            background: linear-gradient(#087a55, #40c993);
+            border-radius: 10px;
+        }
+
+        #info-ppdb .info-left h4 {
+            margin-bottom: 16px;
+            color: #087a55;
+            font-size: 24px;
+        }
+
+        #info-ppdb .info-left p {
+            margin-bottom: 0;
+            color: #5e6f68;
+            font-size: 15px;
+            line-height: 1.9;
+        }
+
+        #info-ppdb .program-title {
+            margin-top: 64px !important;
+            color: #183d31;
+            font-size: 28px;
+            font-weight: 800;
+        }
+
+        #info-ppdb .program-card {
+            height: 100%;
+            overflow: hidden;
+            border: 1px solid #dfebe5;
+            border-radius: 18px;
+            box-shadow: 0 9px 25px rgba(24, 79, 60, .07);
+            transition: .25s ease;
+        }
+
+        #info-ppdb .program-card:hover {
+            border-color: rgba(8, 122, 85, .28);
+            box-shadow: 0 17px 36px rgba(24, 79, 60, .12);
+            transform: translateY(-6px);
+        }
+
+        #info-ppdb .program-card .card-body {
+            display: flex;
+            min-height: 250px;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #info-ppdb .program-icon {
+            width: 62px;
+            height: 62px;
+            color: #087a55;
+            background: #e5f7ef;
+            border-radius: 17px;
+        }
+
+        #syarat-administrasi .syarat-box,
+        #rincian-biaya .biaya-box {
+            padding: 45px;
+            border: 1px solid #dfebe5;
+            border-radius: 20px;
+            background: #fff;
+            box-shadow: 0 14px 36px rgba(24, 79, 60, .08);
+        }
+
+        #syarat-administrasi .syarat-title,
+        #rincian-biaya .biaya-title {
+            color: #183d31;
+            font-size: 30px;
+            font-weight: 800;
+        }
+
+        #syarat-administrasi .syarat-list li {
+            min-height: 66px;
+            margin-bottom: 13px;
+            align-items: center;
+            background: #f8fcfa;
+            border: 1px solid #e1ece7;
+            border-radius: 13px;
+            box-shadow: 0 4px 12px rgba(24, 79, 60, .04);
+        }
+
+        #syarat-administrasi .syarat-number {
+            width: 36px;
+            height: 36px;
+            min-width: 36px;
+            background: linear-gradient(135deg, #087a55, #22ad7b);
+        }
+
+        #syarat-administrasi .syarat-note,
+        #rincian-biaya .catatan-biaya {
+            margin-top: 25px;
+            padding: 17px 20px;
+            color: #48645a;
+            background: #edf9f3;
+            border-left: 5px solid #087a55;
+            border-radius: 10px;
+        }
+
+        #rincian-biaya .table-responsive {
+            overflow: hidden;
+            border: 1px solid #dce8e2;
+            border-radius: 14px;
+        }
+
+        #rincian-biaya table th {
+            padding: 14px 15px;
+            background: linear-gradient(135deg, #075f44, #0c8b61);
+            border-color: rgba(255, 255, 255, .14);
+        }
+
+        #rincian-biaya table td {
+            padding: 13px 15px;
+            border-color: #e2ece7;
+        }
+
+        #rincian-biaya table tbody tr:hover {
+            background: #f3faf6;
+        }
+
+        #jalur-masuk .row {
+            justify-content: center;
+        }
+
+        #jalur-masuk .custom-card {
+            height: 100%;
+            overflow: hidden;
+            border: 1px solid #dfebe5;
+            border-radius: 19px;
+            background: #fff;
+            box-shadow: 0 10px 26px rgba(24, 79, 60, .07);
+            transition: .25s ease;
+        }
+
+        #jalur-masuk .custom-card:hover {
+            box-shadow: 0 17px 36px rgba(24, 79, 60, .12);
+            transform: translateY(-6px);
+        }
+
+        #jalur-masuk .custom-card .card-body {
+            display: flex;
+            min-height: 330px;
+            padding: 35px 28px;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #jalur-masuk .custom-card img {
+            width: 82px;
+            height: 82px;
+            padding: 10px;
+            object-fit: contain;
+            background: #eff9f4;
+            border-radius: 20px;
+        }
+
+        #jalur-masuk .custom-card h4 {
+            color: #183d31 !important;
+            font-size: 22px;
+        }
+
+        #profil-sekolah .card {
+            overflow: hidden;
+            border: 1px solid #dfebe5 !important;
+            border-radius: 20px;
+            box-shadow: 0 14px 34px rgba(24, 79, 60, .08) !important;
+        }
+
+        /* Profil sekolah dibuat lebih dekat dan video dibuat dua kolom */
+        #jalur-masuk {
+            padding-bottom: 25px !important;
+        }
+
+        #profil-sekolah {
+            padding-top: 28px !important;
+        }
+
+        #profil-sekolah .text-center.mb-5 {
+            margin-bottom: 25px !important;
+        }
+
+        .profile-video-row {
+            margin-right: -10px;
+            margin-bottom: 0;
+            margin-left: -10px;
+        }
+
+        .profile-video-row > [class*="col-"] {
+            padding-right: 10px;
+            padding-left: 10px;
+        }
+
+        #profil-sekolah .profile-video-card {
+            height: 100%;
+            margin: 0 !important;
+            background: #fff;
+        }
+
+        #profil-sekolah .profile-video-card .card-body {
+            padding: 20px;
+        }
+
+        .profile-video-label {
+            display: inline-flex;
+            margin-bottom: 8px;
+            align-items: center;
+            color: #087a55;
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: .7px;
+            text-transform: uppercase;
+        }
+
+        .profile-video-title {
+            margin-bottom: 14px;
+            color: #183d31;
+            font-size: 18px;
+            font-weight: 800;
+            line-height: 1.4;
+        }
+
+        .profile-video-frame {
+            position: relative;
+            width: 100%;
+            padding-top: 56.25%;
+            overflow: hidden;
+            background: #102d24;
+            border-radius: 12px;
+        }
+
+        .profile-video-frame iframe {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100% !important;
+            border: 0;
+            border-radius: 12px;
+        }
+
+        #profil-sekolah .row.align-items-center.mt-5 {
+            margin-top: 25px !important;
+        }
+
+        /* Panel foto serta Visi & Misi menjadi satu komposisi */
+        .profile-story-card {
+            /* Jarak yang jelas dari dua kartu video di atas */
+            margin-top: 55px !important;
+            overflow: hidden;
+            background: #fff;
+            border: 1px solid #dce9e3;
+            border-radius: 20px;
+            box-shadow: 0 14px 34px rgba(24, 79, 60, .09);
+        }
+
+        .profile-photo-column,
+        .profile-photo-wrap {
+            min-height: 100%;
+        }
+
+        .profile-photo-wrap {
+            position: relative;
+            height: 100%;
+            min-height: 480px;
+            overflow: hidden;
+        }
+
+        .profile-photo-wrap::after {
+            position: absolute;
+            inset: 0;
+            content: "";
+            background: linear-gradient(180deg, transparent 35%, rgba(3, 55, 39, .9));
+        }
+
+        .profile-photo-wrap img {
+            width: 100%;
+            height: 100%;
+            min-height: 480px;
+            object-fit: cover;
+            object-position: center;
+            transition: transform .4s ease;
+        }
+
+        .profile-story-card:hover .profile-photo-wrap img {
+            transform: scale(1.025);
+        }
+
+        .profile-photo-overlay {
+            position: absolute;
+            right: 30px;
+            bottom: 28px;
+            left: 30px;
+            z-index: 2;
+            color: #fff;
+        }
+
+        .profile-photo-label {
+            display: inline-block;
+            padding: 6px 10px;
+            margin-bottom: 10px;
+            color: #ffdf8e;
+            background: rgba(244, 184, 62, .13);
+            border: 1px solid rgba(244, 184, 62, .32);
+            border-radius: 20px;
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: .8px;
+            text-transform: uppercase;
+        }
+
+        .profile-photo-overlay h4 {
+            max-width: 340px;
+            margin: 0;
+            color: #fff;
+            font-size: 24px;
+            font-weight: 800;
+            line-height: 1.35;
+        }
+
+        .profile-mission-content {
+            padding: 38px 38px 34px;
+        }
+
+        .profile-mission-title {
+            margin-bottom: 13px;
+            color: #183d31;
+            font-size: 28px;
+            font-weight: 800;
+        }
+
+        .profile-vision-text {
+            padding-bottom: 19px;
+            margin-bottom: 21px;
+            color: #65766f;
+            border-bottom: 1px solid #e2ece7;
+            font-size: 14px;
+            line-height: 1.75;
+        }
+
+        .mission-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 12px;
+        }
+
+        .mission-item {
+            display: flex;
+            min-height: 105px;
+            padding: 15px;
+            align-items: flex-start;
+            background: #f5faf7;
+            border: 1px solid #deebe4;
+            border-radius: 12px;
+        }
+
+        .mission-number {
+            display: inline-flex;
+            width: 31px;
+            height: 31px;
+            min-width: 31px;
+            margin-right: 11px;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            background: #087a55;
+            border-radius: 9px;
+            font-size: 10px;
+            font-weight: 800;
+        }
+
+        .mission-item p {
+            margin: 0;
+            color: #60716a;
+            font-size: 12px;
+            line-height: 1.55;
+        }
+
+        #profil-sekolah .card-body {
+            padding: 30px;
+        }
+
+        #profil-sekolah iframe {
+            display: block;
+            border-radius: 14px;
+        }
+
+        #profil-sekolah .row.align-items-center img {
+            width: 100%;
+            min-height: 430px;
+            object-fit: cover;
+            border-radius: 20px !important;
+            box-shadow: 0 14px 34px rgba(24, 79, 60, .12) !important;
+        }
+
+        #profil-sekolah .list-unstyled li {
+            padding: 12px 14px;
+            margin-bottom: 10px !important;
+            background: #f6fbf8;
+            border: 1px solid #e2ece7;
+            border-radius: 10px;
+        }
+
+        #profil-sekolah .card.text-center {
+            color: #fff;
+            background: linear-gradient(135deg, #075f44, #0b8d62);
+            border: 0 !important;
+        }
+
+        #profil-sekolah .card.text-center h4,
+        #profil-sekolah .card.text-center h2 {
+            color: #fff !important;
+        }
+
+        #contact-us .card {
+            max-width: 820px;
+            margin: 0 auto;
+            border: 1px solid #dfebe5 !important;
+            border-radius: 20px;
+            background: linear-gradient(135deg, #ffffff, #f2faf6);
+            box-shadow: 0 14px 34px rgba(24, 79, 60, .08) !important;
+        }
+
+        #contact-us .card-body {
+            padding: 42px 30px;
+        }
+
+        #contact-us .program-icon {
+            display: flex;
+            width: 62px;
+            height: 62px;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            background: linear-gradient(135deg, #087a55, #21ad7b);
+            border-radius: 18px;
+            box-shadow: 0 10px 22px rgba(8, 122, 85, .2);
+            font-size: 24px;
+        }
+
+        .site-footer {
+            padding: 34px 0;
+            color: rgba(255, 255, 255, .76);
+            background: #064c38;
+        }
+
+        .site-footer strong {
+            color: #fff;
+        }
+
+        @media (max-width: 767.98px) {
+            #info-ppdb,
+            #syarat-administrasi,
+            #rincian-biaya,
+            #jalur-masuk,
+            #profil-sekolah,
+            #contact-us {
+                padding-top: 60px !important;
+                padding-bottom: 60px !important;
+            }
+
+            #info-ppdb .section-title,
+            #jalur-masuk .section-title,
+            #profil-sekolah .section-title,
+            #contact-us h2 {
+                font-size: 28px;
+            }
+
+            #info-ppdb .info-left {
+                padding: 34px 25px 34px 42px;
+            }
+
+            #info-ppdb .info-left::before {
+                left: 22px;
+            }
+
+            #syarat-administrasi .syarat-box,
+            #rincian-biaya .biaya-box {
+                padding: 28px 20px;
+            }
+
+            #profil-sekolah .row.align-items-center img {
+                min-height: 260px;
+            }
+
+            #jalur-masuk {
+                padding-bottom: 18px !important;
+            }
+
+            #profil-sekolah {
+                padding-top: 25px !important;
+            }
+
+            #profil-sekolah .text-center.mb-5 {
+                margin-bottom: 20px !important;
+            }
+
+            .profile-video-row > [class*="col-"] {
+                margin-bottom: 18px;
+            }
+
+            .profile-story-card {
+                margin-top: 32px !important;
+            }
+
+            .profile-photo-wrap,
+            .profile-photo-wrap img {
+                min-height: 310px;
+            }
+
+            .profile-mission-content {
+                padding: 28px 20px;
+            }
+
+            .mission-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .mission-item {
+                min-height: auto;
+            }
+        }
     </style>
 </head>
 
@@ -379,136 +989,46 @@
 
         $today = \Carbon\Carbon::today();
 
-        $gelombangCollection = collect($gelombangs ?? []);
-
-        $jadwalAktif = $gelombangCollection
-            ->filter(function ($gelombang) use ($today) {
-                if (empty($gelombang->mulai) || empty($gelombang->berakhir)) {
-                    return false;
-                }
-
-                $mulai = \Carbon\Carbon::parse($gelombang->mulai);
-                $berakhir = \Carbon\Carbon::parse($gelombang->berakhir);
-
-                return $today->between($mulai, $berakhir);
+        /*
+        | Ambil semua jadwal langsung dari database agar tidak ada gelombang
+        | yang terpotong oleh query controller atau route.
+        */
+        $gelombangCollection = \App\Models\Pendaftaran::query()
+            ->where(function ($query) {
+                $query
+                    ->whereNotNull('tanggal_buka_pendaftaran')
+                    ->orWhereNotNull('mulai');
             })
-            ->sortByDesc('mulai')
-            ->first();
-
-        $jadwalBerikutnya = $gelombangCollection
-            ->filter(function ($gelombang) use ($today) {
-                if (empty($gelombang->mulai)) {
-                    return false;
-                }
-
-                return $today->lt(\Carbon\Carbon::parse($gelombang->mulai));
+            ->get()
+            ->sortBy(function ($gelombang) {
+                return $gelombang->tanggal_buka_pendaftaran
+                    ?? $gelombang->mulai;
             })
-            ->sortBy('mulai')
-            ->first();
+            ->values();
 
-        $jadwalDitampilkan = $jadwalAktif ?: $jadwalBerikutnya;
-
-        $statusJadwalUtama = $jadwalAktif
-            ? 'Pendaftaran sedang dibuka pada'
-            : 'Pendaftaran gelombang berikutnya dibuka pada';
     @endphp
 
     <section class="pt-0 position-relative pull-top mb-5" id="jumbotron-card">
         <div class="container">
-            <div class="rounded shadow p-5 bg-white jadwal-box">
-                <div class="row">
+            <div class="rounded shadow p-4 bg-white jadwal-box">
+                <div class="text-center">
+                    <h4 class="jadwal-title mb-2">
+                        Jadwal Pendaftaran PPDB
+                    </h4>
 
-                    {{-- PENDAFTARAN --}}
-                    <div class="col-lg-4 col-md-12 text-center">
-                        <h6 class="font-weight-bold text-uppercase">
-                            PENDAFTARAN
-                        </h6>
+                    <p class="text-muted mb-3">
+                        Lihat jadwal lengkap setiap gelombang pendaftaran.
+                    </p>
 
-                        @if ($jadwalDitampilkan)
-                            <p class="regular text-muted mb-2">
-                                {{ $statusJadwalUtama }}
-                                <br>
-                                <strong>
-                                    {{ \Carbon\Carbon::parse($jadwalDitampilkan->mulai)->translatedFormat('d F Y') }}
-                                    -
-                                    {{ \Carbon\Carbon::parse($jadwalDitampilkan->berakhir)->translatedFormat('d F Y') }}
-                                </strong>
-                            </p>
-                        @else
-                            <p class="regular text-muted mb-2">
-                                Belum ada gelombang pendaftaran yang tersedia.
-                            </p>
-                        @endif
-
-                        <button type="button" class="btn btn-outline-success btn-sm btn-gelombang" data-toggle="modal"
-                            data-target="#modalGelombang">
-                            <i class="fa fa-calendar mr-1"></i>
-                            Jadwal Gelombang
-                        </button>
-                    </div>
-
-                    {{-- VERIFIKASI --}}
-                    <div class="col-lg-4 col-md-12 mt-5 mt-lg-0 text-center">
-                        <h6 class="font-weight-bold text-uppercase">
-                            VERIFIKASI & VALIDASI
-                        </h6>
-
-                        @if ($jadwalDitampilkan)
-                            @php
-                                $akhirPendaftaran = \Carbon\Carbon::parse($jadwalDitampilkan->berakhir);
-                                $mulaiVerifikasi = $akhirPendaftaran->copy()->addDay();
-                                $akhirVerifikasi = $akhirPendaftaran->copy()->addDays(7);
-                            @endphp
-
-                            <p class="regular text-muted" id="teks-verifikasi">
-                                Verifikasi & Validasi
-                                <br>
-                                <b>
-                                    {{ $mulaiVerifikasi->translatedFormat('d F') }}
-                                    -
-                                    {{ $akhirVerifikasi->translatedFormat('d F Y') }}
-                                </b>
-                            </p>
-                        @else
-                            <p class="regular text-muted" id="teks-verifikasi">
-                                Jadwal verifikasi dan validasi belum tersedia.
-                            </p>
-                        @endif
-                    </div>
-
-                    {{-- PENGUMUMAN --}}
-                    <div class="col-lg-4 col-md-12 mt-5 mt-lg-0 text-center">
-                        <h6 class="font-weight-bold text-uppercase">
-                            PENGUMUMAN & DAFTAR ULANG
-                        </h6>
-
-                        @if ($jadwalDitampilkan)
-                            @php
-                                $akhirPendaftaran = \Carbon\Carbon::parse($jadwalDitampilkan->berakhir);
-
-                                $mulaiVerifikasi = $akhirPendaftaran->copy()->addDay();
-                                $akhirVerifikasi = $akhirPendaftaran->copy()->addDays(7);
-
-                                $mulaiDaftarUlang = $akhirVerifikasi->copy()->addDay();
-                                $akhirDaftarUlang = $akhirVerifikasi->copy()->addDays(7);
-                            @endphp
-
-                            <p class="regular text-muted" id="teks-pengumuman">
-                                Pengumuman & Daftar Ulang
-                                <br>
-                                <b>
-                                    {{ $mulaiDaftarUlang->translatedFormat('d F') }}
-                                    -
-                                    {{ $akhirDaftarUlang->translatedFormat('d F Y') }}
-                                </b>
-                            </p>
-                        @else
-                            <p class="regular text-muted" id="teks-pengumuman">
-                                Jadwal pengumuman dan daftar ulang belum tersedia.
-                            </p>
-                        @endif
-                    </div>
-
+                    <button
+                        type="button"
+                        class="btn btn-success btn-gelombang"
+                        data-toggle="modal"
+                        data-target="#modalGelombang"
+                    >
+                        <i class="fa fa-calendar mr-1"></i>
+                        Lihat Jadwal Gelombang
+                    </button>
                 </div>
             </div>
         </div>
@@ -534,23 +1054,24 @@
                             @php
                                 $today = \Carbon\Carbon::today();
 
-                                $mulaiPendaftaran = \Carbon\Carbon::parse($gelombang->mulai);
-                                $akhirPendaftaran = \Carbon\Carbon::parse($gelombang->berakhir);
+                                $mulaiPendaftaran = \Carbon\Carbon::parse($gelombang->tanggal_buka_pendaftaran ?? $gelombang->mulai);
+                                $akhirPendaftaran = \Carbon\Carbon::parse($gelombang->tanggal_akhir_pendaftaran ?? $gelombang->berakhir);
+                                $mulaiSeleksi = \Carbon\Carbon::parse($gelombang->tanggal_buka_seleksi ?? $gelombang->mulai_seleksi);
+                                $akhirSeleksi = \Carbon\Carbon::parse($gelombang->tanggal_akhir_seleksi ?? $gelombang->berakhir_seleksi);
+                                $mulaiPengumuman = \Carbon\Carbon::parse($gelombang->tanggal_buka_pengumuman ?? $gelombang->mulai_pengumuman);
+                                $akhirPengumuman = \Carbon\Carbon::parse($gelombang->tanggal_akhir_pengumuman ?? $gelombang->berakhir_pengumuman);
 
-                                $mulaiVerifikasi = $akhirPendaftaran->copy()->addDay();
-                                $akhirVerifikasi = $akhirPendaftaran->copy()->addDays(7);
-
-                                $mulaiDaftarUlang = $akhirVerifikasi->copy()->addDay();
-                                $akhirDaftarUlang = $akhirVerifikasi->copy()->addDays(7);
-
-                                if ($today->between($mulaiPendaftaran, $akhirPendaftaran)) {
+                                if (($gelombang->status ?? 'Aktif') === 'Tidak Aktif') {
+                                    $statusText = 'Tidak Aktif';
+                                    $badgeClass = 'badge-danger';
+                                } elseif ($today->between($mulaiPendaftaran, $akhirPendaftaran)) {
                                     $statusText = 'Pendaftaran Berlangsung';
                                     $badgeClass = 'badge-success';
-                                } elseif ($today->between($mulaiVerifikasi, $akhirVerifikasi)) {
-                                    $statusText = 'Verifikasi & Validasi';
+                                } elseif ($today->between($mulaiSeleksi, $akhirSeleksi)) {
+                                    $statusText = 'Tahap Seleksi';
                                     $badgeClass = 'badge-info';
-                                } elseif ($today->between($mulaiDaftarUlang, $akhirDaftarUlang)) {
-                                    $statusText = 'Pengumuman & Daftar Ulang';
+                                } elseif ($today->between($mulaiPengumuman, $akhirPengumuman)) {
+                                    $statusText = 'Tahap Pengumuman';
                                     $badgeClass = 'badge-primary';
                                 } elseif ($today->lessThan($mulaiPendaftaran)) {
                                     $statusText = 'Belum Dibuka';
@@ -567,7 +1088,7 @@
                                     <div class="d-flex justify-content-between align-items-center mb-3">
                                         <div>
                                             <h6 class="mb-0 font-weight-bold text-success">
-                                                Gelombang {{ $loop->iteration }}
+                                                {{ $gelombang->gelombang ?? $gelombang->tahap ?? 'Gelombang ' . $loop->iteration }}
                                             </h6>
 
                                             @if (!empty($gelombang->tahun_akademik))
@@ -598,23 +1119,23 @@
 
                                                 <tr>
                                                     <td>
-                                                        <strong>Verifikasi dan Validasi</strong>
+                                                        <strong>Seleksi</strong>
                                                     </td>
                                                     <td>
-                                                        {{ $mulaiVerifikasi->translatedFormat('d F Y') }}
+                                                        {{ $mulaiSeleksi->translatedFormat('d F Y') }}
                                                         -
-                                                        {{ $akhirVerifikasi->translatedFormat('d F Y') }}
+                                                        {{ $akhirSeleksi->translatedFormat('d F Y') }}
                                                     </td>
                                                 </tr>
 
                                                 <tr>
                                                     <td>
-                                                        <strong>Pengumuman dan Daftar Ulang</strong>
+                                                        <strong>Pengumuman</strong>
                                                     </td>
                                                     <td>
-                                                        {{ $mulaiDaftarUlang->translatedFormat('d F Y') }}
+                                                        {{ $mulaiPengumuman->translatedFormat('d F Y') }}
                                                         -
-                                                        {{ $akhirDaftarUlang->translatedFormat('d F Y') }}
+                                                        {{ $akhirPengumuman->translatedFormat('d F Y') }}
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -1031,84 +1552,100 @@
                 </p>
             </div>
 
-            <div class="card border-0 shadow mb-5">
-                <div class="card-body">
-                    <h4 class="font-weight-bold text-success mb-3">
-                        Company Profile SMK Ma'arif NU Kota Batam
-                    </h4>
-
-                    <iframe width="100%" height="500" src="https://www.youtube.com/embed/ahNK-Z45efU" frameborder="0"
-                        allowfullscreen>
-                    </iframe>
-                </div>
-            </div>
-
-            <div class="card border-0 shadow mt-5">
-                <div class="card-body">
-                    <h4 class="font-weight-bold text-success mb-3">
-                        Sejarah Berdirinya SMK Ma'arif NU Kota Batam
-                    </h4>
-
-                    <iframe width="100%" height="500" src="https://www.youtube.com/embed/wZdrD0dGp6w" frameborder="0"
-                        allowfullscreen>
-                    </iframe>
-                </div>
-            </div>
-
-            <div class="row align-items-center mt-5">
-
-                <div class="col-lg-5 mb-4">
-                    <img src="{{ asset('whatsapp-banner.jpeg') }}" alt="SMK Ma'arif NU Batam"
-                        class="img-fluid rounded shadow">
-                </div>
-
-                <div class="col-lg-7">
-                    <div class="card border-0 shadow h-100">
+            <div class="row profile-video-row">
+                <div class="col-lg-6 col-md-6">
+                    <div class="card profile-video-card">
                         <div class="card-body">
+                            <span class="profile-video-label">
+                                <i class="fa fa-play-circle mr-2"></i>
+                                Video Profil
+                            </span>
 
-                            <h4 class="font-weight-bold text-success mb-3">
-                                Visi & Misi
+                            <h4 class="profile-video-title">
+                                Company Profile SMKS Ma'arif NU Kota Batam
                             </h4>
 
-                            <p class="text-muted">
-                                Menjadi sekolah unggulan yang berjiwa nasional, berwawasan global yang menyiapkan
-                                generasi muslim terampil dan berakhlak mulia.
-                            </p>
-
-                            <h5 class="font-weight-bold text-success mt-4 mb-3">
-                                Misi
-                            </h5>
-
-                            <ul class="list-unstyled">
-                                <li class="mb-4 d-flex">
-                                    <i class="fa fa-leaf text-success mt-1 mr-3"></i>
-                                    <span>Membentuk tamatan yang beriman, berkemampuan unggul, dan mampu mengembangkan
-                                        diri.</span>
-                                </li>
-
-                                <li class="mb-4 d-flex">
-                                    <i class="fa fa-leaf text-success mt-1 mr-3"></i>
-                                    <span>Menyiapkan tenaga kerja menengah yang terampil dan profesional di bidang
-                                        keahlian yang dipilihnya.</span>
-                                </li>
-
-                                <li class="mb-4 d-flex">
-                                    <i class="fa fa-leaf text-success mt-1 mr-3"></i>
-                                    <span>Menjadikan SMK sebagai sumber informasi di bidang pekerjaan jasa sesuai
-                                        program keahlian.</span>
-                                </li>
-
-                                <li class="d-flex">
-                                    <i class="fa fa-leaf text-success mt-1 mr-3"></i>
-                                    <span>Menjadikan SMK yang mampu menciptakan SDM yang mampu bersaing di dunia usaha
-                                        dan industri.</span>
-                                </li>
-                            </ul>
-
+                            <div class="profile-video-frame">
+                                <iframe src="https://www.youtube.com/embed/ahNK-Z45efU"
+                                    frameborder="0" allowfullscreen></iframe>
+                            </div>
                         </div>
                     </div>
                 </div>
 
+                <div class="col-lg-6 col-md-6">
+                    <div class="card profile-video-card">
+                        <div class="card-body">
+                            <span class="profile-video-label">
+                                <i class="fa fa-history mr-2"></i>
+                                Sejarah Sekolah
+                            </span>
+
+                            <h4 class="profile-video-title">
+                                Sejarah Berdirinya SMKS Ma'arif NU Kota Batam
+                            </h4>
+
+                            <div class="profile-video-frame">
+                                <iframe src="https://www.youtube.com/embed/wZdrD0dGp6w"
+                                    frameborder="0" allowfullscreen></iframe>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="profile-story-card">
+                <div class="row no-gutters align-items-stretch">
+                    <div class="col-lg-5 profile-photo-column">
+                        <div class="profile-photo-wrap">
+                            <img src="{{ asset('whatsapp-banner.jpeg') }}"
+                                alt="SMKS Ma'arif NU Kota Batam">
+
+                            <div class="profile-photo-overlay">
+                                <span class="profile-photo-label">Visi Sekolah</span>
+                                <h4>Unggul, religius, dan berwawasan global.</h4>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-7 profile-mission-column">
+                        <div class="profile-mission-content">
+                            <span class="profile-video-label">
+                                <i class="fa fa-graduation-cap mr-2"></i>
+                                Arah Pendidikan
+                            </span>
+
+                            <h3 class="profile-mission-title">Visi & Misi</h3>
+
+                            <p class="profile-vision-text">
+                                Menjadi sekolah unggulan yang berjiwa nasional, berwawasan global yang menyiapkan
+                                generasi muslim terampil dan berakhlak mulia.
+                            </p>
+
+                            <div class="mission-grid">
+                                <div class="mission-item">
+                                    <span class="mission-number">01</span>
+                                    <p>Membentuk tamatan yang beriman, berkemampuan unggul, dan mampu mengembangkan diri.</p>
+                                </div>
+
+                                <div class="mission-item">
+                                    <span class="mission-number">02</span>
+                                    <p>Menyiapkan tenaga kerja menengah yang terampil dan profesional.</p>
+                                </div>
+
+                                <div class="mission-item">
+                                    <span class="mission-number">03</span>
+                                    <p>Menjadikan SMK sebagai sumber informasi di bidang pekerjaan jasa.</p>
+                                </div>
+
+                                <div class="mission-item">
+                                    <span class="mission-number">04</span>
+                                    <p>Menciptakan SDM yang mampu bersaing di dunia usaha dan industri.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div class="card border-0 shadow text-center mt-4">
@@ -1141,6 +1678,10 @@
 
             <div class="card border-0 shadow">
                 <div class="card-body text-center">
+                    <div class="program-icon mx-auto mb-3">
+                        <i class="fa fa-phone"></i>
+                    </div>
+
                     <h5 class="font-weight-bold">
                         SMKS Ma'arif NU Kota Batam
                     </h5>
@@ -1156,6 +1697,24 @@
             </div>
         </div>
     </section>
+
+    {{-- FOOTER --}}
+    <footer class="site-footer">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-7 text-center text-md-left mb-2 mb-md-0">
+                    <strong>SMKS Ma'arif NU Kota Batam</strong>
+                    <div class="small mt-1">
+                        Sistem Informasi Penerimaan Peserta Didik Baru
+                    </div>
+                </div>
+
+                <div class="col-md-5 text-center text-md-right small">
+                    &copy; {{ date('Y') }} SIPPDB. Seluruh hak dilindungi.
+                </div>
+            </div>
+        </div>
+    </footer>
 
     {{-- TO TOP --}}
     <div class="scroll-top-to">
