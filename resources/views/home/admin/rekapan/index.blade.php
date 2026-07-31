@@ -404,9 +404,16 @@
                 page-break-inside: avoid;
             }
 
+            #detail-data-pendaftar .rekap-table {
+                width: 100% !important;
+                min-width: 0 !important;
+                table-layout: fixed !important;
+                font-size: 14px !important;
+            }
+
             @page {
-                size: A4;
-                margin: 15mm;
+                size: A4 landscape;
+                margin: 7mm;
             }
         }
     </style>
@@ -450,15 +457,12 @@
 
         {{-- TOMBOL AKSI --}}
         <div class="text-right mb-3 no-print rekap-actions">
-            <button type="button"
-                onclick="window.print()"
-                class="btn btn-outline-secondary">
+            <button type="button" onclick="window.print()" class="btn btn-outline-secondary">
                 <i class="fas fa-print mr-1"></i>
                 Cetak Rekapan
             </button>
 
-            <a href="{{ route('admin.rekap.export-csv') }}"
-                class="btn btn-success">
+            <a href="{{ route('admin.rekap.export-csv') }}" class="btn btn-success">
                 <i class="fas fa-file-excel mr-1"></i>
                 Export Excel
             </a>
@@ -730,8 +734,7 @@
             </div>
 
             {{-- DETAIL PENDAFTAR --}}
-            <div id="detail-data-pendaftar"
-                class="rekap-card mt-2">
+            <div id="detail-data-pendaftar" class="rekap-card mt-2">
 
                 <div class="rekap-card-header">
                     <div>
@@ -753,7 +756,7 @@
                                 <th width="5%">No.</th>
                                 <th>Nama Siswa</th>
                                 <th>Peringkat</th>
-                                <th>Nilai Rapor</th>
+                                <th>Nilai Raport</th>
                                 <th>Nilai Al-Qur'an</th>
                                 <th>Nilai Wawancara</th>
                                 <th>Total Nilai</th>
@@ -883,7 +886,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const statusCanvas =
                 document.getElementById('chartStatusSeleksi');
 
@@ -900,8 +903,8 @@
 
                         datasets: [{
                             data: [
-                                {{ $totalDiterima }},
-                                {{ $totalTidakDiterima }},
+                                        {{ $totalDiterima }},
+                                        {{ $totalTidakDiterima }},
                                 {{ $totalBelumDiproses }}
                             ],
 

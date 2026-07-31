@@ -46,8 +46,8 @@ class BiodataRequest extends FormRequest
             'kecamatan' => 'required|string',
             'kota' => 'required|string',
             'provinsi' => 'required|string',
-            'lintang' => 'required|string',
-            'bujur' => 'required|string',
+            'lintang' => 'nullable|string',
+            'bujur' => 'nullable|string',
             'nama_ayah' => 'required|string',
             'nama_ibu' => 'required|string',
             'pekerjaan_ayah' => 'required|string',
@@ -60,8 +60,8 @@ class BiodataRequest extends FormRequest
             'prestasi' => 'required|string',
             'status_tempat' => 'required|in:rumah sendiri,kontrakan,kosan',
             'transportasi' => 'required|in:Jalan Kaki,Kendaraan Pribadi,Angkutan Umum,Sepeda',
-            'no_kks' => 'required|string',
-            'kps_pkp' => 'required|in:Tidak,Ya',
+            'no_kks' => 'nullable|string',
+            'kps_pkp' => 'nullable|in:Tidak,Ya',
         ];
     }
 }

@@ -87,53 +87,236 @@
 </div>
 
 @push('js')
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <script>
-        var siswa = @json($siswa ?? null);
-
-        if (!siswa) {
-            window.location.href = '{{ route('siswa.pendaftaran.index') }}?step=kelas';
-        }
-
         $(document).ready(function() {
-            $('#next').on('click', function() {
-                var sekolah_asal = $('#sekolah_asal').val();
-                var nilai_ijazah = $('#nilai_ijazah').val();
-                var nilai_rata = $('#nilai_rata').val();
-                var nisn = $('#nisn').val();
+            const siswa = @json($siswa ?? null);
+            const urlSimpan = @json(route('siswa.pendaftaran.wali'));
+            const urlPendaftaran = @json(route('siswa.pendaftaran.index'));
 
-                $.ajax({
-                    url: '{{ route('siswa.pendaftaran.wali') }}',
-                    type: 'POST',
-                    data: {
-                        _token: '{{ csrf_token() }}',
-                        sekolah_asal: sekolah_asal,
-                        nilai_ijazah: nilai_ijazah,
-                        nilai_rata: nilai_rata,
-                        nisn: nisn,
-                    },
-                    success: function(response) {
-                        window.location.href = response.url;
-                    },
-                    error: function(xhr) {
-                        var res = xhr.responseJSON;
+            /*
+             * Jika data siswa belum tersedia,
+             * pengguna dikembalikan ke tahap pemilihan jurusan.
+             */
+            if (!siswa) {
+                window.location.href = urlPendaftaran + '?step=kelas';
+                return;
+            }
 
-                        toastr.error('Mohon inputkan data yang valid');
+            /*
+             * Menghapus event sebelumnya agar proses tidak berjalan
+             * lebih dari satu kali.
+             */
+            $(document)
+                .off('click.simpanWali', '#btnSimpan')
+                .on('click.simpanWali', '#btnSimpan', function(event) {
+                    event.preventDefault();
+                    event.stopPropagation();
 
-                        $('.form-control').removeClass('is-invalid');
-                        $('.invalid-feedback').text('');
+                    const tombolSimpan = $(this);
+                    const teksTombolAwal = tombolSimpan.html();
 
-                        if (res.errors) {
-                            $.each(res.errors, function(key, value) {
-                                $('#' + key).addClass('is-invalid');
-                                $('#' + key)
-                                    .closest('.form-group')
-                                    .find('.invalid-feedback')
-                                    .text(value[0]);
-                            });
-                        }
+                    const sekolahAsal = $('#sekolah_asal').val().trim();
+                    const nisn = $('#nisn').val().trim();
+                    const nilaiIjazah = $('#nilai_ijazah').val();
+                    const nilaiRata = $('#nilai_rata').val();
+
+                    /*
+                     * Menghapus pesan validasi sebelumnya.
+                     */
+                    $('#formPendaftaran .form-control')
+                        .removeClass('is-invalid');
+
+                    $('#formPendaftaran .invalid-feedback')
+                        .text('');
+
+                    /*
+                     * Validasi sederhana sebelum data dikirim.
+                     */
+                    if (
+                        sekolahAsal === '' ||
+                        nisn === '' ||
+                        nilaiIjazah === '' ||
+                        nilaiRata === ''
+                    ) {
+                        Swal.fire({
+                            icon: 'warning',
+                            title: 'Data Belum Lengkap',
+                            text: 'Silakan lengkapi seluruh data sekolah terlebih dahulu.',
+                            confirmButtonText: 'Periksa Kembali'
+                        });
+
+                        return;
                     }
+
+                    tombolSimpan
+                        .prop('disabled', true)
+                        .html(`
+                            <span
+                                class="spinner-border spinner-border-sm"
+                                role="status"
+                                aria-hidden="true"
+                            ></span>
+                            Menyimpan...
+                        `);
+
+                    Swal.fire({
+                        title: 'Menyimpan Data',
+                        text: 'Mohon tunggu, data pendaftaran sedang disimpan.',
+                        allowOutsideClick: false,
+                        allowEscapeKey: false,
+                        showConfirmButton: false,
+                        didOpen: function() {
+                            Swal.showLoading();
+                        }
+                    });
+
+                    $.ajax({
+                        url: urlSimpan,
+                        type: 'POST',
+                        dataType: 'json',
+
+                        /*
+                         * Mengambil seluruh input yang terdapat
+                         * di dalam form, termasuk token CSRF.
+                         */
+                        data: $('#formPendaftaran').serialize(),
+
+                        success: function(response) {
+                            Swal.close();
+
+                            if (response.success === false) {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Data Gagal Disimpan',
+                                    text: response.message ||
+                                        'Data pendaftaran gagal disimpan.',
+                                    confirmButtonText: 'Periksa Kembali'
+                                });
+
+                                return;
+                            }
+
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Berhasil',
+                                text: response.message ||
+                                    'Data pendaftaran berhasil disimpan.',
+                                confirmButtonText: 'OK',
+                                allowOutsideClick: false
+                            }).then(function() {
+                                if (response.url) {
+                                    window.location.href = response.url;
+                                } else if (response.redirect) {
+                                    window.location.href =
+                                        response.redirect;
+                                } else {
+                                    window.location.href =
+                                        urlPendaftaran;
+                                }
+                            });
+                        },
+
+                        error: function(xhr) {
+                            Swal.close();
+
+                            const response = xhr.responseJSON || {};
+                            let pesan = response.message ||
+                                response.error ||
+                                'Data pendaftaran gagal disimpan.';
+
+                            /*
+                             * Menghapus status validasi sebelumnya.
+                             */
+                            $('#formPendaftaran .form-control')
+                                .removeClass('is-invalid');
+
+                            $('#formPendaftaran .invalid-feedback')
+                                .text('');
+
+                            /*
+                             * Menampilkan pesan validasi Laravel
+                             * pada setiap kolom.
+                             */
+                            if (
+                                xhr.status === 422 &&
+                                response.errors
+                            ) {
+                                const daftarError = [];
+
+                                $.each(
+                                    response.errors,
+                                    function(key, value) {
+                                        const input = $('#' + key);
+                                        const pesanField = Array.isArray(value)
+                                            ? value[0]
+                                            : value;
+
+                                        daftarError.push(pesanField);
+
+                                        input.addClass('is-invalid');
+
+                                        input
+                                            .closest('.form-group')
+                                            .find('.invalid-feedback')
+                                            .text(pesanField);
+                                    }
+                                );
+
+                                pesan = `
+                                    <div style="text-align: left;">
+                                        <p>
+                                            Silakan periksa kembali data berikut:
+                                        </p>
+
+                                        <ul style="
+                                            padding-left: 20px;
+                                            margin-bottom: 0;
+                                        ">
+                                            ${daftarError.map(function(item) {
+                                                return `
+                                                    <li>
+                                                        ${escapeHtml(item)}
+                                                    </li>
+                                                `;
+                                            }).join('')}
+                                        </ul>
+                                    </div>
+                                `;
+                            } else if (xhr.status === 419) {
+                                pesan =
+                                    'Sesi halaman telah berakhir. Silakan muat ulang halaman dan coba kembali.';
+                            } else if (xhr.status >= 500) {
+                                pesan =
+                                    'Terjadi kesalahan pada sistem saat menyimpan data. Silakan coba kembali.';
+                            } else {
+                                pesan = escapeHtml(pesan);
+                            }
+
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Data Gagal Disimpan',
+                                html: pesan,
+                                confirmButtonText: 'Periksa Kembali',
+                                allowOutsideClick: false
+                            });
+                        },
+
+                        complete: function() {
+                            tombolSimpan
+                                .prop('disabled', false)
+                                .html(teksTombolAwal);
+                        }
+                    });
                 });
-            });
+
+            function escapeHtml(text) {
+                const element = document.createElement('div');
+                element.textContent = String(text);
+
+                return element.innerHTML;
+            }
         });
     </script>
 @endpush

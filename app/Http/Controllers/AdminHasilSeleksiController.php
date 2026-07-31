@@ -3,20 +3,104 @@
 namespace App\Http\Controllers;
 
 use App\Models\Siswa;
-use App\Models\Kelas;
+use Illuminate\Http\Request;
 
 class AdminHasilSeleksiController extends Controller
 {
+    /*
+    |--------------------------------------------------------------------------
+    | Menampilkan Data Hasil Akhir
+    |--------------------------------------------------------------------------
+    */
     public function index()
     {
-        $siswasAwal = Siswa::with(['user', 'kelas'])->get();
+        $siswasAwal = Siswa::with([
+            'user',
+            'kelas',
+        ])->get();
 
+        /*
+         * Menghitung total nilai secara otomatis.
+         *
+         * Nilai rapor     = 40%
+         * Nilai Al-Qur'an = 30%
+         * Nilai wawancara = 30%
+         *
+         * Perhitungan ini tidak menentukan siswa diterima
+         * atau tidak diterima.
+         */
+        foreach ($siswasAwal as $siswa) {
+            $nilaiLengkap =
+                $siswa->nilai_rata !== null &&
+                $siswa->nilai_quran !== null &&
+                $siswa->nilai_wawancara !== null;
+
+            if ($nilaiLengkap) {
+                $totalNilai =
+                    ($siswa->nilai_rata * 0.4) +
+                    ($siswa->nilai_quran * 0.3) +
+                    ($siswa->nilai_wawancara * 0.3);
+
+                $totalNilai = round($totalNilai, 2);
+
+                /*
+                 * Simpan total nilai jika terdapat perubahan.
+                 */
+                if ((float) $siswa->total_nilai !== $totalNilai) {
+                    $siswa->update([
+                        'total_nilai' => $totalNilai,
+                    ]);
+                }
+
+                $siswa->total_nilai = $totalNilai;
+            } else {
+                /*
+                 * Jika salah satu nilai belum tersedia,
+                 * total nilai dikosongkan.
+                 */
+                $dataUpdate = [];
+
+                if ($siswa->total_nilai !== null) {
+                    $dataUpdate['total_nilai'] = null;
+                }
+
+                /*
+                 * Siswa dengan nilai belum lengkap tidak boleh
+                 * memiliki status hasil seleksi final.
+                 */
+                if (
+                    in_array(
+                        $siswa->status,
+                        ['Diterima', 'Tidak Diterima']
+                    )
+                ) {
+                    $dataUpdate['status'] = 'Menunggu Konfirmasi';
+                    $dataUpdate['catatan_admin'] = null;
+                    $dataUpdate['jadwal_daftar_ulang'] = null;
+                    $dataUpdate['tempat_daftar_ulang'] = null;
+                }
+
+                if (!empty($dataUpdate)) {
+                    $siswa->update($dataUpdate);
+                }
+
+                $siswa->total_nilai = null;
+            }
+        }
+
+        /*
+         * Mengelompokkan siswa berdasarkan jurusan.
+         */
         $siswas = collect();
 
         $siswasAwal
             ->groupBy('kelas_id')
             ->sortKeys()
             ->each(function ($group) use ($siswas) {
+                /*
+                 * Urutkan siswa berdasarkan total nilai
+                 * dari nilai tertinggi ke terendah.
+                 */
                 $sorted = $group
                     ->sortByDesc(function ($siswa) {
                         return $siswa->total_nilai ?? -1;
@@ -24,138 +108,106 @@ class AdminHasilSeleksiController extends Controller
                     ->values();
 
                 foreach ($sorted as $index => $siswa) {
-                    $kuota = $this->ambilKuotaJurusan($siswa->kelas);
-
-                    $siswa->setAttribute('peringkat_jurusan', $siswa->total_nilai !== null ? $index + 1 : null);
-                    $siswa->setAttribute('kuota_jurusan', $kuota);
+                    /*
+                     * Peringkat hanya diberikan apabila
+                     * total nilai sudah tersedia.
+                     */
+                    $siswa->setAttribute(
+                        'peringkat_jurusan',
+                        $siswa->total_nilai !== null
+                            ? $index + 1
+                            : null
+                    );
 
                     $siswas->push($siswa);
                 }
             });
 
-        return view('home.admin.hasil_seleksi.index', compact('siswas'));
+        return view(
+            'home.admin.hasil_seleksi.index',
+            compact('siswas')
+        );
     }
 
-    public function proses($id)
+    /*
+    |--------------------------------------------------------------------------
+    | Menyimpan Status Manual
+    |--------------------------------------------------------------------------
+    */
+    public function updateStatus(Request $request, Siswa $siswa)
     {
-        $siswa = Siswa::findOrFail($id);
+        /*
+         * Status hanya boleh Diterima atau Tidak Diterima.
+         * Pilihan Belum Diproses tidak digunakan.
+         */
+        $request->validate([
+            'status' => [
+                'required',
+                'in:Diterima,Tidak Diterima',
+            ],
+        ], [
+            'status.required' =>
+                'Status siswa harus dipilih.',
 
-        if (!$siswa->kelas_id) {
+            'status.in' =>
+                'Status siswa tidak valid.',
+        ]);
+
+        /*
+         * Periksa kelengkapan seluruh nilai.
+         */
+        $nilaiLengkap =
+            $siswa->nilai_rata !== null &&
+            $siswa->nilai_quran !== null &&
+            $siswa->nilai_wawancara !== null;
+
+        if (!$nilaiLengkap) {
             return redirect()
                 ->back()
-                ->with('error', 'Jurusan siswa belum ditentukan.');
+                ->with(
+                    'error',
+                    'Status belum dapat ditentukan karena nilai siswa belum lengkap.'
+                );
         }
 
-        $this->prosesRekapitulasiPerJurusan($siswa->kelas_id);
+        /*
+         * Membuat catatan berdasarkan status yang
+         * dipilih secara manual oleh admin.
+         */
+        if ($request->status === 'Diterima') {
+            $catatan =
+                'Selamat, Anda dinyatakan diterima. Harap datang bersama orang tua/wali saat daftar ulang dan membawa bukti pengumuman diterima.';
+
+            $jadwalDaftarUlang =
+                'Akan diinformasikan oleh pihak sekolah';
+
+            $tempatDaftarUlang =
+                'Ruang Tata Usaha Sekolah';
+        } else {
+            $catatan =
+                'Mohon maaf, Anda belum dinyatakan diterima pada seleksi kali ini.';
+
+            $jadwalDaftarUlang = null;
+            $tempatDaftarUlang = null;
+        }
+
+        /*
+         * Simpan status hasil seleksi.
+         */
+        $siswa->update([
+            'status' => $request->status,
+            'catatan_admin' => $catatan,
+            'jadwal_daftar_ulang' => $jadwalDaftarUlang,
+            'tempat_daftar_ulang' => $tempatDaftarUlang,
+        ]);
 
         return redirect()
             ->back()
-            ->with('success', 'Rekapitulasi data jurusan berhasil diproses berdasarkan peringkat nilai tertinggi.');
-    }
-
-    public function prosesSemua()
-    {
-        $kelasIds = Siswa::whereNotNull('kelas_id')
-            ->distinct()
-            ->pluck('kelas_id');
-
-        foreach ($kelasIds as $kelasId) {
-            $this->prosesRekapitulasiPerJurusan($kelasId);
-        }
-
-        return redirect()
-            ->back()
-            ->with('success', 'Rekapitulasi semua data berhasil diproses berdasarkan jurusan dan peringkat nilai.');
-    }
-
-    private function prosesRekapitulasiPerJurusan($kelasId)
-    {
-        $kelas = Kelas::find($kelasId);
-        $kuota = $this->ambilKuotaJurusan($kelas);
-
-        $siswas = Siswa::with('kelas')
-            ->where('kelas_id', $kelasId)
-            ->get();
-
-        foreach ($siswas as $siswa) {
-            if (
-                $siswa->nilai_rata === null ||
-                $siswa->nilai_quran === null ||
-                $siswa->nilai_wawancara === null
-            ) {
-                $siswa->update([
-                    'total_nilai' => null,
-                    'status' => 'Menunggu Konfirmasi',
-                    'catatan_admin' => null,
-                ]);
-
-                continue;
-            }
-
-            $totalNilai = ($siswa->nilai_rata * 0.4) +
-                          ($siswa->nilai_quran * 0.3) +
-                          ($siswa->nilai_wawancara * 0.3);
-
-            $siswa->update([
-                'total_nilai' => round($totalNilai, 2),
-            ]);
-        }
-
-        $siswasLengkap = Siswa::with('kelas')
-            ->where('kelas_id', $kelasId)
-            ->whereNotNull('total_nilai')
-            ->orderByDesc('total_nilai')
-            ->get();
-
-        foreach ($siswasLengkap as $index => $siswa) {
-            $peringkat = $index + 1;
-            $totalNilai = (float) $siswa->total_nilai;
-
-            /*
-             * Ketentuan:
-             * 1. Jika kuota jurusan ada, siswa diterima berdasarkan peringkat tertinggi sampai kuota terpenuhi.
-             * 2. Total nilai tetap harus minimal 70.
-             * 3. Jika kuota belum diisi, sistem memakai aturan lama: total nilai minimal 70.
-             */
-
-            if ($kuota > 0) {
-                $diterima = $peringkat <= $kuota && $totalNilai >= 70;
-            } else {
-                $diterima = $totalNilai >= 70;
-            }
-
-            if ($diterima) {
-                $status = 'Diterima';
-                $catatan = 'Selamat, Anda dinyatakan diterima. Harap datang bersama orang tua/wali saat daftar ulang dan membawa bukti pengumuman diterima.';
-            } else {
-                $status = 'Tidak Diterima';
-                $catatan = 'Mohon maaf, Anda belum dinyatakan diterima pada seleksi kali ini.';
-            }
-
-            $siswa->update([
-                'status' => $status,
-                'catatan_admin' => $catatan,
-                'jadwal_daftar_ulang' => $status === 'Diterima'
-                    ? 'Akan diinformasikan oleh pihak sekolah'
-                    : null,
-                'tempat_daftar_ulang' => $status === 'Diterima'
-                    ? 'Ruang Tata Usaha Sekolah'
-                    : null,
-            ]);
-        }
-    }
-
-    private function ambilKuotaJurusan($kelas)
-    {
-        if (!$kelas) {
-            return 0;
-        }
-
-        return (int) (
-            $kelas->kuota ??
-            $kelas->jumlah_kuota ??
-            $kelas->daya_tampung ??
-            0
-        );
+            ->with(
+                'success',
+                'Status siswa berhasil diperbarui menjadi ' .
+                    $request->status .
+                    '.'
+            );
     }
 }

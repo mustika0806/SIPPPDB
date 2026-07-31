@@ -556,7 +556,7 @@
             margin-left: -10px;
         }
 
-        .profile-video-row > [class*="col-"] {
+        .profile-video-row>[class*="col-"] {
             padding-right: 10px;
             padding-left: 10px;
         }
@@ -818,6 +818,7 @@
         }
 
         @media (max-width: 767.98px) {
+
             #info-ppdb,
             #syarat-administrasi,
             #rincian-biaya,
@@ -864,7 +865,7 @@
                 margin-bottom: 20px !important;
             }
 
-            .profile-video-row > [class*="col-"] {
+            .profile-video-row>[class*="col-"] {
                 margin-bottom: 18px;
             }
 
@@ -889,6 +890,88 @@
                 min-height: auto;
             }
         }
+
+        .map-frame {
+            width: 100%;
+            height: 300px;
+            border: 0;
+            border-radius: 8px 8px 0 0;
+        }
+
+        .profile-card {
+            overflow: hidden;
+            border-radius: 10px;
+        }
+
+        #contact-us .card {
+            border-radius: 10px;
+        }
+
+        .site-footer {
+            padding: 25px 0;
+            background: #123d2b;
+            color: #ffffff;
+        }
+
+        .footer-social {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .footer-social-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            min-height: 38px;
+            padding: 8px 11px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 8px;
+            color: #ffffff;
+            font-size: 12px;
+            text-decoration: none;
+            transition: 0.25s;
+        }
+
+        .footer-social-link i {
+            font-size: 17px;
+        }
+
+        .tiktok-icon {
+            width: 17px;
+            height: 17px;
+        }
+
+        .footer-social-link:hover {
+            color: #ffffff;
+            background: #28a745;
+            border-color: #28a745;
+            text-decoration: none;
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 991.98px) {
+            .footer-social {
+                margin: 5px 0;
+            }
+        }
+
+        @media (max-width: 575.98px) {
+            .footer-social-link span {
+                display: none;
+            }
+
+            .footer-social-link {
+                width: 42px;
+                height: 42px;
+                padding: 0;
+                border-radius: 50%;
+            }
+        }
+
     </style>
 </head>
 
@@ -1020,12 +1103,8 @@
                         Lihat jadwal lengkap setiap gelombang pendaftaran.
                     </p>
 
-                    <button
-                        type="button"
-                        class="btn btn-success btn-gelombang"
-                        data-toggle="modal"
-                        data-target="#modalGelombang"
-                    >
+                    <button type="button" class="btn btn-success btn-gelombang" data-toggle="modal"
+                        data-target="#modalGelombang">
                         <i class="fa fa-calendar mr-1"></i>
                         Lihat Jadwal Gelombang
                     </button>
@@ -1461,82 +1540,7 @@
             </div>
         </div>
     </section>
-
-    {{-- JALUR MASUK --}}
-    <section class="py-5 bg-light" id="jalur-masuk">
-        <div class="container">
-
-            <div class="text-center mb-5">
-                <h2 class="section-title">
-                    Pembagian Jalur Masuk
-                </h2>
-
-                <p class="text-muted">
-                    SIPPDB SMKS Ma'arif NU Kota Batam menyediakan 3 jalur penerimaan peserta didik baru.
-                </p>
-            </div>
-
-            <div class="row">
-
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="card custom-card text-center">
-                        <div class="card-body">
-                            <img src="https://cdn-icons-png.freepik.com/512/9512/9512451.png" width="90" class="mb-3"
-                                alt="Jalur Prestasi">
-
-                            <h4 class="font-weight-bold text-primary">
-                                Jalur Prestasi
-                            </h4>
-
-                            <p class="text-muted">
-                                Diperuntukkan bagi calon peserta didik yang memiliki prestasi akademik maupun
-                                non-akademik
-                                yang dibuktikan dengan dokumen pendukung.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="card custom-card text-center">
-                        <div class="card-body">
-                            <img src="https://storage-api.cimahikota.go.id/lapakami/assets/icon/22df49ef96ded10bb9a3a90295d8bdb0.png"
-                                width="90" class="mb-3" alt="Jalur Domisili">
-
-                            <h4 class="font-weight-bold text-warning">
-                                Jalur Domisili
-                            </h4>
-
-                            <p class="text-muted">
-                                Diperuntukkan bagi calon peserta didik yang berdomisili sesuai ketentuan wilayah yang
-                                telah ditetapkan.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-12 mb-4">
-                    <div class="card custom-card text-center">
-                        <div class="card-body">
-                            <img src="https://cdn-icons-png.freepik.com/256/18516/18516996.png?semt=ais_white_label"
-                                width="90" class="mb-3" alt="Jalur Afirmasi">
-
-                            <h4 class="font-weight-bold text-success">
-                                Jalur Afirmasi
-                            </h4>
-
-                            <p class="text-muted">
-                                Diperuntukkan bagi calon peserta didik dari keluarga kurang mampu atau kategori khusus
-                                sesuai ketentuan yang berlaku.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-        </div>
-    </section>
+    
 
     {{-- PROFIL SEKOLAH --}}
     <section id="profil-sekolah" class="py-5 bg-light">
@@ -1566,8 +1570,8 @@
                             </h4>
 
                             <div class="profile-video-frame">
-                                <iframe src="https://www.youtube.com/embed/ahNK-Z45efU"
-                                    frameborder="0" allowfullscreen></iframe>
+                                <iframe src="https://www.youtube.com/embed/ahNK-Z45efU" frameborder="0"
+                                    allowfullscreen></iframe>
                             </div>
                         </div>
                     </div>
@@ -1586,8 +1590,8 @@
                             </h4>
 
                             <div class="profile-video-frame">
-                                <iframe src="https://www.youtube.com/embed/wZdrD0dGp6w"
-                                    frameborder="0" allowfullscreen></iframe>
+                                <iframe src="https://www.youtube.com/embed/wZdrD0dGp6w" frameborder="0"
+                                    allowfullscreen></iframe>
                             </div>
                         </div>
                     </div>
@@ -1598,8 +1602,7 @@
                 <div class="row no-gutters align-items-stretch">
                     <div class="col-lg-5 profile-photo-column">
                         <div class="profile-photo-wrap">
-                            <img src="{{ asset('whatsapp-banner.jpeg') }}"
-                                alt="SMKS Ma'arif NU Kota Batam">
+                            <img src="{{ asset('whatsapp-banner.jpeg') }}" alt="SMKS Ma'arif NU Kota Batam">
 
                             <div class="profile-photo-overlay">
                                 <span class="profile-photo-label">Visi Sekolah</span>
@@ -1625,7 +1628,8 @@
                             <div class="mission-grid">
                                 <div class="mission-item">
                                     <span class="mission-number">01</span>
-                                    <p>Membentuk tamatan yang beriman, berkemampuan unggul, dan mampu mengembangkan diri.</p>
+                                    <p>Membentuk tamatan yang beriman, berkemampuan unggul, dan mampu mengembangkan
+                                        diri.</p>
                                 </div>
 
                                 <div class="mission-item">
@@ -1676,24 +1680,64 @@
                 </p>
             </div>
 
-            <div class="card border-0 shadow">
-                <div class="card-body text-center">
-                    <div class="program-icon mx-auto mb-3">
-                        <i class="fa fa-phone"></i>
+            <div class="row justify-content-center align-items-stretch">
+
+                <!-- CARD MAP -->
+                <div class="col-lg-6 col-md-6 col-sm-12 mb-4">
+                    <div class="card profile-card border-0 shadow h-100">
+
+                        <iframe class="map-frame"
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.1342293093307!2d103.92946307406616!3d1.0610215989287781!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31d98df349c97fb1%3A0xc97a0b76ae450bf4!2sSMK%20MA%27ARIF%20NU%20KOTA%20BATAM!5e0!3m2!1sid!2sid!4v1780669080622!5m2!1sid!2sid"
+                            allowfullscreen loading="lazy">
+                        </iframe>
+
+                        <div class="profile-card-body p-4">
+                            <h5 class="card-title-custom">
+                                📍 Lokasi Sekolah
+                            </h5>
+
+                            <p>
+                                Jl. Marina, depan Perum Kotamas Marina, Kel. Tanjung Riau,
+                                Kec. Sekupang, Kota Batam.
+                            </p>
+
+                            <a href="https://www.google.com/maps?q=SMK+Ma'arif+NU+Kota+Batam" target="_blank"
+                                rel="noopener noreferrer" class="btn btn-outline-success">
+                                Buka di Google Maps
+                            </a>
+                        </div>
                     </div>
-
-                    <h5 class="font-weight-bold">
-                        SMKS Ma'arif NU Kota Batam
-                    </h5>
-
-                    <p class="text-muted mb-1">
-                        Kecamatan Sekupang, Kota Batam, Kepulauan Riau
-                    </p>
-
-                    <p class="text-muted mb-0">
-                        Informasi PPDB dapat diperoleh melalui panitia sekolah.
-                    </p>
                 </div>
+
+                <!-- CARD INFORMASI -->
+                <div class="col-lg-6 col-md-6 col-sm-12 mb-4">
+                    <div class="card border-0 shadow h-100">
+                        <div class="card-body text-center d-flex flex-column justify-content-center p-4">
+
+                            <a href="https://wa.me/6285150000552" target="_blank" rel="noopener noreferrer"
+                                aria-label="Hubungi kami melalui WhatsApp">
+
+                                <div class="program-icon mx-auto mb-3">
+                                    <i class="fa fa-phone"></i>
+                                </div>
+
+                            </a>
+
+                            <h5 class="font-weight-bold">
+                                SMKS Ma'arif NU Kota Batam
+                            </h5>
+
+                            <p class="text-muted mb-1">
+                                Kecamatan Sekupang, Kota Batam, Kepulauan Riau
+                            </p>
+
+                            <p class="text-muted mb-0">
+                                Informasi PPDB dapat diperoleh melalui panitia sekolah.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>
@@ -1702,16 +1746,61 @@
     <footer class="site-footer">
         <div class="container">
             <div class="row align-items-center">
-                <div class="col-md-7 text-center text-md-left mb-2 mb-md-0">
+
+                {{-- IDENTITAS SEKOLAH --}}
+                <div class="col-lg-5 col-md-12 text-center text-lg-left mb-3 mb-lg-0">
                     <strong>SMKS Ma'arif NU Kota Batam</strong>
+
                     <div class="small mt-1">
                         Sistem Informasi Penerimaan Peserta Didik Baru
                     </div>
                 </div>
 
-                <div class="col-md-5 text-center text-md-right small">
-                    &copy; {{ date('Y') }} SIPPDB. Seluruh hak dilindungi.
+                {{-- MEDIA SOSIAL DAN EMAIL --}}
+                <div class="col-lg-5 col-md-12 mb-3 mb-lg-0">
+                    <div class="footer-social">
+
+                        {{-- INSTAGRAM --}}
+                        <a href="https://www.instagram.com/smk.ma'arifnu_btm/" target="_blank" rel="noopener noreferrer"
+                            class="footer-social-link" title="Instagram">
+                            <i class="fa fa-instagram"></i>
+                            <span>Instagram</span>
+                        </a>
+
+                        {{-- TIKTOK --}}
+                        <a href="https://www.tiktok.com/@SMKMa'arifBatam" target="_blank" rel="noopener noreferrer"
+                            class="footer-social-link" title="TikTok">
+
+                            <svg class="tiktok-icon" viewBox="0 0 24 24" aria-hidden="true">
+                                <path fill="currentColor"
+                                    d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 1 1-2.89-2.89c.3 0 .59.05.86.13V9.4a6.34 6.34 0 1 0 5.48 6.27V8.73a8.2 8.2 0 0 0 4.77 1.52V6.8a4.85 4.85 0 0 1-1-.11z" />
+                            </svg>
+
+                            <span>TikTok</span>
+                        </a>
+
+                        {{-- FACEBOOK --}}
+                        <a href="https://www.facebook.com/SMKMA'ARIFKOTABATAM" target="_blank" rel="noopener noreferrer"
+                            class="footer-social-link" title="Facebook">
+                            <i class="fa fa-facebook"></i>
+                            <span>Facebook</span>
+                        </a>
+
+                        {{-- EMAIL --}}
+                        <a href="mailto:smkmaarifnubatam@gmail.com" class="footer-social-link" title="Kirim email">
+                            <i class="fa fa-envelope"></i>
+                            <span>Email</span>
+                        </a>
+
+                    </div>
                 </div>
+
+                {{-- COPYRIGHT --}}
+                <div class="col-lg-2 col-md-12 text-center text-lg-right small">
+                    &copy; {{ date('Y') }} SIPPDB.<br>
+                    Seluruh hak dilindungi.
+                </div>
+
             </div>
         </div>
     </footer>

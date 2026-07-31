@@ -11,6 +11,7 @@ use App\Models\Siswa;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Log;
 
 class SiswaPendaftaranController extends Controller
 {
@@ -20,10 +21,17 @@ class SiswaPendaftaranController extends Controller
 
     private function activePendaftaran()
     {
-        return Pendaftaran::whereDate('mulai', '<=', today())
-            ->whereDate('berakhir', '>=', today())
+        return Pendaftaran::whereDate('tanggal_buka_pendaftaran', '<=', today())
+            ->whereDate('tanggal_akhir_pendaftaran', '>', today())
             ->first();
     }
+
+    // private function activePendaftaran()
+    // {
+    //     return Pendaftaran::whereDate('mulai', '<=', today())
+    //         ->whereDate('berakhir', '>', today())
+    //         ->first();
+    // }
 
     private function getSiswa()
     {
@@ -62,36 +70,56 @@ class SiswaPendaftaranController extends Controller
 
     public function store(SiswaPendaftaranRequest $request)
     {
-        $data = $request->validated();
-
         try {
             $pendaftaran = $this->activePendaftaran();
 
             if (!$pendaftaran) {
                 return response()->json([
-                    'error' => 'Pendaftaran sedang tidak dibuka'
+                    'success' => false,
+                    'message' => 'Pendaftaran sedang tidak dibuka.'
                 ], 400);
             }
 
-            $kelas = Kelas::findOrFail($request->kelas_id);
+            $kelas = Kelas::find($request->kelas_id);
+
+            if (!$kelas) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Jurusan yang dipilih tidak ditemukan.'
+                ], 422);
+            }
 
             if ($kelas->kuota_tersedia <= 0) {
                 return response()->json([
-                    'error' => 'Kuota kelas sudah penuh'
-                ], 400);
+                    'success' => false,
+                    'message' => 'Kuota jurusan ' .
+                        $kelas->nama_jurusan .
+                        ' sudah penuh. Silakan pilih jurusan lain.'
+                ], 422);
             }
 
+            $data = $request->validated();
             $data['pendaftaran_id'] = $pendaftaran->id;
 
             $this->saveSiswa($data);
 
             return response()->json([
                 'success' => true,
-                'message' => 'Data siswa berhasil disimpan'
+                'message' => 'Data pendaftaran berhasil disimpan.',
+                'redirect' => route('siswa.pendaftaran.index')
+            ], 200);
+
+        } catch (\Throwable $e) {
+            Log::error('Gagal menyimpan data pendaftaran siswa', [
+                'user_id' => auth()->id(),
+                'message' => $e->getMessage(),
+                'file' => $e->getFile(),
+                'line' => $e->getLine()
             ]);
-        } catch (\Exception $e) {
+
             return response()->json([
-                'error' => $e->getMessage()
+                'success' => false,
+                'message' => 'Terjadi kesalahan saat menyimpan data. Silakan periksa kembali data yang dimasukkan.'
             ], 500);
         }
     }

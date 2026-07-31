@@ -60,60 +60,216 @@
         </div>
     </div>
 @endsection
-@if (request()->get('step') == '' || request()->get('step') == 'kelas')
-    @push('js')
-        <script>
-            $(document).ready(function() {
-                // $('#kelas_id').on('change', function() {
-                //     $.ajax({
-                //         url: '{{ route('siswa.pendaftaran.store') }}',
-                //         type: 'POST',
-                //         data: {
-                //             kelas_id: $(this).val(),
-                //             _token: '{{ csrf_token() }}',
-                //             user_id: '{{ Auth::user()->id }}'
-                //         },
-                //         success: function(response) {
-                //             window.location.reload();
-                //         },
-                //         error: function(xhr) {
-                //             console.log(xhr.responseText);
-                //         }
-                //     });
-                // });
-                $('#next').on('click', function() {
-                    if ($('#kelas_id').val() == '') {
-                        alert('Kelas harus dipilih');
-                        return;
-                    }
-                    $.ajax({
-                        url: '{{ route('siswa.pendaftaran.store') }}',
-                        type: 'POST',
-                        data: {
-                            step: 'biodata',
-                            _token: '{{ csrf_token() }}',
-                            user_id: '{{ Auth::user()->id }}',
-                            kelas_id: $('#kelas_id').val()
-                        },
-                        success: function(response) {
-                            window.location.href =
-                                '{{ route('siswa.pendaftaran.index') }}?step=biodata';
-                        },
-                        error: function(xhr) {
-                            console.log(xhr.responseText);
-                        }
-                    });
-                });
-            });
-        </script>
-    @endpush
-@endif
 @push('js')
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <script>
-        var back =
-            '{{ $step == 'biodata' ? 'kelas' : ($step == 'wali' ? 'biodata' : ($step == 'sekolah' ? 'wali' : '')) }}';
-        $('#previous').on('click', function() {
-            window.location.href = '{{ url()->current() }}' + ?step=${back}
+        $(document).ready(function() {
+            const storeUrl = @json(route('siswa.pendaftaran.store'));
+            const indexUrl = @json(route('siswa.pendaftaran.index'));
+            const currentUrl = @json(url()->current());
+            const csrfToken = @json(csrf_token());
+            const userId = @json(Auth::id());
+            const currentStep = @json(request()->get('step'));
+
+            function escapeHtml(text) {
+                const element = document.createElement('div');
+                element.textContent = String(text);
+
+                return element.innerHTML;
+            }
+
+            function tampilkanError(xhr) {
+                let response = null;
+                let pesan = 'Terjadi kesalahan saat memproses pendaftaran.';
+                let judul = 'Pendaftaran Gagal';
+
+                if (xhr.responseJSON) {
+                    response = xhr.responseJSON;
+                } else if (xhr.responseText) {
+                    try {
+                        response = JSON.parse(xhr.responseText);
+                    } catch (error) {
+                        response = null;
+                    }
+                }
+
+                if (response) {
+                    pesan = response.message ||
+                        response.error ||
+                        pesan;
+                }
+
+                if (
+                    xhr.status === 422 &&
+                    response &&
+                    response.errors
+                ) {
+                    const daftarError = Object.values(
+                        response.errors
+                    ).flat();
+
+                    pesan = `
+                        <div style="text-align: left;">
+                            <p>Silakan periksa kembali data berikut:</p>
+
+                            <ul style="padding-left: 20px;">
+                                ${daftarError.map(function(error) {
+                                    return `
+                                        <li>${escapeHtml(error)}</li>
+                                    `;
+                                }).join('')}
+                            </ul>
+                        </div>
+                    `;
+                } else {
+                    pesan = escapeHtml(pesan);
+                }
+
+                if (xhr.status === 400) {
+                    judul = 'Pendaftaran Tidak Dapat Diproses';
+                } else if (xhr.status === 419) {
+                    judul = 'Sesi Telah Berakhir';
+                    pesan =
+                        'Sesi halaman telah berakhir. Silakan muat ulang halaman.';
+                } else if (xhr.status === 422) {
+                    judul = 'Data Belum Lengkap';
+                } else if (xhr.status >= 500) {
+                    judul = 'Terjadi Kesalahan Sistem';
+                    pesan =
+                        'Sistem mengalami kesalahan. Silakan coba kembali.';
+                }
+
+                Swal.fire({
+                    icon: 'error',
+                    title: judul,
+                    html: pesan,
+                    confirmButtonText: 'OK',
+                    allowOutsideClick: false
+                });
+            }
+
+            /*
+             * Script pilihan jurusan hanya dijalankan pada tahap kelas.
+             * Tidak akan dijalankan pada tahap biodata atau wali.
+             */
+            if (
+                currentStep === null ||
+                currentStep === '' ||
+                currentStep === 'kelas'
+            ) {
+                $('#next')
+                    .off('click.pilihJurusan')
+                    .on('click.pilihJurusan', function(event) {
+                        event.preventDefault();
+
+                        const kelasId = $('#kelas_id').val();
+                        const tombolLanjut = $(this);
+                        const teksTombolAwal = tombolLanjut.html();
+
+                        if (!kelasId) {
+                            Swal.fire({
+                                icon: 'warning',
+                                title: 'Jurusan Belum Dipilih',
+                                text: 'Silakan pilih jurusan terlebih dahulu.',
+                                confirmButtonText: 'OK'
+                            });
+
+                            return;
+                        }
+
+                        tombolLanjut
+                            .addClass('disabled')
+                            .attr('aria-disabled', 'true')
+                            .html(`
+                                <span class="
+                                    spinner-border
+                                    spinner-border-sm
+                                "></span>
+                                Memproses...
+                            `);
+
+                        Swal.fire({
+                            title: 'Memproses Data',
+                            text: 'Pilihan jurusan sedang disimpan.',
+                            allowOutsideClick: false,
+                            allowEscapeKey: false,
+                            showConfirmButton: false,
+                            didOpen: function() {
+                                Swal.showLoading();
+                            }
+                        });
+
+                        $.ajax({
+                            url: storeUrl,
+                            type: 'POST',
+                            dataType: 'json',
+                            data: {
+                                step: 'biodata',
+                                _token: csrfToken,
+                                user_id: userId,
+                                kelas_id: kelasId
+                            },
+
+                            success: function(response) {
+                                Swal.close();
+
+                                if (response.success === false) {
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: 'Pendaftaran Gagal',
+                                        text: response.message ||
+                                            'Data gagal diproses.',
+                                        confirmButtonText: 'OK'
+                                    });
+
+                                    return;
+                                }
+
+                                window.location.href =
+                                    indexUrl + '?step=biodata';
+                            },
+
+                            error: function(xhr) {
+                                Swal.close();
+                                tampilkanError(xhr);
+                            },
+
+                            complete: function() {
+                                tombolLanjut
+                                    .removeClass('disabled')
+                                    .removeAttr('aria-disabled')
+                                    .html(teksTombolAwal);
+                            }
+                        });
+                    });
+            }
+
+            /*
+             * Tombol kembali.
+             */
+            $('#previous')
+                .off('click.previousStep')
+                .on('click.previousStep', function(event) {
+                    event.preventDefault();
+
+                    let back = '';
+
+                    if (currentStep === 'biodata') {
+                        back = 'kelas';
+                    } else if (currentStep === 'wali') {
+                        back = 'biodata';
+                    } else if (currentStep === 'sekolah') {
+                        back = 'wali';
+                    }
+
+                    if (back !== '') {
+                        window.location.href =
+                            currentUrl +
+                            '?step=' +
+                            encodeURIComponent(back);
+                    }
+                });
         });
     </script>
 @endpush
