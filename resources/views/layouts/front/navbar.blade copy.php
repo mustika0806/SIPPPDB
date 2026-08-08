@@ -288,7 +288,6 @@
                         <ul class="nav">
                             <li><a href="#beranda" class="active">Jadwal Pendaftaran</a></li>
                             <li><a href="#info-ppdb">Info PPDB</a></li>
-                            <li><a href="#jalur-masuk">Pembagian Jalur Masuk</a></li>
                             <li><a href="#profil-sekolah">Profil Sekolah</a></li>
                             <li><a href="#contact-us">Hubungi Kami</a></li>
                             <li><a href="{{ route('login') }}">Login</a></li>

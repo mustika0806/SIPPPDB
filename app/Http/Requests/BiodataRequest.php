@@ -57,7 +57,7 @@ class BiodataRequest extends FormRequest
             'alamat_email' => 'required|string',
             'kegiatan_olahraga' => 'required|in:Aktif,Cukup,Kurang',
             'kegiatan_kesenian' => 'required|in:Aktif,Cukup,Kurang',
-            'prestasi' => 'required|string',
+            'prestasi' => 'nullable|string',
             'status_tempat' => 'required|in:rumah sendiri,kontrakan,kosan',
             'transportasi' => 'required|in:Jalan Kaki,Kendaraan Pribadi,Angkutan Umum,Sepeda',
             'no_kks' => 'nullable|string',

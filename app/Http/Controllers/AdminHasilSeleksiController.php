@@ -33,13 +33,13 @@ class AdminHasilSeleksiController extends Controller
             $nilaiLengkap =
                 $siswa->nilai_rata !== null &&
                 $siswa->nilai_quran !== null &&
-                $siswa->nilai_wawancara !== null;
+                $siswa->nilai_tka !== null;
 
             if ($nilaiLengkap) {
                 $totalNilai =
                     ($siswa->nilai_rata * 0.4) +
                     ($siswa->nilai_quran * 0.3) +
-                    ($siswa->nilai_wawancara * 0.3);
+                    ($siswa->nilai_tka * 0.3);
 
                 $totalNilai = round($totalNilai, 2);
 

@@ -207,7 +207,7 @@
                     <ul>
                         <li>Nilai raport atau nilai rata-rata: 40%.</li>
                         <li>Nilai tes Al-Qur'an: 30%.</li>
-                        <li>Nilai wawancara: 30%.</li>
+                        <li>Nilai TKA: 30%.</li>
                         <li>Total nilai dihitung otomatis oleh sistem.</li>
                         <li>Siswa diurutkan berdasarkan nilai per jurusan.</li>
                         <li>
@@ -226,7 +226,7 @@
                                 <th>Peringkat</th>
                                 <th>Nilai raport</th>
                                 <th>Nilai Al-Qur'an</th>
-                                <th>Nilai Wawancara</th>
+                                <th>Nilai TKA</th>
                                 <th>Total Nilai</th>
                                 <th>Status Manual</th>
                             </tr>
@@ -258,7 +258,7 @@
                                         $nilaiLengkap =
                                             $siswa->nilai_rata !== null &&
                                             $siswa->nilai_quran !== null &&
-                                            $siswa->nilai_wawancara !== null;
+                                            $siswa->nilai_tka !== null;
 
                                         $peringkat =
                                             $siswa->total_nilai !== null
@@ -308,8 +308,8 @@
                                         </td>
 
                                         <td class="text-center">
-                                            @if ($siswa->nilai_wawancara !== null)
-                                                {{ $siswa->nilai_wawancara }}
+                                            @if ($siswa->nilai_tka !== null)
+                                                {{ $siswa->nilai_tka }}
                                             @else
                                                 <span class="incomplete">
                                                     Belum ada

@@ -237,6 +237,10 @@
             display: flex !important;
             align-items: center !important;
             justify-content: flex-start !important;
+            max-width: 900px;
+            margin: 15px auto;
+            border-radius: 50px;
+            padding: 0 25px;
         }
 
         .header-area .main-nav .logo {
@@ -971,7 +975,6 @@
                 border-radius: 50%;
             }
         }
-
     </style>
 </head>
 
@@ -1014,7 +1017,6 @@
                         <ul class="nav">
                             <li><a href="#beranda" class="active">Jadwal Pendaftaran</a></li>
                             <li><a href="#info-ppdb">Info PPDB</a></li>
-                            <li><a href="#jalur-masuk">Pembagian Jalur Masuk</a></li>
                             <li><a href="#profil-sekolah">Profil Sekolah</a></li>
                             <li><a href="#contact-us">Hubungi Kami</a></li>
                             <li><a href="{{ route('login') }}">Login</a></li>
@@ -1540,7 +1542,7 @@
             </div>
         </div>
     </section>
-    
+
 
     {{-- PROFIL SEKOLAH --}}
     <section id="profil-sekolah" class="py-5 bg-light">

@@ -65,7 +65,7 @@ class SiswaPendaftaranController extends Controller
     }
 
     /* ======================================================
-        STEP: DATA SISWA DASAR
+        STEP: DATA SISWA 
     ====================================================== */
 
     public function store(SiswaPendaftaranRequest $request)
@@ -175,6 +175,7 @@ class SiswaPendaftaranController extends Controller
             'sekolah_asal' => 'nullable|string',
             'nilai_ijazah' => 'required|numeric',
             'nilai_rata' => 'required|numeric',
+            'nilai_tka' => 'required|numeric',
             'nisn' => 'required|numeric',
         ]);
 

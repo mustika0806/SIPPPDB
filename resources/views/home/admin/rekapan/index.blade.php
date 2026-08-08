@@ -758,7 +758,7 @@
                                 <th>Peringkat</th>
                                 <th>Nilai Raport</th>
                                 <th>Nilai Al-Qur'an</th>
-                                <th>Nilai Wawancara</th>
+                                <th>Nilai TKA</th>
                                 <th>Total Nilai</th>
                                 <th>Status</th>
                             </tr>
@@ -831,7 +831,7 @@
                                         </td>
 
                                         <td class="text-center">
-                                            {{ $siswa->nilai_wawancara ?? '-' }}
+                                            {{ $siswa->nilai_tka !== null ? number_format($siswa->nilai_tka, 0) : '-' }}
                                         </td>
 
                                         <td class="text-center">
@@ -903,8 +903,8 @@
 
                         datasets: [{
                             data: [
-                                        {{ $totalDiterima }},
-                                        {{ $totalTidakDiterima }},
+                                                {{ $totalDiterima }},
+                                                {{ $totalTidakDiterima }},
                                 {{ $totalBelumDiproses }}
                             ],
 

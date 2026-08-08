@@ -1,7 +1,9 @@
 @extends('layouts.app', ['title' => Auth::user()->level == 'admin' ? 'Admin' : 'Siswa'])
 
 @section('content')
-
+    @php
+        $siswaPengumumanTidakLulus = \App\Models\Siswa::where('user_id', auth()->id())->first();
+    @endphp
     {{-- ========================= WELCOME ========================= --}}
     <div class="row">
         <div class="col-xl-12 col-lg-12">
@@ -236,6 +238,7 @@
                 'verified',
                 'terverifikasi',
                 'disetujui',
+                'sudah bayar'
             ]);
 
             $pembayaranMenunggu = in_array($statusPembayaran, [
@@ -246,7 +249,7 @@
                 'diproses',
                 'proses',
             ]);
-
+            
             /*
             |--------------------------------------------------------------------------
             | STEP 3: CEK FORMULIR
@@ -457,7 +460,7 @@
                     'centang' => $step3 == 'done',
                     'nomor' => 'Langkah 3',
                     'judul' => 'Isi Formulir',
-                    'gambar' => 'https://smkn1yogya.sch.id/wp-content/uploads/2018/07/formulir-icon-300x282.png',
+                    'gambar' => 'https://cdn-icons-png.flaticon.com/512/1486/1486433.png',
                     'deskripsi' => 'Lengkapi seluruh data diri, data orang tua, dan data sekolah asal pada formulir pendaftaran.',
                     'status_text' => $step3 == 'done' ? 'Selesai' : ($step3 == 'current' ? 'Tahap Saat Ini' : 'Belum Waktunya'),
                 ],
@@ -506,7 +509,7 @@
 
 
         {{-- ========================= KOTAK PENGUMUMAN ========================= --}}
-        @if($pengumumanSudahKeluar)
+        @if($pengumumanSudahKeluar && $siswaPengumumanTidakLulus->status == 'Diterima')
             <div class="alert alert-success shadow-sm border-left-success mb-4">
                 <div class="d-flex justify-content-between align-items-center">
                     <div>
@@ -527,6 +530,47 @@
             </div>
         @endif
 
+        {{-- ========================= PENGUMUMAN TIDAK DITERIMA ========================= --}}
+        @if($siswaPengumumanTidakLulus?->status == 'Tidak Diterima')
+            <div class="alert alert-danger shadow-sm border-left-danger mb-4">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h5 class="font-weight-bold mb-1">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            Pengumuman Hasil Verifikasi Dokumen
+                        </h5>
+
+                        <p class="mb-0">
+                            Dokumen pendaftaran Anda <strong style="color: red;">ditolak</strong> karena belum memenuhi persyaratan
+                            verifikasi. <br>
+                            Silakan perbaiki dokumen yang diperlukan dan lakukan pengunggahan ulang agar proses seleksi dapat
+                            dilanjutkan.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        @endif
+
+        {{-- ========================= PENGUMUMAN PERBAIKAN DOKUMEN ========================= --}}
+        @if($siswaPengumumanTidakLulus?->status == 'Perbaiki Dokumen')
+            <div class="alert alert-warning shadow-sm border-left-danger mb-4">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h5 class="font-weight-bold mb-1">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            Pengumuman Hasil Verifikasi Dokumen
+                        </h5>
+
+                        <p class="mb-0">
+                            Dokumen berkas pendaftaran Anda <strong style="color: orange;">perlu perbaikan</strong> karena belum
+                            memenuhi persyaratan verifikasi. <br>
+                            Silakan perbaiki dokumen yang diperlukan dan lakukan pengunggahan ulang agar proses seleksi dapat
+                            dilanjutkan.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        @endif
 
         {{-- ========================= CSS ALUR PENDAFTARAN ========================= --}}
         <style>
@@ -638,7 +682,6 @@
             </div>
 
             <div class="row">
-
                 @foreach ($steps as $index => $item)
                     <div class="{{ $index == 6 ? 'col-lg-12 col-md-12' : 'col-lg-4 col-md-6' }} mb-4">
 

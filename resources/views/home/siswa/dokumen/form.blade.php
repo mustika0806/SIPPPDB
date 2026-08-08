@@ -1,22 +1,9 @@
-<form
-    action="{{ route('siswa.dokumen.store') }}"
-    method="POST"
-    enctype="multipart/form-data"
-    id="formUploadDokumen"
->
+<form action="{{ route('siswa.dokumen.store') }}" method="POST" enctype="multipart/form-data" id="formUploadDokumen">
     @csrf
 
-    <input
-        type="hidden"
-        name="siswa_id"
-        value="{{ $siswa->id }}"
-    >
+    <input type="hidden" name="siswa_id" value="{{ $siswa->id }}">
 
-    <input
-        type="hidden"
-        name="pindahan"
-        value="{{ $siswa->pindahan == 'Ya' ? 1 : 0 }}"
-    >
+    <input type="hidden" name="pindahan" value="{{ $siswa->pindahan == 'Ya' ? 1 : 0 }}">
 
     <style>
         .upload-section-title {
@@ -129,6 +116,12 @@
             align-items: center;
             justify-content: center;
         }
+
+        .required-star {
+            color: #dc3545;
+            font-weight: 700;
+            margin-left: 3px;
+        }
     </style>
 
     <div class="upload-section-title">
@@ -138,13 +131,14 @@
     <div class="row">
 
         {{-- =====================================================
-            KARTU KELUARGA
+        KARTU KELUARGA
         ====================================================== --}}
         <div class="col-md-4 mb-4">
             <div class="upload-card @error('file_kk') has-error @enderror">
 
                 <label for="file_kk">
                     Upload Kartu Keluarga
+                    <span class="required-star">*</span>
                 </label>
 
                 @if (isset($dokumen) && $dokumen->file_kk)
@@ -153,37 +147,21 @@
                             Dokumen saat ini:
                         </span>
 
-                        <img
-                            src="{{ url($dokumen->file_kk) }}"
-                            alt="Kartu Keluarga"
-                            class="preview-img"
-                        >
+                        <img src="{{ url($dokumen->file_kk) }}" alt="Kartu Keluarga" class="preview-img">
                     </div>
                 @endif
 
-                <div
-                    id="container_preview_file_kk"
-                    style="display: none;"
-                >
+                <div id="container_preview_file_kk" style="display: none;">
                     <span class="new-preview-title">
                         Dokumen baru:
                     </span>
 
-                    <img
-                        id="preview_file_kk"
-                        class="preview-img"
-                        alt="Pratinjau Kartu Keluarga"
-                    >
+                    <img id="preview_file_kk" class="preview-img" alt="Pratinjau Kartu Keluarga">
                 </div>
 
-                <input
-                    type="file"
-                    class="form-control @error('file_kk') is-invalid @enderror"
-                    name="file_kk"
-                    id="file_kk"
-                    accept=".jpeg,.jpg,.png,image/jpeg,image/png"
-                    onchange="previewFile(this, 'preview_file_kk')"
-                >
+                <input type="file" class="form-control @error('file_kk') is-invalid @enderror" name="file_kk"
+                    id="file_kk" accept=".jpeg,.jpg,.png,image/jpeg,image/png"
+                    onchange="previewFile(this, 'preview_file_kk')">
 
                 <small class="text-muted">
                     Format: JPG, JPEG, atau PNG.
@@ -199,13 +177,14 @@
         </div>
 
         {{-- =====================================================
-            KTP ORANG TUA
+        KTP ORANG TUA
         ====================================================== --}}
         <div class="col-md-4 mb-4">
             <div class="upload-card @error('file_ktp') has-error @enderror">
 
                 <label for="file_ktp">
                     Upload KTP Orang Tua
+                    <span class="required-star">*</span>
                 </label>
 
                 @if (isset($dokumen) && $dokumen->file_ktp)
@@ -214,37 +193,21 @@
                             Dokumen saat ini:
                         </span>
 
-                        <img
-                            src="{{ url($dokumen->file_ktp) }}"
-                            alt="KTP Orang Tua"
-                            class="preview-img"
-                        >
+                        <img src="{{ url($dokumen->file_ktp) }}" alt="KTP Orang Tua" class="preview-img">
                     </div>
                 @endif
 
-                <div
-                    id="container_preview_file_ktp"
-                    style="display: none;"
-                >
+                <div id="container_preview_file_ktp" style="display: none;">
                     <span class="new-preview-title">
                         Dokumen baru:
                     </span>
 
-                    <img
-                        id="preview_file_ktp"
-                        class="preview-img"
-                        alt="Pratinjau KTP Orang Tua"
-                    >
+                    <img id="preview_file_ktp" class="preview-img" alt="Pratinjau KTP Orang Tua">
                 </div>
 
-                <input
-                    type="file"
-                    class="form-control @error('file_ktp') is-invalid @enderror"
-                    name="file_ktp"
-                    id="file_ktp"
-                    accept=".jpeg,.jpg,.png,image/jpeg,image/png"
-                    onchange="previewFile(this, 'preview_file_ktp')"
-                >
+                <input type="file" class="form-control @error('file_ktp') is-invalid @enderror" name="file_ktp"
+                    id="file_ktp" accept=".jpeg,.jpg,.png,image/jpeg,image/png"
+                    onchange="previewFile(this, 'preview_file_ktp')">
 
                 <small class="text-muted">
                     Format: JPG, JPEG, atau PNG.
@@ -260,13 +223,14 @@
         </div>
 
         {{-- =====================================================
-            AKTA KELAHIRAN
+        AKTA KELAHIRAN
         ====================================================== --}}
         <div class="col-md-4 mb-4">
             <div class="upload-card @error('file_akta') has-error @enderror">
 
                 <label for="file_akta">
                     Upload Akta Kelahiran
+                    <span class="required-star">*</span>
                 </label>
 
                 @if (isset($dokumen) && $dokumen->file_akta)
@@ -275,37 +239,21 @@
                             Dokumen saat ini:
                         </span>
 
-                        <img
-                            src="{{ url($dokumen->file_akta) }}"
-                            alt="Akta Kelahiran"
-                            class="preview-img"
-                        >
+                        <img src="{{ url($dokumen->file_akta) }}" alt="Akta Kelahiran" class="preview-img">
                     </div>
                 @endif
 
-                <div
-                    id="container_preview_file_akta"
-                    style="display: none;"
-                >
+                <div id="container_preview_file_akta" style="display: none;">
                     <span class="new-preview-title">
                         Dokumen baru:
                     </span>
 
-                    <img
-                        id="preview_file_akta"
-                        class="preview-img"
-                        alt="Pratinjau Akta Kelahiran"
-                    >
+                    <img id="preview_file_akta" class="preview-img" alt="Pratinjau Akta Kelahiran">
                 </div>
 
-                <input
-                    type="file"
-                    class="form-control @error('file_akta') is-invalid @enderror"
-                    name="file_akta"
-                    id="file_akta"
-                    accept=".jpeg,.jpg,.png,image/jpeg,image/png"
-                    onchange="previewFile(this, 'preview_file_akta')"
-                >
+                <input type="file" class="form-control @error('file_akta') is-invalid @enderror" name="file_akta"
+                    id="file_akta" accept=".jpeg,.jpg,.png,image/jpeg,image/png"
+                    onchange="previewFile(this, 'preview_file_akta')">
 
                 <small class="text-muted">
                     Format: JPG, JPEG, atau PNG.
@@ -321,13 +269,14 @@
         </div>
 
         {{-- =====================================================
-            RAPORT
+        RAPORT
         ====================================================== --}}
         <div class="col-md-4 mb-4">
             <div class="upload-card @error('file_raport') has-error @enderror">
 
                 <label for="file_raport">
                     Upload Raport
+                    <span class="required-star">*</span>
                 </label>
 
                 @if (isset($dokumen) && $dokumen->file_raport)
@@ -336,37 +285,21 @@
                             Dokumen saat ini:
                         </span>
 
-                        <img
-                            src="{{ url($dokumen->file_raport) }}"
-                            alt="Raport"
-                            class="preview-img"
-                        >
+                        <img src="{{ url($dokumen->file_raport) }}" alt="Raport" class="preview-img">
                     </div>
                 @endif
 
-                <div
-                    id="container_preview_file_raport"
-                    style="display: none;"
-                >
+                <div id="container_preview_file_raport" style="display: none;">
                     <span class="new-preview-title">
                         Dokumen baru:
                     </span>
 
-                    <img
-                        id="preview_file_raport"
-                        class="preview-img"
-                        alt="Pratinjau Raport"
-                    >
+                    <img id="preview_file_raport" class="preview-img" alt="Pratinjau Raport">
                 </div>
 
-                <input
-                    type="file"
-                    class="form-control @error('file_raport') is-invalid @enderror"
-                    name="file_raport"
-                    id="file_raport"
-                    accept=".jpeg,.jpg,.png,image/jpeg,image/png"
-                    onchange="previewFile(this, 'preview_file_raport')"
-                >
+                <input type="file" class="form-control @error('file_raport') is-invalid @enderror" name="file_raport"
+                    id="file_raport" accept=".jpeg,.jpg,.png,image/jpeg,image/png"
+                    onchange="previewFile(this, 'preview_file_raport')">
 
                 <small class="text-muted">
                     Format: JPG, JPEG, atau PNG.
@@ -382,13 +315,14 @@
         </div>
 
         {{-- =====================================================
-            IJAZAH / SKL
+        IJAZAH / SKL
         ====================================================== --}}
         <div class="col-md-4 mb-4">
             <div class="upload-card @error('file_ijazah') has-error @enderror">
 
                 <label for="file_ijazah">
                     Upload Ijazah SMP/SKL SMP
+                    <span class="required-star">*</span>
                 </label>
 
                 @if (isset($dokumen) && $dokumen->file_ijazah)
@@ -397,37 +331,21 @@
                             Dokumen saat ini:
                         </span>
 
-                        <img
-                            src="{{ url($dokumen->file_ijazah) }}"
-                            alt="Ijazah atau SKL SMP"
-                            class="preview-img"
-                        >
+                        <img src="{{ url($dokumen->file_ijazah) }}" alt="Ijazah atau SKL SMP" class="preview-img">
                     </div>
                 @endif
 
-                <div
-                    id="container_preview_file_ijazah"
-                    style="display: none;"
-                >
+                <div id="container_preview_file_ijazah" style="display: none;">
                     <span class="new-preview-title">
                         Dokumen baru:
                     </span>
 
-                    <img
-                        id="preview_file_ijazah"
-                        class="preview-img"
-                        alt="Pratinjau Ijazah"
-                    >
+                    <img id="preview_file_ijazah" class="preview-img" alt="Pratinjau Ijazah">
                 </div>
 
-                <input
-                    type="file"
-                    class="form-control @error('file_ijazah') is-invalid @enderror"
-                    name="file_ijazah"
-                    id="file_ijazah"
-                    accept=".jpeg,.jpg,.png,image/jpeg,image/png"
-                    onchange="previewFile(this, 'preview_file_ijazah')"
-                >
+                <input type="file" class="form-control @error('file_ijazah') is-invalid @enderror" name="file_ijazah"
+                    id="file_ijazah" accept=".jpeg,.jpg,.png,image/jpeg,image/png"
+                    onchange="previewFile(this, 'preview_file_ijazah')">
 
                 <small class="text-muted">
                     Format: JPG, JPEG, atau PNG.
@@ -441,9 +359,53 @@
 
             </div>
         </div>
-
         {{-- =====================================================
-            KKS / KIP
+        PAS FOTO
+        ====================================================== --}}
+        <div class="col-md-4 mb-4">
+            <div class="upload-card @error('file_foto') has-error @enderror">
+
+                <label for="file_foto">
+                    Upload Pas Foto
+                    <span class="required-star">*</span>
+                </label>
+
+                @if (isset($dokumen) && $dokumen->file_foto)
+                    <div class="current-document">
+                        <span class="current-document-title">
+                            Dokumen saat ini:
+                        </span>
+
+                        <img src="{{ url($dokumen->file_foto) }}" alt="Pas Foto" class="preview-img">
+                    </div>
+                @endif
+
+                <div id="container_preview_file_foto" style="display: none;">
+                    <span class="new-preview-title">
+                        Dokumen baru:
+                    </span>
+
+                    <img id="preview_file_foto" class="preview-img" alt="Pratinjau Pas Foto">
+                </div>
+
+                <input type="file" class="form-control @error('file_foto') is-invalid @enderror" name="file_foto"
+                    id="file_foto" accept=".jpeg,.jpg,.png,image/jpeg,image/png"
+                    onchange="previewFile(this, 'preview_file_foto')">
+
+                <small class="text-muted">
+                    Format: JPG, JPEG, atau PNG.
+                </small>
+
+                @error('file_foto')
+                    <div class="invalid-feedback d-block">
+                        {{ $message }}
+                    </div>
+                @enderror
+
+            </div>
+        </div>
+        {{-- =====================================================
+        KKS / KIP
         ====================================================== --}}
         <div class="col-md-4 mb-4">
             <div class="upload-card @error('file_kip') has-error @enderror">
@@ -458,37 +420,21 @@
                             Dokumen saat ini:
                         </span>
 
-                        <img
-                            src="{{ url($dokumen->file_kip) }}"
-                            alt="KKS atau KIP"
-                            class="preview-img"
-                        >
+                        <img src="{{ url($dokumen->file_kip) }}" alt="KKS atau KIP" class="preview-img">
                     </div>
                 @endif
 
-                <div
-                    id="container_preview_file_kip"
-                    style="display: none;"
-                >
+                <div id="container_preview_file_kip" style="display: none;">
                     <span class="new-preview-title">
                         Dokumen baru:
                     </span>
 
-                    <img
-                        id="preview_file_kip"
-                        class="preview-img"
-                        alt="Pratinjau KKS atau KIP"
-                    >
+                    <img id="preview_file_kip" class="preview-img" alt="Pratinjau KKS atau KIP">
                 </div>
 
-                <input
-                    type="file"
-                    class="form-control @error('file_kip') is-invalid @enderror"
-                    name="file_kip"
-                    id="file_kip"
-                    accept=".jpeg,.jpg,.png,image/jpeg,image/png"
-                    onchange="previewFile(this, 'preview_file_kip')"
-                >
+                <input type="file" class="form-control @error('file_kip') is-invalid @enderror" name="file_kip"
+                    id="file_kip" accept=".jpeg,.jpg,.png,image/jpeg,image/png"
+                    onchange="previewFile(this, 'preview_file_kip')">
 
                 <small class="text-muted">
                     Opsional, diisi apabila memiliki KKS/KIP.
@@ -504,7 +450,7 @@
         </div>
 
         {{-- =====================================================
-            SURAT PINDAHAN
+        SURAT PINDAHAN
         ====================================================== --}}
         <div class="col-md-4 mb-4">
             <div class="upload-card @error('file_keputusan') has-error @enderror">
@@ -519,37 +465,21 @@
                             Dokumen saat ini:
                         </span>
 
-                        <img
-                            src="{{ url($dokumen->file_keputusan) }}"
-                            alt="Surat Pindahan"
-                            class="preview-img"
-                        >
+                        <img src="{{ url($dokumen->file_keputusan) }}" alt="Surat Pindahan" class="preview-img">
                     </div>
                 @endif
 
-                <div
-                    id="container_preview_file_keputusan"
-                    style="display: none;"
-                >
+                <div id="container_preview_file_keputusan" style="display: none;">
                     <span class="new-preview-title">
                         Dokumen baru:
                     </span>
 
-                    <img
-                        id="preview_file_keputusan"
-                        class="preview-img"
-                        alt="Pratinjau Surat Pindahan"
-                    >
+                    <img id="preview_file_keputusan" class="preview-img" alt="Pratinjau Surat Pindahan">
                 </div>
 
-                <input
-                    type="file"
-                    class="form-control @error('file_keputusan') is-invalid @enderror"
-                    name="file_keputusan"
-                    id="file_keputusan"
-                    accept=".jpeg,.jpg,.png,image/jpeg,image/png"
-                    onchange="previewFile(this, 'preview_file_keputusan')"
-                >
+                <input type="file" class="form-control @error('file_keputusan') is-invalid @enderror"
+                    name="file_keputusan" id="file_keputusan" accept=".jpeg,.jpg,.png,image/jpeg,image/png"
+                    onchange="previewFile(this, 'preview_file_keputusan')">
 
                 <small class="text-muted">
                     Khusus siswa pindahan. Kosongkan apabila bukan siswa pindahan.
@@ -563,68 +493,6 @@
 
             </div>
         </div>
-
-        {{-- =====================================================
-            PAS FOTO
-        ====================================================== --}}
-        <div class="col-md-4 mb-4">
-            <div class="upload-card @error('file_foto') has-error @enderror">
-
-                <label for="file_foto">
-                    Upload Pas Foto
-                </label>
-
-                @if (isset($dokumen) && $dokumen->file_foto)
-                    <div class="current-document">
-                        <span class="current-document-title">
-                            Dokumen saat ini:
-                        </span>
-
-                        <img
-                            src="{{ url($dokumen->file_foto) }}"
-                            alt="Pas Foto"
-                            class="preview-img"
-                        >
-                    </div>
-                @endif
-
-                <div
-                    id="container_preview_file_foto"
-                    style="display: none;"
-                >
-                    <span class="new-preview-title">
-                        Dokumen baru:
-                    </span>
-
-                    <img
-                        id="preview_file_foto"
-                        class="preview-img"
-                        alt="Pratinjau Pas Foto"
-                    >
-                </div>
-
-                <input
-                    type="file"
-                    class="form-control @error('file_foto') is-invalid @enderror"
-                    name="file_foto"
-                    id="file_foto"
-                    accept=".jpeg,.jpg,.png,image/jpeg,image/png"
-                    onchange="previewFile(this, 'preview_file_foto')"
-                >
-
-                <small class="text-muted">
-                    Format: JPG, JPEG, atau PNG.
-                </small>
-
-                @error('file_foto')
-                    <div class="invalid-feedback d-block">
-                        {{ $message }}
-                    </div>
-                @enderror
-
-            </div>
-        </div>
-
     </div>
 
     <ul class="upload-note text-danger">
@@ -638,22 +506,14 @@
         </li>
     </ul>
 
-    <button
-        type="submit"
-        class="btn btn-{{ isset($dokumen) ? 'warning' : 'primary' }} mt-3"
-        id="buttonSimpanDokumen"
-    >
+    <button type="submit" class="btn btn-{{ isset($dokumen) ? 'warning' : 'primary' }} mt-3" id="buttonSimpanDokumen">
         <span class="button-normal">
             <i class="fas fa-save"></i>
             {{ isset($dokumen) ? 'Update Data' : 'Simpan' }}
         </span>
 
         <span class="button-loading d-none">
-            <span
-                class="spinner-border spinner-border-sm mr-1"
-                role="status"
-                aria-hidden="true"
-            ></span>
+            <span class="spinner-border spinner-border-sm mr-1" role="status" aria-hidden="true"></span>
 
             Menyimpan...
         </span>
@@ -967,30 +827,30 @@
 
                     clientErrors.forEach(function (message) {
                         errorItems += `
-                            <li class="swal-upload-error-item">
-                                ${escapeHtml(message)}
-                            </li>
-                        `;
+                                        <li class="swal-upload-error-item">
+                                            ${escapeHtml(message)}
+                                        </li>
+                                    `;
                     });
 
                     Swal.fire({
                         icon: 'error',
                         title: 'Dokumen Belum Sesuai',
                         html: `
-                            <div style="text-align: left;">
-                                <p style="
-                                    color: #555;
-                                    margin-bottom: 12px;
-                                    line-height: 1.5;
-                                ">
-                                    Silakan periksa kembali dokumen berikut:
-                                </p>
+                                        <div style="text-align: left;">
+                                            <p style="
+                                                color: #555;
+                                                margin-bottom: 12px;
+                                                line-height: 1.5;
+                                            ">
+                                                Silakan periksa kembali dokumen berikut:
+                                            </p>
 
-                                <ul class="swal-upload-errors">
-                                    ${errorItems}
-                                </ul>
-                            </div>
-                        `,
+                                            <ul class="swal-upload-errors">
+                                                ${errorItems}
+                                            </ul>
+                                        </div>
+                                    `,
                         confirmButtonText: 'Periksa Dokumen',
                         confirmButtonColor: '#009b4e',
                         width: 650,
@@ -1037,10 +897,10 @@
                             translateErrorMessage(message, field);
 
                         errorItems += `
-                            <li class="swal-upload-error-item">
-                                ${escapeHtml(translatedMessage)}
-                            </li>
-                        `;
+                                                    <li class="swal-upload-error-item">
+                                                        ${escapeHtml(translatedMessage)}
+                                                    </li>
+                                                `;
                     });
                 });
 
@@ -1048,23 +908,23 @@
                     icon: 'error',
                     title: 'Dokumen Belum Lengkap',
                     html: `
-                        <div style="text-align: left;">
-                            <p style="
-                                color: #555;
-                                margin-bottom: 12px;
-                                line-height: 1.5;
-                            ">
-                                Terdapat
-                                <strong>${totalErrors} kesalahan</strong>.
-                                Silakan lengkapi atau perbaiki dokumen
-                                berikut:
-                            </p>
+                                                <div style="text-align: left;">
+                                                    <p style="
+                                                        color: #555;
+                                                        margin-bottom: 12px;
+                                                        line-height: 1.5;
+                                                    ">
+                                                        Terdapat
+                                                        <strong>${totalErrors} kesalahan</strong>.
+                                                        Silakan lengkapi atau perbaiki dokumen
+                                                        berikut:
+                                                    </p>
 
-                            <ul class="swal-upload-errors">
-                                ${errorItems}
-                            </ul>
-                        </div>
-                    `,
+                                                    <ul class="swal-upload-errors">
+                                                        ${errorItems}
+                                                    </ul>
+                                                </div>
+                                            `,
                     confirmButtonText: 'Periksa Dokumen',
                     confirmButtonColor: '#009b4e',
                     width: 650,
@@ -1111,7 +971,7 @@
                     confirmButtonColor: '#dc3545'
                 });
             @endif
-        });
+                    });
     </script>
 
 @endpush

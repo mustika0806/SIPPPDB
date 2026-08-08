@@ -1,5 +1,12 @@
 @extends('layouts.app', ['title' => 'Pendaftaran'])
 @section('content')
+    <style>
+        .required-star {
+            color: #dc3545;
+            font-weight: 700;
+            margin-left: 2px;
+        }
+    </style>
     <!-- Content Row -->
     <div class="row">
         <div class="col-xl-12 col-md-12 mb-4">
@@ -64,7 +71,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             const storeUrl = @json(route('siswa.pendaftaran.store'));
             const indexUrl = @json(route('siswa.pendaftaran.index'));
             const currentUrl = @json(url()->current());
@@ -110,18 +117,18 @@
                     ).flat();
 
                     pesan = `
-                        <div style="text-align: left;">
-                            <p>Silakan periksa kembali data berikut:</p>
+                            <div style="text-align: left;">
+                                <p>Silakan periksa kembali data berikut:</p>
 
-                            <ul style="padding-left: 20px;">
-                                ${daftarError.map(function(error) {
-                                    return `
-                                        <li>${escapeHtml(error)}</li>
-                                    `;
-                                }).join('')}
-                            </ul>
-                        </div>
-                    `;
+                                <ul style="padding-left: 20px;">
+                                    ${daftarError.map(function (error) {
+                        return `
+                                            <li>${escapeHtml(error)}</li>
+                                        `;
+                    }).join('')}
+                                </ul>
+                            </div>
+                        `;
                 } else {
                     pesan = escapeHtml(pesan);
                 }
@@ -160,7 +167,7 @@
             ) {
                 $('#next')
                     .off('click.pilihJurusan')
-                    .on('click.pilihJurusan', function(event) {
+                    .on('click.pilihJurusan', function (event) {
                         event.preventDefault();
 
                         const kelasId = $('#kelas_id').val();
@@ -182,12 +189,12 @@
                             .addClass('disabled')
                             .attr('aria-disabled', 'true')
                             .html(`
-                                <span class="
-                                    spinner-border
-                                    spinner-border-sm
-                                "></span>
-                                Memproses...
-                            `);
+                                    <span class="
+                                        spinner-border
+                                        spinner-border-sm
+                                    "></span>
+                                    Memproses...
+                                `);
 
                         Swal.fire({
                             title: 'Memproses Data',
@@ -195,7 +202,7 @@
                             allowOutsideClick: false,
                             allowEscapeKey: false,
                             showConfirmButton: false,
-                            didOpen: function() {
+                            didOpen: function () {
                                 Swal.showLoading();
                             }
                         });
@@ -211,7 +218,7 @@
                                 kelas_id: kelasId
                             },
 
-                            success: function(response) {
+                            success: function (response) {
                                 Swal.close();
 
                                 if (response.success === false) {
@@ -230,12 +237,12 @@
                                     indexUrl + '?step=biodata';
                             },
 
-                            error: function(xhr) {
+                            error: function (xhr) {
                                 Swal.close();
                                 tampilkanError(xhr);
                             },
 
-                            complete: function() {
+                            complete: function () {
                                 tombolLanjut
                                     .removeClass('disabled')
                                     .removeAttr('aria-disabled')
@@ -250,7 +257,7 @@
              */
             $('#previous')
                 .off('click.previousStep')
-                .on('click.previousStep', function(event) {
+                .on('click.previousStep', function (event) {
                     event.preventDefault();
 
                     let back = '';

@@ -1,3 +1,10 @@
+<style>
+    .required-star {
+        color: #dc3545;
+        font-weight: 700;
+        margin-left: 2px;
+    }
+</style>
 <div class="text-center mb-4">
     <h3 class="font-weight-bold" style="color: #009b4e;">
     </h3>
@@ -16,13 +23,9 @@
 
             <div class="col-md-6 mb-3">
                 <div class="form-group">
-                    <label for="sekolah_asal">Asal Sekolah</label>
-                    <input 
-                        type="text" 
-                        class="form-control @error('sekolah_asal') is-invalid @enderror" 
-                        name="sekolah_asal"
-                        id="sekolah_asal" 
-                        placeholder="Inputkan asal sekolah"
+                    <label for="sekolah_asal">Asal Sekolah<span class="required-star">*</span></label>
+                    <input type="text" class="form-control @error('sekolah_asal') is-invalid @enderror"
+                        name="sekolah_asal" id="sekolah_asal" placeholder="Inputkan asal sekolah"
                         value="{{ isset($siswa) ? $siswa->sekolah_asal : old('sekolah_asal') }}">
 
                     <div class="invalid-feedback"></div>
@@ -31,14 +34,9 @@
 
             <div class="col-md-6 mb-3">
                 <div class="form-group">
-                    <label for="nisn">NISN</label>
-                    <input 
-                        type="text" 
-                        class="form-control @error('nisn') is-invalid @enderror" 
-                        name="nisn" 
-                        id="nisn"
-                        placeholder="NISN" 
-                        value="{{ isset($siswa) ? $siswa->nisn : old('nisn') }}">
+                    <label for="nisn">NISN<span class="required-star">*</span></label>
+                    <input type="text" class="form-control @error('nisn') is-invalid @enderror" name="nisn" id="nisn"
+                        placeholder="NISN" value="{{ isset($siswa) ? $siswa->nisn : old('nisn') }}">
 
                     <div class="invalid-feedback"></div>
                 </div>
@@ -46,13 +44,9 @@
 
             <div class="col-md-6 mb-3">
                 <div class="form-group">
-                    <label for="nilai_ijazah">Nilai Ijazah</label>
-                    <input 
-                        type="number" 
-                        class="form-control @error('nilai_ijazah') is-invalid @enderror" 
-                        name="nilai_ijazah"
-                        id="nilai_ijazah" 
-                        placeholder="Nilai Ijazah"
+                    <label for="nilai_ijazah">Nilai Ijazah<span class="required-star">*</span></label>
+                    <input type="number" class="form-control @error('nilai_ijazah') is-invalid @enderror"
+                        name="nilai_ijazah" id="nilai_ijazah" placeholder="Nilai Ijazah"
                         value="{{ isset($siswa) ? $siswa->nilai_ijazah : old('nilai_ijazah') }}">
 
                     <div class="invalid-feedback"></div>
@@ -61,26 +55,26 @@
 
             <div class="col-md-6 mb-3">
                 <div class="form-group">
-                    <label for="nilai_rata">Nilai Ujian Sekolah</label>
-                    <input 
-                        type="number" 
-                        class="form-control @error('nilai_rata') is-invalid @enderror" 
-                        name="nilai_rata"
-                        id="nilai_rata" 
-                        placeholder="Nilai rata-rata"
+                    <label for="nilai_rata">Nilai Ujian Sekolah<span class="required-star">*</span></label>
+                    <input type="number" class="form-control @error('nilai_rata') is-invalid @enderror"
+                        name="nilai_rata" id="nilai_rata" placeholder="Nilai rata-rata"
                         value="{{ isset($siswa) ? $siswa->nilai_rata : old('nilai_rata') }}">
 
                     <div class="invalid-feedback"></div>
                 </div>
             </div>
+            <div class="col-md-6 mb-3">
+                <div class="form-group">
+                    <label for="nilai_tka">Nilai Tes Kemampuan Akademik (TKA)<span
+                            class="required-star">*</span></label>
+                    <input type="number" class="form-control @error('nilai_tka') is-invalid @enderror" name="nilai_tka"
+                        id="nilai_tka" placeholder="Nilai TKA"
+                        value="{{ isset($siswa) ? $siswa->nilai_tka : old('nilai_tka') }}">
 
-        </div>
+                    <div class="invalid-feedback"></div>
+                </div>
+            </div>
 
-        <div class="mt-4" style="color: red; font-size: 13px;">
-            <ul>
-                <li>Mohon inputkan data yang valid.</li>
-                <li>Ketika tombol simpan ditekan maka data tidak dapat diubah, kecuali dikonfirmasi untuk diubah oleh admin.</li>
-            </ul>
         </div>
 
     </div>
@@ -90,7 +84,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             const siswa = @json($siswa ?? null);
             const urlSimpan = @json(route('siswa.pendaftaran.wali'));
             const urlPendaftaran = @json(route('siswa.pendaftaran.index'));
@@ -110,7 +104,7 @@
              */
             $(document)
                 .off('click.simpanWali', '#btnSimpan')
-                .on('click.simpanWali', '#btnSimpan', function(event) {
+                .on('click.simpanWali', '#btnSimpan', function (event) {
                     event.preventDefault();
                     event.stopPropagation();
 
@@ -153,13 +147,13 @@
                     tombolSimpan
                         .prop('disabled', true)
                         .html(`
-                            <span
-                                class="spinner-border spinner-border-sm"
-                                role="status"
-                                aria-hidden="true"
-                            ></span>
-                            Menyimpan...
-                        `);
+                                <span
+                                    class="spinner-border spinner-border-sm"
+                                    role="status"
+                                    aria-hidden="true"
+                                ></span>
+                                Menyimpan...
+                            `);
 
                     Swal.fire({
                         title: 'Menyimpan Data',
@@ -167,7 +161,7 @@
                         allowOutsideClick: false,
                         allowEscapeKey: false,
                         showConfirmButton: false,
-                        didOpen: function() {
+                        didOpen: function () {
                             Swal.showLoading();
                         }
                     });
@@ -183,7 +177,7 @@
                          */
                         data: $('#formPendaftaran').serialize(),
 
-                        success: function(response) {
+                        success: function (response) {
                             Swal.close();
 
                             if (response.success === false) {
@@ -205,7 +199,7 @@
                                     'Data pendaftaran berhasil disimpan.',
                                 confirmButtonText: 'OK',
                                 allowOutsideClick: false
-                            }).then(function() {
+                            }).then(function () {
                                 if (response.url) {
                                     window.location.href = response.url;
                                 } else if (response.redirect) {
@@ -218,7 +212,7 @@
                             });
                         },
 
-                        error: function(xhr) {
+                        error: function (xhr) {
                             Swal.close();
 
                             const response = xhr.responseJSON || {};
@@ -247,7 +241,7 @@
 
                                 $.each(
                                     response.errors,
-                                    function(key, value) {
+                                    function (key, value) {
                                         const input = $('#' + key);
                                         const pesanField = Array.isArray(value)
                                             ? value[0]
@@ -265,25 +259,25 @@
                                 );
 
                                 pesan = `
-                                    <div style="text-align: left;">
-                                        <p>
-                                            Silakan periksa kembali data berikut:
-                                        </p>
+                                        <div style="text-align: left;">
+                                            <p>
+                                                Silakan periksa kembali data berikut:
+                                            </p>
 
-                                        <ul style="
-                                            padding-left: 20px;
-                                            margin-bottom: 0;
-                                        ">
-                                            ${daftarError.map(function(item) {
-                                                return `
-                                                    <li>
-                                                        ${escapeHtml(item)}
-                                                    </li>
-                                                `;
-                                            }).join('')}
-                                        </ul>
-                                    </div>
-                                `;
+                                            <ul style="
+                                                padding-left: 20px;
+                                                margin-bottom: 0;
+                                            ">
+                                                ${daftarError.map(function (item) {
+                                    return `
+                                                        <li>
+                                                            ${escapeHtml(item)}
+                                                        </li>
+                                                    `;
+                                }).join('')}
+                                            </ul>
+                                        </div>
+                                    `;
                             } else if (xhr.status === 419) {
                                 pesan =
                                     'Sesi halaman telah berakhir. Silakan muat ulang halaman dan coba kembali.';
@@ -303,7 +297,7 @@
                             });
                         },
 
-                        complete: function() {
+                        complete: function () {
                             tombolSimpan
                                 .prop('disabled', false)
                                 .html(teksTombolAwal);

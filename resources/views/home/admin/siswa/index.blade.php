@@ -19,10 +19,7 @@
                 {{-- ISI --}}
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table table-bordered"
-                            id="table"
-                            width="100%"
-                            cellspacing="0">
+                        <table class="table table-bordered" id="table" width="100%" cellspacing="0">
 
                             <thead>
                                 <tr>
@@ -57,11 +54,8 @@
                                         {{-- BIODATA --}}
                                         <td class="text-nowrap">
                                             {{-- Lihat biodata --}}
-                                            <button type="button"
-                                                class="btn btn-warning btn-circle btn-sm"
-                                                data-toggle="modal"
-                                                data-target="#detailSiswa-{{ $loop->iteration }}"
-                                                title="Lihat Biodata">
+                                            <button type="button" class="btn btn-warning btn-circle btn-sm" data-toggle="modal"
+                                                data-target="#detailSiswa-{{ $loop->iteration }}" title="Lihat Biodata">
                                                 <i class="fas fa-eye"></i>
                                             </button>
 
@@ -71,8 +65,7 @@
                                             @if ($item->status == 'Diterima')
                                                 <a href="{{ route('admin.siswa.cetak', $item->id) }}"
                                                     class="btn btn-primary btn-circle btn-sm text-decoration-none"
-                                                    title="Cetak Biodata"
-                                                    target="_blank">
+                                                    title="Cetak Biodata" target="_blank">
                                                     <i class="fas fa-print"></i>
                                                 </a>
                                             @endif
@@ -80,26 +73,28 @@
 
                                         {{-- DOKUMEN --}}
                                         <td class="text-nowrap">
-                                            {{-- Lihat dokumen --}}
-                                            <button type="button"
-                                                class="btn btn-warning btn-circle btn-sm"
-                                                data-toggle="modal"
-                                                data-target="#dokumenSiswa-{{ $loop->iteration }}"
-                                                title="Lihat Dokumen">
-                                                <i class="fas fa-eye"></i>
-                                            </button>
+                                            @if (isset($item->dokumen_siswa) && $item->dokumen_siswa)
+                                                {{-- Lihat dokumen --}}
+                                                <button type="button" class="btn btn-warning btn-circle btn-sm" data-toggle="modal"
+                                                    data-target="#dokumenSiswa-{{ $loop->iteration }}" title="Lihat Dokumen">
+                                                    <i class="fas fa-eye"></i>
+                                                </button>
 
-                                            @include('home.admin.siswa.dokumen')
+                                                @include('home.admin.siswa.dokumen')
+                                            @else
+                                                <div>
+                                                    Belum ada data!
+                                                </div>
+                                            @endif
 
                                             {{-- Cetak dokumen --}}
                                             @if (
-                                                isset($item->dokumen_siswa) &&
-                                                $item->dokumen_siswa->status == 'Diterima'
-                                            )
+                                                    isset($item->dokumen_siswa) &&
+                                                    $item->dokumen_siswa->status == 'Diterima'
+                                                )
                                                 <a href="{{ route('admin.siswa.dokumen_cetak', $item->id) }}"
                                                     class="btn btn-primary btn-circle btn-sm text-decoration-none"
-                                                    title="Cetak Dokumen"
-                                                    target="_blank">
+                                                    title="Cetak Dokumen" target="_blank">
                                                     <i class="fas fa-print"></i>
                                                 </a>
                                             @endif
@@ -143,13 +138,13 @@
                                                     <i class="fas fa-check"></i>
                                                 </a>
 
-                                                {{-- Tolak siswa --}}
-                                                <a href="{{ route('admin.siswa.notconfirm', $item->id) }}"
-                                                    class="btn btn-warning btn-circle btn-sm text-decoration-none"
-                                                    title="Tolak Siswa"
-                                                    onclick="return confirm('Anda yakin ingin menolak siswa ini?')">
-                                                    <i class="fas fa-times"></i>
-                                                </a>
+                                                <!-- {{-- Tolak siswa --}}
+                                                                                    <a href="{{ route('admin.siswa.notconfirm', $item->id) }}"
+                                                                                        class="btn btn-warning btn-circle btn-sm text-decoration-none"
+                                                                                        title="Tolak Siswa"
+                                                                                        onclick="return confirm('Anda yakin ingin menolak siswa ini?')">
+                                                                                        <i class="fas fa-times"></i>
+                                                                                    </a> -->
 
                                                 {{-- Perbaiki data --}}
                                                 <a href="{{ route('admin.siswa.perbaiki_data', $item->id) }}"
@@ -158,16 +153,16 @@
                                                     <i class="fas fa-pencil-alt"></i>
                                                 </a>
 
-                                                {{-- Perbaiki dokumen --}}
-                                                @isset($item->dokumen_siswa)
-                                                    @if ($item->dokumen_siswa->status != 'Perbaiki Dokumen')
-                                                        <a href="{{ route('admin.siswa.perbaiki_dokumen', $item->id) }}"
-                                                            class="btn btn-warning btn-circle btn-sm text-decoration-none"
-                                                            title="Perbaiki Dokumen">
-                                                            <i class="fas fa-file-signature"></i>
-                                                        </a>
-                                                    @endif
-                                                @endisset
+                                                <!-- {{-- Perbaiki dokumen --}}
+                                                                                    @isset($item->dokumen_siswa)
+                                                                                        @if ($item->dokumen_siswa->status != 'Perbaiki Dokumen')
+                                                                                            <a href="{{ route('admin.siswa.perbaiki_dokumen', $item->id) }}"
+                                                                                                class="btn btn-warning btn-circle btn-sm text-decoration-none"
+                                                                                                title="Perbaiki Dokumen">
+                                                                                                <i class="fas fa-file-signature"></i>
+                                                                                            </a>
+                                                                                        @endif
+                                                                                    @endisset -->
                                             @endif
 
                                             {{-- STATUS DITERIMA --}}
@@ -209,13 +204,13 @@
                                                 @endisset
                                             @endif
 
-                                            {{-- HAPUS SISWA --}}
-                                            <a href="{{ route('admin.siswa.destroy', $item->id) }}"
-                                                class="btn btn-danger btn-circle btn-sm text-decoration-none"
-                                                title="Hapus Siswa"
-                                                onclick="return confirm('Anda yakin ingin menghapus data siswa ini?')">
-                                                <i class="fas fa-trash"></i>
-                                            </a>
+                                            <!-- {{-- HAPUS SISWA --}}
+                                                                    <a href="{{ route('admin.siswa.destroy', $item->id) }}"
+                                                                        class="btn btn-danger btn-circle btn-sm text-decoration-none"
+                                                                        title="Hapus Siswa"
+                                                                        onclick="return confirm('Anda yakin ingin menghapus data siswa ini?')">
+                                                                        <i class="fas fa-trash"></i>
+                                                                    </a> -->
                                         </td>
                                     </tr>
                                 @endforeach
@@ -230,7 +225,7 @@
 
 @push('js')
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             $('#table').DataTable({
                 language: {
                     search: 'Cari:',
