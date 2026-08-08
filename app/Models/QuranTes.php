@@ -21,8 +21,8 @@ class QuranTes extends Model
         'ayat',
         'keterangan_bacaan',
 
-        // File video
-        'video_path',
+        // URL video
+        'video_url',
 
         // Penilaian admin
         'score',

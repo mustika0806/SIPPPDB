@@ -7,7 +7,6 @@ use App\Models\QuranTes;
 use App\Models\DokumenSiswa;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
 
 class SiswaTesQuranController extends Controller
 {
@@ -81,7 +80,7 @@ class SiswaTesQuranController extends Controller
     }
 
     /**
-     * Menyimpan video Tes Quran siswa.
+     * Menyimpan Tes Quran siswa.
      */
     public function store(Request $request)
     {
@@ -120,7 +119,7 @@ class SiswaTesQuranController extends Controller
 
         /*
         |--------------------------------------------------------------------------
-        | Tolak upload jika tahap sebelumnya belum selesai
+        | Tolak pengiriman jika tahap sebelumnya belum selesai
         |--------------------------------------------------------------------------
         */
         if (!$aksesTesQuran) {
@@ -169,11 +168,11 @@ class SiswaTesQuranController extends Controller
                     'max:1000',
                 ],
 
-                'video_path' => [
+                'video_url' => [
                     'required',
-                    'file',
-                    'mimes:mp4',
-                    'max:51200',
+                    'url',
+                    'max:500',
+                    'regex:/^https?:\/\/(www\.)?(youtube\.com|youtu\.be)\//i',
                 ],
             ],
             [
@@ -219,42 +218,29 @@ class SiswaTesQuranController extends Controller
                 'keterangan_bacaan.max' =>
                     'Keterangan bacaan maksimal 1.000 karakter.',
 
-                'video_path.required' =>
-                    'Video Tes Membaca Al-Quran wajib diunggah.',
+                'video_url.required' =>
+                    'Link video YouTube wajib diisi.',
 
-                'video_path.file' =>
-                    'File video yang diunggah tidak valid.',
+                'video_url.url' =>
+                    'Link video YouTube tidak valid.',
 
-                'video_path.mimes' =>
-                    'Video harus berformat MP4.',
+                'video_url.max' =>
+                    'Link video YouTube terlalu panjang.',
 
-                'video_path.max' =>
-                    'Ukuran video maksimal 50 MB.',
+                'video_url.regex' =>
+                    'Link video harus berasal dari YouTube.',
             ]
         );
 
-        $path = null;
-
         try {
-            /*
-            |--------------------------------------------------------------------------
-            | Simpan video ke storage
-            |--------------------------------------------------------------------------
-            */
-            $path = $request
-                ->file('video_path')
-                ->store(
-                    'quran_tests',
-                    'public'
-                );
-
             /*
             |--------------------------------------------------------------------------
             | Simpan data Tes Quran ke database
             |--------------------------------------------------------------------------
             */
             QuranTes::create([
-                'user_id' => Auth::id(),
+                'user_id' =>
+                    Auth::id(),
 
                 'test_date' =>
                     $validated['test_date'],
@@ -271,8 +257,8 @@ class SiswaTesQuranController extends Controller
                 'keterangan_bacaan' =>
                     $validated['keterangan_bacaan'] ?? null,
 
-                'video_path' =>
-                    $path,
+                'video_url' =>
+                    $validated['video_url'],
 
                 'score' =>
                     null,
@@ -288,21 +274,9 @@ class SiswaTesQuranController extends Controller
                 ->back()
                 ->with(
                     'success',
-                    'Video Tes Membaca Al-Quran berhasil diunggah.'
+                    'Link video Tes Membaca Al-Quran berhasil disimpan.'
                 );
         } catch (\Throwable $error) {
-            /*
-            |--------------------------------------------------------------------------
-            | Hapus video apabila penyimpanan database gagal
-            |--------------------------------------------------------------------------
-            */
-            if (
-                $path !== null
-                && Storage::disk('public')->exists($path)
-            ) {
-                Storage::disk('public')->delete($path);
-            }
-
             report($error);
 
             return redirect()
@@ -310,7 +284,7 @@ class SiswaTesQuranController extends Controller
                 ->withInput()
                 ->with(
                     'error',
-                    'Video gagal diunggah. Silakan coba kembali.'
+                    'Data Tes Membaca Al-Quran gagal disimpan. Silakan coba kembali.'
                 );
         }
     }

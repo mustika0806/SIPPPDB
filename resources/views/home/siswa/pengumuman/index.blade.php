@@ -157,8 +157,8 @@
                                 </tr>
 
                                 <tr>
-                                    <th>Nilai Wawancara</th>
-                                    <td>{{ $siswa->nilai_wawancara ?? '-' }}</td>
+                                    <th>Nilai Tes Kemampuan Akademik</th>
+                                    <td>{{ $siswa->nilai_tka ?? '-' }}</td>
                                 </tr>
 
                                 <tr>
